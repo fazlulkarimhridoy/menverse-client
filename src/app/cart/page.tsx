@@ -7,6 +7,7 @@ import ShipmentCalculator from "@/components/pages/Cart/ShipmentCalculator";
 import CartTotal from "@/components/pages/Cart/CartTotal";
 import Image from "next/image";
 import QuantitySelector from "@/components/pages/Cart/QuantitySelector";
+import { useCart } from "@/context/CartProvider";
 
 interface CartItem {
     id: string;
@@ -18,7 +19,9 @@ interface CartItem {
 
 
 const Cart: React.FC = () => {
-    const [cartData, setCartData] = useState<CartItem[]>([]);
+
+    const {cartData, removeFromCart} = useCart()
+
 
     const [quantity, setQuantity] = useState(1);
 
@@ -36,20 +39,6 @@ const Cart: React.FC = () => {
     };
 
 
-    useEffect(() => {
-        // Load cart data from localStorage
-        const storedData = localStorage.getItem("cartItem");
-        if (storedData) {
-            setCartData(JSON.parse(storedData));
-        }
-    }, []);
-
-    const removeFromCart = (id: string) => {
-        // selected id data should be deleted from local storage
-        const updatedCartData = cartData.filter((item) => item.id !== id);
-        localStorage.setItem("cartItem", JSON.stringify(updatedCartData));
-        setCartData(updatedCartData);
-    };
 
     // calculate cart data price total
     const calculateTotal = () => {
@@ -85,7 +74,7 @@ const Cart: React.FC = () => {
                                                     <Image
                                                         width={500}
                                                         height={500}
-                                                        src={data?.images}
+                                                        src={data?.image}
                                                         alt="product-image"
                                                     />
                                                 </div>

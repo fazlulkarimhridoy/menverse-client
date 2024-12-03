@@ -49,7 +49,7 @@ const ContactUs = () => {
     };
 
     return (
-        <div className="bg-[#C3B2E8] rounded-b-xl">
+        <div className="bg-[#C3B2E8]">
             <div className="space-y-2">
                 <h2 className="text-center py-10 text-4xl font-bold lg:text-5xl italic px-2">
                     Reach out via mail 💌

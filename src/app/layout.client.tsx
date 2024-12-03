@@ -8,7 +8,8 @@ import TanstackProvider from "../../providers/TanstackProvider";
 import { usePathname } from "next/navigation";
 import CategoryProvider from "@/context/CategoryContext";
 import SearchTextProvider from "@/context/SearchTextContext";
-import NewFooter from "@/components/shared/Footer/NewFooter";
+import NewFooter from "@/components/pages/Home/NewFooter";
+import { CartProvider } from "@/context/CartProvider";
 
 
 export const metadata: Metadata = {
@@ -25,18 +26,19 @@ export default function LayoutClient({
     <div>
       {!pathname.startsWith("/admin") && (
         <>
-
-          <CategoryProvider>
-            <SearchTextProvider>
-              <TanstackProvider>
-                <div>
-                  {(pathname.startsWith("/login") || pathname.startsWith("/success")) ? <></> : <Navbar />}
-                  <div>{children}</div>
-                  {(pathname.startsWith("/login") || pathname.startsWith("/success")) ? <></> : <NewFooter />}
-                </div>
-              </TanstackProvider>
-            </SearchTextProvider>
-          </CategoryProvider>
+          <CartProvider>
+            <CategoryProvider>
+              <SearchTextProvider>
+                <TanstackProvider>
+                  <div>
+                    {(pathname.startsWith("/login") || pathname.startsWith("/success")) ? <></> : <Navbar />}
+                    <div>{children}</div>
+                    {(pathname.startsWith("/login") || pathname.startsWith("/success")) ? <></> : <NewFooter />}
+                  </div>
+                </TanstackProvider>
+              </SearchTextProvider>
+            </CategoryProvider>
+          </CartProvider>
         </>
       )}
       {pathname.startsWith("/admin") && (

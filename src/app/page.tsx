@@ -5,7 +5,7 @@ import Banner from "@/components/pages/Home/Banner";
 import FeaturedProducts from "@/components/pages/Home/FeaturedProducts";
 import HowItWorks from "@/components/pages/Home/HowItWorks";
 import GetBouquet from "@/components/pages/Home/GetBouquet";
-import NewFooter from "@/components/shared/Footer/NewFooter";
+import NewFooter from "@/components/pages/Home/NewFooter";
 
 const Home = () => {
   const [bgColor, setBgColor] = useState("bg-[#b8cedc]");

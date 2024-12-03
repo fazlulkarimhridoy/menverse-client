@@ -8,6 +8,7 @@ import { Empty, message, Spin } from "antd";
 import { useCategory } from "@/context/CategoryContext";
 import { useSearchText } from "@/context/SearchTextContext";
 import Swal from "sweetalert2";
+import { useCart } from "@/context/CartProvider";
 
 interface ProductType {
     id: number;
@@ -31,7 +32,7 @@ interface CartItem {
 const AllProducts = () => {
     const { categoryName } = useCategory();
     const { searchText } = useSearchText();
-    const [modal1Open, setModal1Open] = useState(false);
+    const {modal1Open, setModal1Open} = useCart();
 
     // fetch all products froom server
     const { data: shopProducts = [], isLoading } = useQuery<ProductType[]>({
@@ -71,47 +72,7 @@ const AllProducts = () => {
               })
             : [];
 
-    const [cartData, setCartData] = useState<CartItem[]>([]);
-
-    useEffect(() => {
-        // Load cart data from localStorage
-        const storedData = localStorage.getItem("cartItem");
-        if (storedData) {
-            setCartData(JSON.parse(storedData));
-        }
-    }, []);
-
-    const handleCart = async (
-        id: number,
-        product_name: string,
-        images: string,
-        price: number
-    ) => {
-        const existingProduct = cartData.find((item) => item.id === id);
-        if (!existingProduct) {
-            setCartData((prevCardData) => [
-                ...prevCardData,
-                { product_name, images, price, id },
-            ]);
-            localStorage.setItem("cartItem", JSON.stringify(cartData));
-            setModal1Open(true);
-        } else {
-            Swal.fire({
-                position: "center",
-                icon: "warning",
-                title: "Product already in the cart!",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-        }
-        // Use functional state update to ensure you're working with the latest state
-    };
-    // Synchronize localStorage whenever the cardData state changes
-    useEffect(() => {
-        // Store the entire updated cart into localStorage
-        localStorage.setItem("cartItem", JSON.stringify(cartData));
-    }, [cartData]);
-
+ 
     return (
         <div className="flex flex-wrap justify-center gap-10 mt-20 pb-20 px-5">
             {isLoading ? (
@@ -122,7 +83,6 @@ const AllProducts = () => {
                         <ProductCard
                             key={item?.id}
                             item={item}
-                            handleCart={handleCart}
                             modal1Open={modal1Open}
                             setModal1Open={setModal1Open}
                         />

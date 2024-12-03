@@ -37,7 +37,7 @@ const OrderItem = ({ item }: { item: OrderItemType }) => {
                         className="w-[55px] h-[55px] rounded-lg"
                         width={500}
                         height={500}
-                        src={singleProductImages?.images[0]}
+                        src={singleProductImages?.images[0] || "https://backend.floralradiancebd.com/public/photos/Cq0BpyoOPb.jpg"}
                         alt="item-image"
                     />
                     <div className="flex flex-col justify-center">

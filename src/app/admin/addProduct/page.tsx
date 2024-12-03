@@ -181,6 +181,7 @@ const AddProduct = () => {
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    timeout: 120000, // Set timeout to 60 seconds (60000 milliseconds)
                 }
             )
             .then((data) => {
@@ -199,6 +200,7 @@ const AddProduct = () => {
                 }
             })
             .catch((error) => {
+                console.error("Error adding product:", error);
                 setLoading(false);
                 Swal.fire({
                     position: "center",
@@ -328,12 +330,12 @@ const AddProduct = () => {
                             className="w-full"
                             label="Stock"
                             name="stock"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please enter stock!",
-                                },
-                            ]}
+                            // rules={[
+                            //     {
+                            //         required: true,
+                            //         message: "Please enter stock!",
+                            //     },
+                            // ]}
                         >
                             <InputNumber
                                 className="w-full"
@@ -425,8 +427,6 @@ const AddProduct = () => {
                             ]}
                         >
                             <TextArea
-                                minLength={150}
-                                maxLength={300}
                                 rows={4}
                                 className="w-full"
                                 placeholder="Enter product description..."
@@ -438,7 +438,7 @@ const AddProduct = () => {
                     {/* upload images */}
                     <div className="flex items-center gap-10">
                         <Form.Item<FieldType>
-                            label="Upload Five Images (Size: 1080px*1080px)"
+                            label="Upload Images"
                             required
                             valuePropName="fileList"
                             name="images"

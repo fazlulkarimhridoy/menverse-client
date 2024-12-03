@@ -358,12 +358,12 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             label="Stock"
                             name="stock"
                             initialValue={singleProductDetails?.stock}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please enter stock!",
-                                },
-                            ]}
+                            // rules={[
+                            //     {
+                            //         required: true,
+                            //         message: "Please enter stock!",
+                            //     },
+                            // ]}
                         >
                             <InputNumber
                                 className="w-full"
@@ -459,8 +459,6 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             ]}
                         >
                             <TextArea
-                                minLength={150}
-                                maxLength={300}
                                 rows={4}
                                 className="w-full"
                                 placeholder="Enter product description..."

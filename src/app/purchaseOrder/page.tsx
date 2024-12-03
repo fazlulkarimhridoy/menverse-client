@@ -18,16 +18,12 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { useCart } from "@/context/CartProvider";
 
-interface CartItem {
-    id: number;
-    product_name: string;
-    images: string;
-    price: number;
-}
+
 
 const Page = () => {
-    const [cartData, setCartData] = useState<CartItem[]>([]);
+    const {cartData, removeFromCart, clearCart} = useCart()
     const [showData, setShowData] = useState(true);
     const [name, setname] = useState("");
     const [phone, setPhone] = useState("");
@@ -40,22 +36,6 @@ const Page = () => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const { push } = router;
-
-    // Retrieve cart data from localStorage when the component mounts
-
-    useEffect(() => {
-        const storedCart = localStorage.getItem("cartItem");
-        if (storedCart) {
-            setCartData(JSON.parse(storedCart));
-        }
-    }, []);
-
-    const removeFromCart = (id: number) => {
-        // selected id data should be deleted from local storage
-        const updatedCartData = cartData.filter((item) => item.id !== id);
-        localStorage.setItem("cartItem", JSON.stringify(updatedCartData));
-        setCartData(updatedCartData);
-    };
 
     // calculate cart data price total
     const calculateTotal = () => {
@@ -221,7 +201,7 @@ const Page = () => {
             }
 
             localStorage.removeItem("cartItem");
-            setCartData([]);
+            clearCart();
             push("/success");
             setLoading(false);
         } catch (error: any) {
@@ -263,7 +243,7 @@ const Page = () => {
                     </div>
                     {showData && (
                         <div className="overflow-x-auto scroll-smooth pt-4 mb-5 md:mb-0">
-                            <table className="table">
+                            <table className="table whitespace-nowrap">
                                 {/* head */}
                                 <thead>
                                     <tr>
@@ -288,7 +268,7 @@ const Page = () => {
                                                                     width={500}
                                                                     height={500}
                                                                     src={
-                                                                        data?.images
+                                                                        data?.image
                                                                     }
                                                                     alt="product-image"
                                                                 />

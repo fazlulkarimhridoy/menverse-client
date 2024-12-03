@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { TbCurrencyTaka } from "react-icons/tb";
 import Link from "next/link";
-
+import { PiFlowerFill } from "react-icons/pi";
 import { Flex, Rate } from "antd";
 import { Spin } from "antd";
 import ImageDetails from "@/components/pages/DetailsPage/ImageDetails";
@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { MdCategory } from "react-icons/md";
 import { FaThumbsUp } from "react-icons/fa";
+import { useCart } from "@/context/CartProvider";
+import Suggetions from "@/components/pages/DetailsPage/Suggetions";
 
 const desc: string[] = ["terrible", "bad", "normal", "good", "wonderful"];
 
@@ -28,20 +30,15 @@ interface ProductType {
     category: string;
 }
 
-interface CartItem {
-    id: number;
-    product_name: string;
-    images: string;
-    price: number;
-}
 
 const Page = ({ params }: { params: { slug: string } }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const { addToCart } = useCart()
     const router = useRouter();
     const { push } = router;
     const [modal1Open, setModal1Open] = useState(false);
     const [activeButton, setActiveButton] = useState<number | null>(null);
-    // const [singleProduct , setSingleProduct] = useState<Array<string>>([])
-    // const [quantity, setQuantity] = useState(10)
+
     const [price, setPrice] = useState(250);
 
     const handlePrice = (quantity: number) => {
@@ -68,57 +65,22 @@ const Page = ({ params }: { params: { slug: string } }) => {
         refetchOnWindowFocus: false,
     });
 
-    const [cartData, setCartData] = useState<CartItem[]>([]);
+    const singleObj = {
+        id: singleProduct?.id ?? 0,
+        product_name: singleProduct?.product_name ?? "",
+        image: singleProduct?.images[0] ?? "",
+        price: singleProduct?.discount_price ?? (singleProduct?.price || 0)
+    }
 
-    useEffect(() => {
-        // Load cart data from localStorage
-        const storedData = localStorage.getItem("cartItem");
-        if (storedData) {
-            setCartData(JSON.parse(storedData));
-        }
-    }, []);
-
-    const handleCart = async (
-        id: number,
-        product_name: string,
-        images: string,
-        price: number
-    ) => {
-        const existingProduct = cartData.find((item) => item.id === id);
-        if (!existingProduct) {
-            setCartData((prevCardData) => [
-                ...prevCardData,
-                { product_name, images, price, id },
-            ]);
-            localStorage.setItem("cartItem", JSON.stringify(cartData));
-            setModal1Open(true);
-        } else {
-            Swal.fire({
-                position: "center",
-                icon: "warning",
-                title: "Product already in the cart!",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-        }
-        // Use functional state update to ensure you're working with the latest state
-    };
-    // Synchronize localStorage whenever the cardData state changes
-    useEffect(() => {
-        // Store the entire updated cart into localStorage
-        localStorage.setItem("cartItem", JSON.stringify(cartData));
-    }, [cartData]);
-
-    // handle cart clikc
+    // handle cart click
     const handleAddToCart = () => {
-        handleCart(
-            singleProduct?.id ?? 0,
-            singleProduct?.product_name ?? "",
-            singleProduct?.images[0] ?? "",
-            singleProduct?.discount_price ?? (singleProduct?.price || 0)
-        );
+        addToCart(singleObj)
         push("/cart");
     };
+
+    const toggleReadMore = () => {
+        setIsExpanded(!isExpanded);
+    }
 
     return (
         <div className=" md:w-[90%] mx-auto lg:p-4">
@@ -145,19 +107,17 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                 {/* price ...............................*/}
                                 <div className="flex items-center font-semibold text-2xl">
                                     <div
-                                        className={`max-w-52 flex gap-2 ${
-                                            singleProduct.discount_price
-                                                ? "flex-row-reverse justify-end items-center "
-                                                : ""
-                                        }`}
+                                        className={`max-w-52 flex gap-2 ${singleProduct.discount_price
+                                            ? "flex-row-reverse justify-end items-center "
+                                            : ""
+                                            }`}
                                     >
                                         <div className="text-center rounded-lg py-4 text-[#184364] font-bold text-xl flex justify-center items-center">
                                             <span
-                                                className={`${
-                                                    singleProduct?.discount_price
-                                                        ? "line-through text-red-500 text-xl"
-                                                        : ""
-                                                } text-3xl font-semibold`}
+                                                className={`${singleProduct?.discount_price
+                                                    ? "line-through text-red-500 text-xl"
+                                                    : ""
+                                                    } text-3xl font-semibold`}
                                             >
                                                 {singleProduct?.price}
                                             </span>{" "}
@@ -179,10 +139,19 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                         )}
                                     </div>
                                 </div>
-                                <p className="text-xl font-outfit font-semibold ">
-                                    {singleProduct?.description}
+                                <div className="text-xl font-outfit font-semibold max-w-[600px] text-wrap">
+                                    {isExpanded ? singleProduct?.description : `${singleProduct?.description.slice(0, 150)}...`}
+                                    <button
+                                        onClick={toggleReadMore}
+                                        className="text-blue-500 ml-2"
+                                    >
+                                        {isExpanded ? 'See Less' : 'See More'}
+                                    </button>
+                                </div>
+                                <p className="">
+                                    
                                 </p>
-                                <div className="flex items-center gap-2 mt-2">
+                                <div className="flex items-center gap-2 mt-2 w-full">
                                     <FaThumbsUp />
                                     <Flex gap="middle">
                                         <Rate
@@ -194,7 +163,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                 </div>
                                 <p className="flex items-center gap-2 text-2xl font-semibold">
                                     <span>
-                                        <MdCategory />{" "}
+                                        <PiFlowerFill />{" "}
                                     </span>
                                     {singleProduct?.category}
                                 </p>
@@ -213,6 +182,9 @@ const Page = ({ params }: { params: { slug: string } }) => {
                     </div>
                 )
             )}
+            <div>
+                <Suggetions />
+            </div>
         </div>
     );
 };

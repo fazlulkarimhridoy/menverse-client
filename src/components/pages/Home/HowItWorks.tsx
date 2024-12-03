@@ -10,7 +10,7 @@ const HowItWorks = () => {
   return (
     <div>
       <h1 data-aos="fade-up" className="playfair text-5xl font-bold text-[#333333] text-center mx-auto max-w-[600px] pb-10">
-        How Our T-shirt Delivery Service Works
+        How Our Flower Bouquet Service Works
       </h1>
       <div  className="grid  grid-cols-1 md:grid-cols-3 md:grid-rows-3 p-2 md:p-0 md:w-[90%] lg:w-[70%] mx-auto gap-4 m-10">
         {/* card one */}
@@ -27,11 +27,11 @@ const HowItWorks = () => {
             Explore Our Collection
           </h1>
           <p className="font-outfit text-xl">
-            Explore a variety of beautiful t-shirts for every occasion.
+            Explore a variety of beautiful flower bouquets for every occasion.
           </p>
           <Image
             className="rounded-xl bg-none"
-            src={"/Images/howitworks-3.jpg"}
+            src={"/Images/giving-flower.jpg"}
             alt="image"
             width={400}
             height={400}
@@ -42,10 +42,10 @@ const HowItWorks = () => {
           <div className="space-y-4 flex flex-col-reverse text-center justify-between items-center">
             <div>
               <h1 className="playfair text-2xl font-bold text-[#4c2366]">
-                Choose Your Perfect T-shirt
+                Choose Your Perfect Bouquet
               </h1>
               <p className="font-outfit text-xl">
-                Choose your favorite and customize it from our own factory.
+                Choose your favorite and customize it with special add-ons.
               </p>
             </div>
             <Image
@@ -106,7 +106,7 @@ const HowItWorks = () => {
               We Handcraft & Deliver
             </h1>
             <p className="font-outfit text-xl">
-              Our garments workers maintain high end quality.
+              Our florists prepare and deliver your bouquet fresh.
             </p>
           </div>
         </div>
@@ -123,7 +123,7 @@ const HowItWorks = () => {
             Enjoy and Share
           </h1>
           <p className="font-outfit text-xl text-center">
-            Brighten someone’s day with stunning T-shirts!
+            Brighten someone’s day with stunning flowers!
           </p>
         </div>
       </div>

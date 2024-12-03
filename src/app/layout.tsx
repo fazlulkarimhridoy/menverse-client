@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import LayoutClient from "./layout.client";
 
+
+
 export const metadata: Metadata = {
-  title: "Menverse",
-  description: "Designed and developed by Dev Hridoy",
+  title: "Floral Radiance",
+  description: "Designed and developed by Hridoy & Himel",
 };
 
 export default function RootLayout({
@@ -17,6 +19,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css"
           rel="stylesheet"
         ></link>
+        
       </head>
       <body className="scroll-container">
         <LayoutClient>{children}</LayoutClient>
