@@ -1,50 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button } from "antd";
 import { FaTrash } from "react-icons/fa";
-import ShipmentCalculator from "@/components/pages/Cart/ShipmentCalculator";
 import CartTotal from "@/components/pages/Cart/CartTotal";
 import Image from "next/image";
-import QuantitySelector from "@/components/pages/Cart/QuantitySelector";
 import { useCart } from "@/context/CartProvider";
 
-interface CartItem {
-    id: string;
-    product_name: string;
-    images: string;
-    price: number;
-    quantity:number;
-}
-
-
 const Cart: React.FC = () => {
+    const { cartData, updateCartItemQuantity, removeFromCart, setCartData } = useCart();
 
-    const {cartData, removeFromCart} = useCart()
-
-
-    const [quantity, setQuantity] = useState(1);
-
-    const handleIncrease = () => {
-        const newQuantity = quantity + 1;
-        setQuantity(newQuantity);
+    const handleSizeChange = (id: number, size: string) => {
+        setCartData((prevCart) =>
+            prevCart.map((item) =>
+                item.id === id ? { ...item, size } : item
+            )
+        );
     };
-
-    const handleDecrease = () => {
-        if (quantity > 1) {
-            const newQuantity = quantity - 1;
-            setQuantity(newQuantity);
-
-        }
-    };
-
-
 
     // calculate cart data price total
     const calculateTotal = () => {
-        return cartData.reduce((total, item) => total + item.price, 0);
+        return cartData.reduce((total, item) => total + item.discount_price, 0);
     };
-
 
     return (
         <div className="w-full lg:w-[70%] mx-auto px-2 lg:px-0 py-4">
@@ -56,7 +32,8 @@ const Cart: React.FC = () => {
                             <th>#</th>
                             <th>Product & image</th>
                             <th>Name</th>
-                            {/* <th>Quantity</th> */}
+                            <th>Quantity</th>
+                            <th>Size</th>
                             <th>Price</th>
                             <th className="text-right">Delete</th>
                         </tr>
@@ -86,26 +63,63 @@ const Cart: React.FC = () => {
                                             {data?.product_name}
                                         </div>
                                     </td>
-                                    {/* <td>
+                                    <td>
                                         <div className="flex items-center gap-2">
-                                            <button
-                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg"
-                                                onClick={handleDecrease}
+                                            <Button
+                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg font-bold"
+                                                onClick={() =>
+                                                    updateCartItemQuantity(
+                                                        data.id,
+                                                        data.quantity - 1
+                                                    )
+                                                }
+                                                disabled={data.quantity <= 1}
                                             >
                                                 -
-                                            </button>
-                                            <span className="text-lg">{data.quantity}</span>
-                                            <button
-                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg"
-                                                onClick={handleIncrease}
+                                            </Button>
+                                            <span className="text-lg">
+                                                {data?.quantity}
+                                            </span>
+                                            <Button
+                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg font-bold"
+                                                onClick={() =>
+                                                    updateCartItemQuantity(
+                                                        data.id,
+                                                        data.quantity + 1
+                                                    )
+                                                }
                                             >
                                                 +
-                                            </button>
+                                            </Button>
                                         </div>
-                                    </td> */}
+                                    </td>
+                                    <td>
+                                        <div className="flex gap-2">
+                                            {["M", "L", "XL", "XXL"].map(
+                                                (size) => (
+                                                    <Button
+                                                        key={size}
+                                                        className={`px-3 py-1 border rounded-md ${
+                                                            data?.size === size
+                                                                ? "bg-blue-500 text-white border-blue-500"
+                                                                : "bg-gray-200 text-gray-700 border-gray-300"
+                                                        }`}
+                                                        onClick={() =>
+                                                            handleSizeChange(
+                                                                data.id,
+                                                                size
+                                                            )
+                                                        }
+                                                    >
+                                                        {size}
+                                                    </Button>
+                                                )
+                                            )}
+                                        </div>
+                                    </td>
                                     <td>
                                         <div className="text-gray-600 font-bold">
-                                            {data?.price}
+                                            {data?.discount_price}
                                         </div>
                                     </td>
 
@@ -114,10 +128,9 @@ const Cart: React.FC = () => {
                                             onClick={() =>
                                                 removeFromCart(data?.id)
                                             }
-                                            className="btn btn-md"
+                                            className="btn btn-sm btn-circle"
                                         >
                                             <FaTrash
-                                                size={20}
                                                 className="text-red-600"
                                             ></FaTrash>
                                         </Button>
@@ -128,7 +141,6 @@ const Cart: React.FC = () => {
                 </table>
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-10 my-[22px]">
-
                 {cartData?.length > 0 && (
                     <CartTotal calculateTotal={calculateTotal} show={true} />
                 )}

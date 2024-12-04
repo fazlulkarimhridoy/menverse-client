@@ -1,12 +1,23 @@
 // contexts/CartContext.tsx
-import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
-import Swal from 'sweetalert2';
+import {
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+    ReactNode,
+    Dispatch,
+    SetStateAction,
+} from "react";
+import Swal from "sweetalert2";
 
 type CartItem = {
     id: number;
     product_name: string;
     image: string;
     price: number;
+    quantity: number;
+    discount_price: number;
+    size: string
 };
 
 type CartContextType = {
@@ -14,6 +25,7 @@ type CartContextType = {
     setCartData: Dispatch<SetStateAction<CartItem[]>>;
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: number) => void;
+    updateCartItemQuantity: (id: number, newQuantity: number) => void;
     clearCart: () => void;
     modal1Open: boolean; // New state to track modal open/close status
     setModal1Open: Dispatch<SetStateAction<boolean>>; // Function to update modal state
@@ -28,7 +40,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Load cart data from localStorage on initial render
     useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
             const storedData = localStorage.getItem("cartItems");
             if (storedData) {
                 setCartData(JSON.parse(storedData));
@@ -45,9 +57,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, [cartData, isInitialized]);
 
     const addToCart = (item: CartItem) => {
-        const existingProduct = cartData.find(cartItem => cartItem.id === item.id);
+        // for a product to be selected multiple times
+        // setCartData((prevCartData) => [
+        //     ...prevCartData,
+        //     { ...item, quantity: 1 },
+        // ]);
+        // setModal1Open(true); // Open the modal when a new item is added
+
+        // for a product to be selected single times
+        const existingProduct = cartData.find(
+            (cartItem) => cartItem.id === item.id
+        );
         if (!existingProduct) {
-            setCartData(prevCartData => [...prevCartData, item]);
+            setCartData((prevCartData) => [
+                ...prevCartData,
+                { ...item, quantity: 1 },
+            ]);
             setModal1Open(true); // Open the modal when a new item is added
         } else {
             Swal.fire({
@@ -61,15 +86,36 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
 
     const removeFromCart = (id: number) => {
-        setCartData(prevCartData => prevCartData.filter(item => item.id !== id));
+        setCartData((prevCartData) =>
+            prevCartData.filter((item) => item.id !== id)
+        );
     };
 
     const clearCart = () => {
         setCartData([]); // Clear all items in the cart
     };
 
+    const updateCartItemQuantity = (id: number, newQuantity: number) => {
+        setCartData((prevCart) =>
+            prevCart.map((item) =>
+                item.id === id ? { ...item, quantity: newQuantity } : item
+            )
+        );
+    };
+
     return (
-        <CartContext.Provider value={{ cartData, setCartData, addToCart, removeFromCart, clearCart, modal1Open, setModal1Open }}>
+        <CartContext.Provider
+            value={{
+                cartData,
+                setCartData,
+                addToCart,
+                removeFromCart,
+                updateCartItemQuantity,
+                clearCart,
+                modal1Open,
+                setModal1Open,
+            }}
+        >
             {children}
         </CartContext.Provider>
     );

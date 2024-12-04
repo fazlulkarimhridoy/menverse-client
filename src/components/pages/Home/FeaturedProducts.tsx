@@ -19,6 +19,8 @@ interface ProductType {
     discount_price: number;
     description: string;
     rating: number;
+    quantity: number;
+    size: string
 }
 
 

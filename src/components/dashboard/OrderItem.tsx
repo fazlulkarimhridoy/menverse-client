@@ -9,6 +9,7 @@ type OrderItemType = {
     product_name: string;
     images: string;
     quantity: number;
+    size: string
 };
 
 const OrderItem = ({ item }: { item: OrderItemType }) => {
@@ -49,6 +50,12 @@ const OrderItem = ({ item }: { item: OrderItemType }) => {
                                 Quantity:
                             </span>{" "}
                             {item?.quantity}
+                        </p>
+                        <p>
+                            <span className="text-[10px] font-semibold">
+                                Size:
+                            </span>{" "}
+                            {item?.size}
                         </p>
                     </div>
                 </>

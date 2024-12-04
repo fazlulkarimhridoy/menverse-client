@@ -23,7 +23,7 @@ import { useCart } from "@/context/CartProvider";
 
 
 const Page = () => {
-    const {cartData, removeFromCart, clearCart} = useCart()
+    const {cartData, removeFromCart, clearCart, updateCartItemQuantity, setCartData} = useCart()
     const [showData, setShowData] = useState(true);
     const [name, setname] = useState("");
     const [phone, setPhone] = useState("");
@@ -37,9 +37,17 @@ const Page = () => {
     const router = useRouter();
     const { push } = router;
 
+    const handleSizeChange = (id: number, size: string) => {
+        setCartData((prevCart) =>
+            prevCart.map((item) =>
+                item.id === id ? { ...item, size } : item
+            )
+        );
+    };
+
     // calculate cart data price total
     const calculateTotal = () => {
-        return cartData.reduce((total, item) => total + item.price, 0);
+        return cartData.reduce((total, item) => total + item.discount_price, 0);
     };
 
     const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
@@ -185,7 +193,8 @@ const Page = () => {
                     orderStatus: "PENDING",
                     items: cartData.map((item) => ({
                         productId: item.id,
-                        quantity: 1,
+                        quantity: item.quantity,
+                        size: item.size,
                         price: item.price,
                     })),
                     paymentMethod: "BKASH",
@@ -250,6 +259,8 @@ const Page = () => {
                                         <th>#</th>
                                         <th>Product & image</th>
                                         <th>Name</th>
+                                        <th>Quantity</th>
+                            <th>Size</th>
                                         <th>Price</th>
                                         <th>Delete</th>
                                     </tr>
@@ -282,8 +293,62 @@ const Page = () => {
                                                     </div>
                                                 </td>
                                                 <td>
+                                        <div className="flex items-center gap-2">
+                                            <Button
+                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg"
+                                                onClick={() =>
+                                                    updateCartItemQuantity(
+                                                        data.id,
+                                                        data.quantity - 1
+                                                    )
+                                                }
+                                                disabled={data.quantity <= 1}
+                                            >
+                                                -
+                                            </Button>
+                                            <span className="text-lg">
+                                                {data?.quantity}
+                                            </span>
+                                            <Button
+                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg"
+                                                onClick={() =>
+                                                    updateCartItemQuantity(
+                                                        data.id,
+                                                        data.quantity + 1
+                                                    )
+                                                }
+                                            >
+                                                +
+                                            </Button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="flex gap-2">
+                                            {["M", "L", "XL", "XXL"].map(
+                                                (size) => (
+                                                    <Button
+                                                        key={size}
+                                                        className={`px-3 py-1 border rounded-md ${
+                                                            data?.size === size
+                                                                ? "bg-blue-500 text-white border-blue-500"
+                                                                : "bg-gray-200 text-gray-700 border-gray-300"
+                                                        }`}
+                                                        onClick={() =>
+                                                            handleSizeChange(
+                                                                data.id,
+                                                                size
+                                                            )
+                                                        }
+                                                    >
+                                                        {size}
+                                                    </Button>
+                                                )
+                                            )}
+                                        </div>
+                                    </td>
+                                                <td>
                                                     <div className="text-gray-600 font-bold">
-                                                        {data?.price}
+                                                        {data?.discount_price}
                                                     </div>
                                                 </td>
 

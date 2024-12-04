@@ -16,11 +16,12 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
 
     // const images = typeof srcList === "string" ? JSON.parse(item.images) : [];
     return (
-        <div className=" max-w-[450px] space-y-4">
+        <div className="max-w-[450px] space-y-4">
             <div className="p-2 flex justify-center">
                 <Image
                     className="rounded-lg"
                     width={450}
+                    height={500}
                     alt="product"
                     src={srcList[0]}
                 />
@@ -35,6 +36,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                         <Image
                             className="rounded-lg"
                             width={90}
+                            height={100}
                             alt="product"
                             src={srcList[1]}
                         />
@@ -45,6 +47,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                         <Image
                             className="rounded-lg"
                             width={90}
+                            height={100}
                             alt="product"
                             src={srcList[2]}
                         />
@@ -55,6 +58,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                         <Image
                             className="rounded-lg"
                             width={90}
+                            height={100}
                             alt="product"
                             src={srcList[3]}
                         />
@@ -65,6 +69,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                         <Image
                             className="rounded-lg"
                             width={90}
+                            height={100}
                             alt="product"
                             src={srcList[4]}
                         />

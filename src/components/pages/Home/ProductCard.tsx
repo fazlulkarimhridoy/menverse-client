@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext } from "react";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import React from "react";
 import { Modal } from 'antd';
 import { FaCheckCircle } from "react-icons/fa";
 import { useCart } from "@/context/CartProvider";
@@ -18,6 +17,8 @@ interface Item {
     discount_price: number;
     description: string;
     rating: number;
+    quantity: number;
+    size: string;
 }
 
 interface ProductCardProps {
@@ -36,7 +37,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
         id: item?.id,
         product_name: item?.product_name,
         image: item?.images[0],
-        price: item?.price
+        price: item?.price,
+        quantity: item?.quantity,
+        discount_price: item?.discount_price,
+        size: item?.size
+
     }
 
     return (
@@ -48,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
                         alt={`Image`}
                         width={120}
                         height={100}
-                        className="w-full h-[230px] rounded-lg"
+                        className="w-[200px] h-[210px] rounded-lg"
                     />
                 </div>
                 <div className="border-[#194464] flex flex-col gap-2">
