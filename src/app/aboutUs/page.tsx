@@ -32,12 +32,6 @@ const Page = () => {
       }
     };
 
-    // Add event listener
-    // window.addEventListener('scroll', handleScrollLength);
-
-    // // Clean up on unmount
-    // return () => window.removeEventListener('scroll', handleScrollLength);
-
     // Add event listener for scroll
     window?.addEventListener("scroll", handleScroll);
 
@@ -51,8 +45,6 @@ const Page = () => {
     <div
       className={`bg-[#c3b2e8] space-y-10 p-4 ${bgColor} transition-colors duration-300 `}
     >
-      {/* <h1 className=" fixed border">{scrollY}</h1>
-      <h1 className=" fixed border">{width}</h1> */}
       <h1 className="playfair text-center text-4xl font-bold text-[#52225e]">
         About Us
       </h1>

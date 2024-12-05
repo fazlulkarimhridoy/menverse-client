@@ -4,7 +4,7 @@ import Image from "next/image";
 import BannerContent from "@/components/pages/Home/BannerContent";
 const Banner = () => {
   return (
-    <div className="">
+    <div>
       <BannerContent/>
     </div>
   );

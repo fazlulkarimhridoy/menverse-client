@@ -178,7 +178,7 @@ const OrderRow = ({
                 </div>
                 <div className="mt-2">
                     <p className="text-lg font-bold">
-                        Total Price: {totalPrice} Taka
+                        Total Price: <span className="text-red-500">{totalPrice}</span> Taka
                     </p>
                 </div>
             </Modal>

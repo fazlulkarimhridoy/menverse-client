@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { Image } from "antd";
+import React from "react";
 
 interface SrcType {
     srcList: string[];
@@ -19,9 +19,9 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
         <div className="max-w-[450px] space-y-4">
             <div className="p-2 flex justify-center">
                 <Image
-                    className="rounded-lg"
-                    width={450}
-                    height={500}
+                    className="rounded-lg md:h-[500px]"
+                    width={400}
+                    height={450}
                     alt="product"
                     src={srcList[0]}
                 />

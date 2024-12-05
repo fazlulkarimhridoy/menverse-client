@@ -89,26 +89,6 @@ const ButtonGroup: React.FC = () => {
     }
   };
 
-  // if (windowSize.width < 375) {
-  //   return (
-  //     <div
-  //       ref={scrollBar}
-  //       className="button-group flex text-nowrap overflow-x-scroll "
-  //     >
-  //       {tags.map((tag, idx) => {
-  //         return (
-  //           <button
-  //             key={idx}
-  //             className={activeButton === idx ? "active" : ""}
-  //             onClick={() => handleClick(idx)}
-  //           >
-  //             {tag}
-  //           </button>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // }
   return (
     <div className="flex items-center w-full lg:scrollbar-container overflow-hidden relative  ">
       <div

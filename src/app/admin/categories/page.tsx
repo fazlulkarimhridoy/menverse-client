@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Empty, Input, Spin } from "antd";
 import { SearchProps } from "antd/es/input";
 import axios from "axios";
-import { error } from "console";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -139,7 +138,7 @@ const Categories = () => {
         <div className="relative">
             <div>
                 <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Manage Category
+                    Categories
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search

@@ -9,7 +9,7 @@ type OrderItemType = {
     product_name: string;
     images: string;
     quantity: number;
-    size: string
+    size: string;
 };
 
 const OrderItem = ({ item }: { item: OrderItemType }) => {
@@ -38,25 +38,26 @@ const OrderItem = ({ item }: { item: OrderItemType }) => {
                         className="w-[55px] h-[55px] rounded-lg"
                         width={500}
                         height={500}
-                        src={singleProductImages?.images[0] || "https://backend.floralradiancebd.com/public/photos/Cq0BpyoOPb.jpg"}
+                        src={
+                            singleProductImages?.images[0] ||
+                            "https://backend.floralradiancebd.com/public/photos/Cq0BpyoOPb.jpg"
+                        }
                         alt="item-image"
                     />
                     <div className="flex flex-col justify-center">
-                        <h3 className="text-[12px] font-semibold">
+                        <h3 className="font-bold">
                             {singleProductImages?.product_name}
                         </h3>
-                        <p>
-                            <span className="text-[10px] font-semibold">
+                        <div className="flex items-center justify-between text-sm font-medium">
+                            <p>
                                 Quantity:
-                            </span>{" "}
-                            {item?.quantity}
-                        </p>
-                        <p>
-                            <span className="text-[10px] font-semibold">
+                                {item?.quantity}
+                            </p>
+                            <p>
                                 Size:
-                            </span>{" "}
-                            {item?.size}
-                        </p>
+                                {item?.size}
+                            </p>
+                        </div>
                     </div>
                 </>
             )}

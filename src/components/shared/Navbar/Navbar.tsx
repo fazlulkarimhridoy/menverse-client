@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -8,11 +8,14 @@ import { Drawer } from "antd";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import { useCart } from "@/context/CartProvider";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(false);
     const [open, setOpen] = useState(false);
     const { cartData } = useCart();
+
+    const pathname = usePathname(); // Get the current route
 
     const showDrawer = () => {
         setOpen(true);
@@ -37,6 +40,9 @@ const Navbar = () => {
         }
     };
 
+    const getActiveClass = (href: string) =>
+        pathname === href ? "text-sky-600 font-bold" : "hover:text-sky-600";
+
     return (
         <motion.div
             className={
@@ -53,22 +59,30 @@ const Navbar = () => {
                             height={120}
                             src="/Images/logo.png"
                             alt="logo"
-                            className="bg-none w-[50px] md:w-[70px]"
+                            className="bg-none w-[45px] md:w-[60px]"
                         />
                     </div>
                 </Link>
                 <div className="mr-10 hidden lg:block">
                     <ul className="flex text-xl font-bold gap-6 font-poppins">
-                        <li className="hover:text-sky-600 cursor-pointer transition-colors">
+                        <li className={`${getActiveClass(
+                                "/"
+                            )} cursor-pointer transition-colors`}>
                             <Link href="/">Home</Link>
                         </li>
-                        <li className="hover:text-sky-600 cursor-pointer transition-colors">
+                        <li className={`${getActiveClass(
+                                "/products"
+                            )} cursor-pointer transition-colors`}>
                             <Link href="/products">Shop</Link>
                         </li>
-                        <li className="hover:text-sky-600 cursor-pointer transition-colors">
+                        <li className={`${getActiveClass(
+                                "/aboutUs"
+                            )} cursor-pointer transition-colors`}>
                             <Link href="/aboutUs">About Us</Link>
                         </li>
-                        <li className="hover:text-sky-600 cursor-pointer transition-colors">
+                        <li className={`${getActiveClass(
+                                "/contactUs"
+                            )} cursor-pointer transition-colors`}>
                             <Link href="/contactUs">Contact Us</Link>
                         </li>
                     </ul>
@@ -77,16 +91,15 @@ const Navbar = () => {
                 <div className="flex items-center justify-center">
                     <Link className="relative" href={"/cart"}>
                         <button>
-                            <ShoppingCartOutlined className="text-3xl font-bold hover:text-pink-600 transition-colors mr-8" />
+                            <ShoppingCartOutlined className="text-3xl font-bold hover:text-sky-600 transition-colors mr-8" />
                         </button>
-                        <p className="absolute -top-3 left-4 bg-pink-600 rounded-full w-5 text-center  text-white">
+                        <p className="absolute -top-3 left-4 bg-sky-600 rounded-full w-5 text-center  text-white">
                             {cartData.length}
                         </p>
                     </Link>
 
                     {/* Hamburger menu */}
                     <div className="lg:hidden block">
-                        {/* <MenuOutlined className="w-10 h-10" size={25}  /> */}
                         <FiMenu size={25} onClick={showDrawer} />
                         <Drawer
                             width={200}
@@ -100,27 +113,35 @@ const Navbar = () => {
                             <ul className="text-2xl text-right space-y-5 mt-5 font-poppins font-bold">
                                 <li
                                     onClick={onClose}
-                                    className="hover:text-sky-600 cursor-pointer transition-colors"
+                                    className={`${getActiveClass(
+                                "/"
+                            )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/">Home</Link>
                                 </li>
 
                                 <li
                                     onClick={onClose}
-                                    className="hover:text-sky-600 cursor-pointer transition-colors"
+                                    className={`${getActiveClass(
+                                "/products"
+                            )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/products">Shop</Link>
                                 </li>
 
                                 <li
                                     onClick={onClose}
-                                    className="hover:text-sky-600 cursor-pointer transition-colors"
+                                    className={`${getActiveClass(
+                                "/aboutUs"
+                            )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/aboutUs">About Us</Link>
                                 </li>
                                 <li
                                     onClick={onClose}
-                                    className="hover:text-sky-600 cursor-pointer transition-colors"
+                                    className={`${getActiveClass(
+                                "/contactUs"
+                            )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/contactUs">Contact Us</Link>
                                 </li>

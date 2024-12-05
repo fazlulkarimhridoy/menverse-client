@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { FaTrash, FaUser } from "react-icons/fa";
 import { Button, Input, Spin } from "antd";
 import { FaMobileAlt } from "react-icons/fa";
@@ -20,10 +20,14 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { useCart } from "@/context/CartProvider";
 
-
-
 const Page = () => {
-    const {cartData, removeFromCart, clearCart, updateCartItemQuantity, setCartData} = useCart()
+    const {
+        cartData,
+        removeFromCart,
+        clearCart,
+        updateCartItemQuantity,
+        setCartData,
+    } = useCart();
     const [showData, setShowData] = useState(true);
     const [name, setname] = useState("");
     const [phone, setPhone] = useState("");
@@ -39,15 +43,16 @@ const Page = () => {
 
     const handleSizeChange = (id: number, size: string) => {
         setCartData((prevCart) =>
-            prevCart.map((item) =>
-                item.id === id ? { ...item, size } : item
-            )
+            prevCart.map((item) => (item.id === id ? { ...item, size } : item))
         );
     };
 
     // calculate cart data price total
     const calculateTotal = () => {
-        return cartData.reduce((total, item) => total + item.discount_price, 0);
+        return cartData.reduce(
+            (total, item) => total + item.discount_price * item.quantity,
+            0
+        );
     };
 
     const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
@@ -257,10 +262,10 @@ const Page = () => {
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Product & image</th>
+                                        <th>Product</th>
                                         <th>Name</th>
                                         <th>Quantity</th>
-                            <th>Size</th>
+                                        <th>Size</th>
                                         <th>Price</th>
                                         <th>Delete</th>
                                     </tr>
@@ -274,7 +279,7 @@ const Page = () => {
                                                 <td>
                                                     <div className="flex items-center gap-3">
                                                         <div className="avatar">
-                                                            <div className="mask mask-squircle w-12 h-12">
+                                                            <div className="mask mask-squircle w-10 h-10">
                                                                 <Image
                                                                     width={500}
                                                                     height={500}
@@ -293,62 +298,71 @@ const Page = () => {
                                                     </div>
                                                 </td>
                                                 <td>
-                                        <div className="flex items-center gap-2">
-                                            <Button
-                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg"
-                                                onClick={() =>
-                                                    updateCartItemQuantity(
-                                                        data.id,
-                                                        data.quantity - 1
-                                                    )
-                                                }
-                                                disabled={data.quantity <= 1}
-                                            >
-                                                -
-                                            </Button>
-                                            <span className="text-lg">
-                                                {data?.quantity}
-                                            </span>
-                                            <Button
-                                                className="bg-gray-200 px-3 py-1 rounded-md text-lg"
-                                                onClick={() =>
-                                                    updateCartItemQuantity(
-                                                        data.id,
-                                                        data.quantity + 1
-                                                    )
-                                                }
-                                            >
-                                                +
-                                            </Button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="flex gap-2">
-                                            {["M", "L", "XL", "XXL"].map(
-                                                (size) => (
-                                                    <Button
-                                                        key={size}
-                                                        className={`px-3 py-1 border rounded-md ${
-                                                            data?.size === size
-                                                                ? "bg-blue-500 text-white border-blue-500"
-                                                                : "bg-gray-200 text-gray-700 border-gray-300"
-                                                        }`}
-                                                        onClick={() =>
-                                                            handleSizeChange(
-                                                                data.id,
-                                                                size
-                                                            )
-                                                        }
-                                                    >
-                                                        {size}
-                                                    </Button>
-                                                )
-                                            )}
-                                        </div>
-                                    </td>
+                                                    <div className="flex items-center gap-2">
+                                                        <Button
+                                                            className="bg-gray-200 px-3 py-1 rounded-md text-lg"
+                                                            onClick={() =>
+                                                                updateCartItemQuantity(
+                                                                    data.id,
+                                                                    data.quantity -
+                                                                        1
+                                                                )
+                                                            }
+                                                            disabled={
+                                                                data.quantity <=
+                                                                1
+                                                            }
+                                                        >
+                                                            -
+                                                        </Button>
+                                                        <span className="text-lg">
+                                                            {data?.quantity}
+                                                        </span>
+                                                        <Button
+                                                            className="bg-gray-200 px-3 py-1 rounded-md text-lg"
+                                                            onClick={() =>
+                                                                updateCartItemQuantity(
+                                                                    data.id,
+                                                                    data.quantity +
+                                                                        1
+                                                                )
+                                                            }
+                                                        >
+                                                            +
+                                                        </Button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="flex gap-2">
+                                                        {[
+                                                            "M",
+                                                            "L",
+                                                            "XL",
+                                                            "XXL",
+                                                        ].map((size) => (
+                                                            <Button
+                                                                key={size}
+                                                                className={`px-3 py-1 border rounded-md ${
+                                                                    data?.size ===
+                                                                    size
+                                                                        ? "bg-blue-500 text-white border-blue-500"
+                                                                        : "bg-gray-200 text-gray-700 border-gray-300"
+                                                                }`}
+                                                                onClick={() =>
+                                                                    handleSizeChange(
+                                                                        data.id,
+                                                                        size
+                                                                    )
+                                                                }
+                                                            >
+                                                                {size}
+                                                            </Button>
+                                                        ))}
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <div className="text-gray-600 font-bold">
-                                                        {data?.discount_price}
+                                                        {data?.discount_price * data?.quantity}
                                                     </div>
                                                 </td>
 
@@ -492,8 +506,11 @@ const Page = () => {
                         </div> */}
                         <div>
                             <p>
-                                Please pay the advance amount <span className="font-bold text-blue-400">150</span> Taka to
-                                confirm the order.{" "}
+                                Please pay the advance amount{" "}
+                                <span className="font-bold text-blue-400">
+                                    150
+                                </span>{" "}
+                                Taka to confirm the order.{" "}
                                 <br className="hidden md:flex" /> Pay via send
                                 money to this number{" "}
                                 <span className="text-red-600">
@@ -506,7 +523,8 @@ const Page = () => {
                         <div className="flex flex-col gap-2 w-full">
                             <label className="text-xl flex gap-2 items-center text-[#3d4349]">
                                 {" "}
-                                <FaBangladeshiTakaSign /> Bkash Transection Id (10 digits):
+                                <FaBangladeshiTakaSign /> Bkash Transection Id
+                                (10 digits):
                             </label>
                             <Input
                                 required

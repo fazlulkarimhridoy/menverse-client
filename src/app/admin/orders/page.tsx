@@ -138,7 +138,6 @@ const Orders = () => {
     // handle search filed value
     const onSearch: SearchProps["onSearch"] = (value) => {
         setSearchText(value);
-        // console.log(filteredCustomers);
     };
 
     // checking if loading
@@ -161,7 +160,7 @@ const Orders = () => {
         <div className="relative">
             <div>
                 <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Manage Order
+                    Orders
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search

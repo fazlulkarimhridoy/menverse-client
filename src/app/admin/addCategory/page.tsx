@@ -7,7 +7,6 @@ import {
   FormProps,
   Input,
   InputNumber,
-  message,
   Spin,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";

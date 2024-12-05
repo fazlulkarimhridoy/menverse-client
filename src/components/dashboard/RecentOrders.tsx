@@ -2,13 +2,12 @@
 
 import OrderRow from "@/components/dashboard/OrderRow";
 import { useQuery } from "@tanstack/react-query";
-import { Empty, Input, Spin } from "antd";
+import { Empty, Spin } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 // types
-const { Search } = Input;
 
 type OrderType = {
   id: number;

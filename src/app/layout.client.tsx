@@ -3,18 +3,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar/Navbar";
-// import Footer from "@/components/shared/Footer/Footer";
 import TanstackProvider from "../../providers/TanstackProvider";
 import { usePathname } from "next/navigation";
 import CategoryProvider from "@/context/CategoryContext";
 import SearchTextProvider from "@/context/SearchTextContext";
-import NewFooter from "@/components/pages/Home/NewFooter";
+import NewFooter from "@/components/shared/Footer/NewFooter";
 import { CartProvider } from "@/context/CartProvider";
 
 
 export const metadata: Metadata = {
-  title: "Floral Radiance",
-  description: "Designed and developed by Himel & Hridoy",
+  title: "MENVERSE",
+  description: "Designed and developed by Hridoy",
 };
 
 export default function LayoutClient({

@@ -5,7 +5,7 @@ const Template = () => {
     return (
         <div className="flex w-full  justify-between items-center bg-[#b8cedc] rounded-2xl relative  h-full  p-4">
             <p className="font-dm text-2xl font-semibold self-end text-[#52225e] text-wrap">
-                Send birthday Gift with flowers
+                Send birthday Gift with t-shirts
             </p>
             <div className="">
                 <Image

@@ -1,25 +1,27 @@
 "use client";
 
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import { FaTrash } from "react-icons/fa";
 import CartTotal from "@/components/pages/Cart/CartTotal";
 import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
 
 const Cart: React.FC = () => {
-    const { cartData, updateCartItemQuantity, removeFromCart, setCartData } = useCart();
+    const { cartData, updateCartItemQuantity, removeFromCart, setCartData } =
+        useCart();
 
     const handleSizeChange = (id: number, size: string) => {
         setCartData((prevCart) =>
-            prevCart.map((item) =>
-                item.id === id ? { ...item, size } : item
-            )
+            prevCart.map((item) => (item.id === id ? { ...item, size } : item))
         );
     };
 
     // calculate cart data price total
     const calculateTotal = () => {
-        return cartData.reduce((total, item) => total + item.discount_price, 0);
+        return cartData.reduce(
+            (total, item) => total + item.discount_price * item.quantity,
+            0
+        );
     };
 
     return (
@@ -30,7 +32,7 @@ const Cart: React.FC = () => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Product & image</th>
+                            <th>Product</th>
                             <th>Name</th>
                             <th>Quantity</th>
                             <th>Size</th>
@@ -47,7 +49,7 @@ const Cart: React.FC = () => {
                                     <td>
                                         <div className="flex items-center gap-3">
                                             <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
+                                                <div className="mask mask-squircle w-10 h-10">
                                                     <Image
                                                         width={500}
                                                         height={500}
@@ -119,7 +121,8 @@ const Cart: React.FC = () => {
                                     </td>
                                     <td>
                                         <div className="text-gray-600 font-bold">
-                                            {data?.discount_price}
+                                            {data?.discount_price *
+                                                data?.quantity}
                                         </div>
                                     </td>
 
@@ -130,13 +133,25 @@ const Cart: React.FC = () => {
                                             }
                                             className="btn btn-sm btn-circle"
                                         >
-                                            <FaTrash
-                                                className="text-red-600"
-                                            ></FaTrash>
+                                            <FaTrash className="text-red-600"></FaTrash>
                                         </Button>
                                     </td>
                                 </tr>
                             ))}
+                        {cartData?.length < 1 && (
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    {" "}
+                                    <Empty className="my-[46.5px]" description="No items in cart." />
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -2,7 +2,9 @@
 
 import { useCategory } from "@/context/CategoryContext";
 import { useQuery } from "@tanstack/react-query";
+import { Spin } from "antd";
 import axios from "axios";
+import { list } from "postcss";
 import React from "react";
 
 interface CategoryType {
@@ -31,15 +33,18 @@ const SideBarMenu = () => {
         setCategoryName(name);
     };
     return (
-        <div className=" w-full md:w-[250px] ">
-            <ul className="flex flex-col  font-roboto text-lg">
+        <div className="w-full md:w-[250px] ">
+            <ul className="flex flex-col font-roboto text-lg">
                 <li
                     onClick={() => handleCategoryClick("")}
                     className="sideBar-navLink"
                 >
                     All product
                 </li>
-                {allCategories?.length > 0 &&
+                {isLoading ? (
+                    <Spin />
+                ) : (
+                    allCategories?.length > 0 &&
                     allCategories?.map((item) => (
                         <li
                             onClick={() => handleCategoryClick(item?.name)}
@@ -48,13 +53,8 @@ const SideBarMenu = () => {
                         >
                             {item?.name}
                         </li>
-                    ))}
-
-                {/* <li className="sideBar-navLink">
-                    Add something to your bouqet
-                </li>
-                <li className="sideBar-navLink">Bouqet size</li>
-                <li className="sideBar-navLink">Customize</li> */}
+                    ))
+                )}
             </ul>
         </div>
     );

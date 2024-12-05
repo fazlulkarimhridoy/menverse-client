@@ -5,8 +5,8 @@ import LayoutClient from "./layout.client";
 
 
 export const metadata: Metadata = {
-  title: "Floral Radiance",
-  description: "Designed and developed by Hridoy & Himel",
+  title: "MENVERSE",
+  description: "Designed and developed by Hridoy",
 };
 
 export default function RootLayout({

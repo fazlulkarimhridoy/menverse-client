@@ -13,16 +13,16 @@ const NewFooter = () => {
                     <p className="playfair text-[#184363] font-bold text-4xl p-4">
                         Crafted with love, delivered with care.
                     </p>
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-1">
                         <Image
                             src={"/Images/logo.png"}
                             alt="logo"
                             width={100}
                             height={100}
-                            className="w-[70px]"
+                            className="w-[50px]"
                         />
-                        <p className="font-outfit text-[#184363] text-5xl font-bold">
-                            Menverse
+                        <p className="font-outfit text-[#184363] text-2xl font-bold">
+                            Menverse Fashion
                         </p>
                     </div>
                 </div>

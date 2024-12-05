@@ -20,13 +20,8 @@ interface ProductType {
     description: string;
     rating: number;
     category: string;
-}
-
-interface CartItem {
-    id: number;
-    product_name: string;
-    images: string;
-    price: number;
+    quantity: number;
+    size: string
 }
 
 const AllProducts = () => {
@@ -74,7 +69,7 @@ const AllProducts = () => {
 
  
     return (
-        <div className="flex flex-wrap justify-center gap-10 mt-20 pb-20 px-5">
+        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-10 my-1 px-1 md:my-20 md:px-5">
             {isLoading ? (
                 <Spin size="large" />
             ) : shopProducts?.length > 0 ? (
