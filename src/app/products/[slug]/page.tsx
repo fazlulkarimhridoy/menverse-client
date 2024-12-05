@@ -1,17 +1,14 @@
 "use client";
-// import ProductImage from "@/components/pages/DetailsPage/productImage";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { TbCurrencyTaka } from "react-icons/tb";
-import Link from "next/link";
 import { PiFlowerFill } from "react-icons/pi";
 import { Flex, Rate } from "antd";
 import { Spin } from "antd";
 import ImageDetails from "@/components/pages/DetailsPage/ImageDetails";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
-import { MdCategory } from "react-icons/md";
 import { FaThumbsUp } from "react-icons/fa";
 import { useCart } from "@/context/CartProvider";
 import Suggetions from "@/components/pages/DetailsPage/Suggetions";
@@ -28,12 +25,13 @@ interface ProductType {
     description: string;
     rating: number;
     category: string;
+    quantity: number;
+    size: string;
 }
-
 
 const Page = ({ params }: { params: { slug: string } }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const { addToCart } = useCart()
+    const { addToCart } = useCart();
     const router = useRouter();
     const { push } = router;
     const [modal1Open, setModal1Open] = useState(false);
@@ -69,18 +67,21 @@ const Page = ({ params }: { params: { slug: string } }) => {
         id: singleProduct?.id ?? 0,
         product_name: singleProduct?.product_name ?? "",
         image: singleProduct?.images[0] ?? "",
-        price: singleProduct?.discount_price ?? (singleProduct?.price || 0)
-    }
+        price: singleProduct?.discount_price ?? 0,
+        quantity: singleProduct?.quantity ?? 0,
+        discount_price: singleProduct?.discount_price ?? 0,
+        size: singleProduct?.size ?? "",
+    };
 
     // handle cart click
     const handleAddToCart = () => {
-        addToCart(singleObj)
+        addToCart(singleObj);
         push("/cart");
     };
 
     const toggleReadMore = () => {
         setIsExpanded(!isExpanded);
-    }
+    };
 
     return (
         <div className=" md:w-[90%] mx-auto lg:p-4">
@@ -98,26 +99,28 @@ const Page = ({ params }: { params: { slug: string } }) => {
                         {/* details */}
                         <div className="mt-3 space-y-4">
                             <h1 className="text-left text-sm font-thin italic text-gray-600">
-                                Floral Radiance 🌹
+                                Menverse 👕
                             </h1>
                             <div className="space-y-3">
-                                <h1 className="text-4xl font-semibold font-outfit text-[#0b0f3b]">
+                                <h1 className="text-3xl md:text-4xl font-semibold font-outfit text-[#0b0f3b]">
                                     {singleProduct?.product_name}
                                 </h1>
                                 {/* price ...............................*/}
                                 <div className="flex items-center font-semibold text-2xl">
                                     <div
-                                        className={`max-w-52 flex gap-2 ${singleProduct.discount_price
-                                            ? "flex-row-reverse justify-end items-center "
-                                            : ""
-                                            }`}
+                                        className={`max-w-52 flex gap-2 ${
+                                            singleProduct.discount_price
+                                                ? "flex-row-reverse justify-end items-center "
+                                                : ""
+                                        }`}
                                     >
                                         <div className="text-center rounded-lg py-4 text-[#184364] font-bold text-xl flex justify-center items-center">
                                             <span
-                                                className={`${singleProduct?.discount_price
-                                                    ? "line-through text-red-500 text-xl"
-                                                    : ""
-                                                    } text-3xl font-semibold`}
+                                                className={`${
+                                                    singleProduct?.discount_price
+                                                        ? "line-through text-red-500 text-xl"
+                                                        : ""
+                                                } text-3xl font-semibold`}
                                             >
                                                 {singleProduct?.price}
                                             </span>{" "}
@@ -140,17 +143,20 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                     </div>
                                 </div>
                                 <div className="text-xl font-outfit font-semibold max-w-[600px] text-wrap">
-                                    {isExpanded ? singleProduct?.description : `${singleProduct?.description.slice(0, 150)}...`}
+                                    {isExpanded
+                                        ? singleProduct?.description
+                                        : `${singleProduct?.description.slice(
+                                              0,
+                                              150
+                                          )}...`}
                                     <button
                                         onClick={toggleReadMore}
-                                        className="text-blue-500 ml-2"
+                                        className="text-gray-400 ml-2 !text-lg"
                                     >
-                                        {isExpanded ? 'See Less' : 'See More'}
+                                        {isExpanded ? "See Less" : "See More"}
                                     </button>
                                 </div>
-                                <p className="">
-                                    
-                                </p>
+                                <p className=""></p>
                                 <div className="flex items-center gap-2 mt-2 w-full">
                                     <FaThumbsUp />
                                     <Flex gap="middle">
@@ -161,7 +167,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                         />
                                     </Flex>
                                 </div>
-                                <p className="flex items-center gap-2 text-2xl font-semibold">
+                                <p className="flex items-center gap-2 text-xl font-semibold">
                                     <span>
                                         <PiFlowerFill />{" "}
                                     </span>

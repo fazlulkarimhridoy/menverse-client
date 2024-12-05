@@ -3,7 +3,7 @@
 
 import RecentOrders from "@/components/dashboard/RecentOrders";
 import { useQuery } from "@tanstack/react-query";
-import { Statistic, StatisticProps, Tooltip } from "antd";
+import { Statistic, StatisticProps } from "antd";
 import axios from "axios";
 import { useEffect } from "react";
 import CountUp from "react-countup";
@@ -11,14 +11,6 @@ import CountUp from "react-countup";
 const formatter: StatisticProps["formatter"] = (value) => (
   <CountUp end={value as number} separator="," />
 );
-
-// Define the type for the data array
-interface DataItem {
-  name: string;
-  uv: number;
-  pv: number;
-  amt: number;
-}
 
 type statistic = {
   orderStatistic: {
@@ -81,14 +73,14 @@ const AdminDashboard = () => {
       {/* header */}
       <div>
         <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-          Dashboard
+          MENVERSE
         </h3>
       </div>
       {/* statistics */}
-      <div className="mt-10 px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
+      <div className="mt-5 md:mt-10 px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
         <div>
           <Statistic
-            className="bg-blue-200 p-5 text-center font-bold rounded-2xl"
+            className="bg-green-200 p-5 text-center font-bold rounded-2xl"
             title="Total Balance (BDT)"
             value={data?.orderStatistic?._sum?.totalPrice}
             precision={2}
@@ -97,7 +89,7 @@ const AdminDashboard = () => {
         </div>
         <div>
           <Statistic
-            className="bg-blue-200 p-5 text-center font-bold rounded-2xl"
+            className="bg-teal-200 p-5 text-center font-bold rounded-2xl"
             title="Total Orders"
             value={data?.orderStatistic?._count}
             formatter={formatter}
@@ -105,7 +97,7 @@ const AdminDashboard = () => {
         </div>
         <div>
           <Statistic
-            className="bg-blue-200 p-5 text-center font-bold rounded-2xl"
+            className="bg-sky-200 p-5 text-center font-bold rounded-2xl"
             title="Total Customers"
             value={data?.customerStatistic?._count}
             formatter={formatter}

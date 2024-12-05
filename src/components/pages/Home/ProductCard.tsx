@@ -45,28 +45,28 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
     }
 
     return (
-        <div className="min-h-[200px] w-[250px] flex flex-col items-stretch text-center justify-center gap-4 px-4 pt-4 pb-8 rounded-xl amoled-shadow bg-white lg:bg-none">
+        <div className="w-[170px] md:w-[250px] flex flex-col items-stretch text-center justify-center gap-1 md:gap-4 p-3 md:px-4 lg:pt-4 md:pb-8 rounded-xl amoled-shadow bg-white lg:bg-none">
             <Link href={`/products/${item.id}`}>
-                <div className="p-4">
+                <div className="md:p-4">
                     <Image
                         src={item?.images[0]}
                         alt={`Image`}
                         width={120}
                         height={100}
-                        className="w-[200px] h-[210px] rounded-lg"
+                        className="w-full h-[165px] md:w-[200px] md:h-[210px] rounded-lg"
                     />
                 </div>
-                <div className="border-[#194464] flex flex-col gap-2">
-                    <p className="truncate font-outfit text-base font-bold text-[#194464]">
+                <div className="border-[#194464] flex flex-col gap-1 md:px-4 mt-2">
+                    <p className="md:truncate font-outfit text-sm lg:text-base font-bold text-[#194464]">
                         {item?.product_name}
                     </p>
-                    <p className="font-outfit text-sm text-[#194464] max-h-14 overflow-hidden">
+                    <p className="font-outfit text-xs md:text-sm text-[#194464] max-h-14 overflow-hidden truncate md:whitespace-normal">
                         {item?.description}
                     </p>
                     {/* price ...............................*/}
                     <div className="flex flex-col items-center font-semibold text-xl">
                         <div
-                            className={`flex flex-col-reverse ${item.discount_price
+                            className={`flex flex-row-reverse ${item.discount_price
                                 ? "flex-row-reverse justify-end items-center "
                                 : ""
                                 }`}
@@ -86,8 +86,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
                                 </span>
                             </div>
                             {item?.discount_price ? (
-                                <div className="t text-center rounded-lg  text-[#184364] font-bold text-xl flex justify-center items-center">
-                                    Price : {item?.discount_price}{" "}
+                                <div className="text-center rounded-lg  text-[#184364] font-bold text-xl flex justify-center items-center">
+                                    {item?.discount_price}{" "}
                                     <span>
                                         {" "}
                                         <TbCurrencyTaka />
@@ -101,12 +101,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
                 </div>
             </Link>
 
-            <div>
+            <div className="md:px-4">
                 <button
                     onClick={() =>
                         addToCart(itemObject)
                     }
-                    className="btn border-2 border-[#194464] px-2 py-2 rounded-xl text-base font-semibold font-outfit bg-[#194464] text-white transition-colors duration-300 text-center"
+                    className="w-full btn btn-sm md:btn-md border-2 border-[#194464] p-1 md:p-2 rounded-lg md:rounded-xl text-sm md:text-base font-semibold font-outfit bg-[#194464] text-white transition-colors duration-300 text-center"
                 >
                     Add to cart
                 </button>

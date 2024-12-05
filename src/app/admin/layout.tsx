@@ -16,7 +16,7 @@ import { RxDashboard } from "react-icons/rx";
 import "@/styles/adminlayout.css";
 import { usePathname, useRouter } from "next/navigation";
 import { TbCategoryPlus } from "react-icons/tb";
-import floral from "../../../public/Images/floral.jpg";
+import menverse from "../../../public/Images/logo.png";
 import Swal from "sweetalert2";
 
 const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -236,12 +236,12 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Image
                 width={500}
                 height={500}
-                src={floral}
+                src={menverse}
                 alt="user_photo"
-                className="w-12 h-12 rounded-full bg-gray-500"
+                className="w-12 h-12 rounded-full bg-white"
               />
               <div>
-                <h2 className="text-lg font-semibold">Floral Radiance</h2>
+                <h2 className="text-lg font-semibold">MENVERSE</h2>
                 <span className="flex items-center space-x-1 text-sm font-thin">
                   Admin Panel
                 </span>
@@ -277,7 +277,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         >
           <div className="flex items-center justify-between">
             <h1 className="text-left text-sm font-thin italic text-gray-600 lg:bg-[#d1e3ee] px-4 py-2 lg:rounded-3xl">
-              Floral Radiance 🌹
+              Menverse 👕
             </h1>
             <h1 className="text-left text-sm font-thin italic text-gray-600 lg:bg-[#d1e3ee] px-4 py-2 lg:rounded-3xl">
               Date: {new Date().toLocaleDateString()}{" "}
@@ -291,7 +291,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <ul
           id="link1"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          className="flex flex-row flex-nowrap overflow-x-scroll scroll-smooth menu menu-horizontal px-1 gap-1 text-gray-500"
+          className="flex flex-row flex-nowrap overflow-x-scroll scroll-smooth menu menu-horizontal px-3 py-3 gap-1 text-gray-500"
         >
           {links}
         </ul>
@@ -301,7 +301,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <ul
           id="link1"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          className="flex flex-row flex-nowrap overflow-x-scroll scroll-smooth menu menu-horizontal text-[22px] px-3 gap-2 text-gray-500 whitespace-nowrap"
+          className="flex flex-row flex-nowrap overflow-x-scroll scroll-smooth menu menu-horizontal text-[22px] px-3 py-3 gap-2 text-gray-500 whitespace-nowrap"
         >
           {linksForMobile}
         </ul>

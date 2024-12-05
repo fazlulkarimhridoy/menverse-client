@@ -1,7 +1,7 @@
+"use client"
+
 import { useSearchText } from "@/context/SearchTextContext";
-import { SearchProps } from "antd/es/input";
 import React, { useEffect, useRef, useState } from "react";
-import { IoSearchSharp } from "react-icons/io5";
 
 const Search = () => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -37,7 +37,7 @@ const Search = () => {
                 ref={inputRef}
                 type="text"
                 placeholder="Search"
-                className={`input-element outline-none bg-[#f4f4f4] ${
+                className={`input-element outline-none bg-sky-50 ${
                     isFocused ? "focused" : ""
                 }`}
                 onKeyDown={(e: any) => {

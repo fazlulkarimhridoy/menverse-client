@@ -11,14 +11,14 @@ const BannerContent = () => {
   return (
     <div className="">
       <div className="">
-        <div className="flex flex-col-reverse gap-4 md:flex-col justify-around items-center  h-[650px]">
+        <div className="flex flex-col-reverse gap-4 md:flex-col justify-around items-center sm:h-[400px] lg:h-[650px]">
           {/* <div>
             <h1 className="text-5xl playfair font-bold text-[#194363] text-center ">Floral Radiance</h1>
           </div> */}
-          <section className="flex flex-col md:flex-row p-2 items-center justify-around gap-4">
+          <section className="flex flex-col sm:flex-row p-2 items-center justify-around gap-4">
             <div className=" max-w-[400px] space-y-8 px-2">
               <p className="text-5xl playfair font-bold text-[#194363] cssanimation ">
-                We make gifting and celebrating better.
+              Embrace your quirks, express it through fashion.
               </p>
               <Link href={'/products'}>
                 <button className="group relative inline-block overflow-hidden border border-[#194464] px-8 py-3 focus:outline-none focus:ring rounded-xl mt-4">
@@ -34,16 +34,10 @@ const BannerContent = () => {
                 className="rounded-full "
                 width={400}
                 height={300}
-                src={"/Images/bouquet-vec.jpg"}
+                src={"/Images/banner-image-1.jpg"}
                 alt="flower"
               ></Image>
             </div>
-            {/* <div>
-              <p className="max-w-[300px] text-2xl font-bold text-[#194363]">
-                So you can show up for every meaningful occasion, milestone, and
-                moment.
-              </p>
-            </div> */}
           </section>
         </div>
       </div>
