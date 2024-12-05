@@ -27,7 +27,6 @@ const OrderItem = ({ item }: { item: OrderItemType }) => {
         enabled: item?.productId ? true : false,
     });
 
-    console.log("images", singleProductImages);
     return (
         <div className="flex items-center gap-3 bg-gray-100 rounded-xl mt-2 p-2">
             {isLoading ? (
@@ -44,17 +43,17 @@ const OrderItem = ({ item }: { item: OrderItemType }) => {
                         }
                         alt="item-image"
                     />
-                    <div className="flex flex-col justify-center">
+                    <div className="flex flex-col justify-center truncate text-nowrap">
                         <h3 className="font-bold">
                             {singleProductImages?.product_name}
                         </h3>
-                        <div className="flex items-center justify-between text-sm font-medium">
+                        <div className="flex items-center gap-2 text-sm font-medium">
                             <p>
-                                Quantity:
+                                Quantity: {" "}
                                 {item?.quantity}
                             </p>
                             <p>
-                                Size:
+                                Size: {" "}
                                 {item?.size}
                             </p>
                         </div>

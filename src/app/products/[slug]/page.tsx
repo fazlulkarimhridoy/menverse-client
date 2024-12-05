@@ -51,7 +51,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
         handlePrice(buttonIndex);
     };
 
-    const { data: singleProduct, isLoading } = useQuery<ProductType>({
+    const { data: singleProduct, isLoading, isSuccess } = useQuery<ProductType>({
         queryKey: ["singleProduct"],
         queryFn: async () => {
             const res = await axios.get(
@@ -61,6 +61,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
         },
         retry: 2,
         refetchOnWindowFocus: false,
+        
     });
 
     const singleObj = {
@@ -71,6 +72,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
         quantity: singleProduct?.quantity ?? 0,
         discount_price: singleProduct?.discount_price ?? 0,
         size: singleProduct?.size ?? "",
+        uid: Math.ceil(Math.random() *999)
     };
 
     // handle cart click
@@ -189,7 +191,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                 )
             )}
             <div>
-                <Suggetions />
+                <Suggetions isSuccess={isSuccess} />
             </div>
         </div>
     );

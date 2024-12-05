@@ -43,7 +43,7 @@ const Page = () => {
 
     const handleSizeChange = (id: number, size: string) => {
         setCartData((prevCart) =>
-            prevCart.map((item) => (item.id === id ? { ...item, size } : item))
+            prevCart.map((item) => (item.uid === id ? { ...item, size } : item))
         );
     };
 
@@ -184,7 +184,6 @@ const Page = () => {
                 throw new Error("Failed to create customer.");
             }
 
-            console.log("customer", customerResponse);
             const customerId = customerResponse.data.data.id;
 
             // Create order
@@ -208,7 +207,6 @@ const Page = () => {
                 }
             );
 
-            console.log(orderResponse);
             if (orderResponse.data.status !== "success") {
                 setLoading(false);
                 throw new Error("Failed to create order.");
@@ -303,7 +301,7 @@ const Page = () => {
                                                             className="bg-gray-200 px-3 py-1 rounded-md text-lg"
                                                             onClick={() =>
                                                                 updateCartItemQuantity(
-                                                                    data.id,
+                                                                    data.uid,
                                                                     data.quantity -
                                                                         1
                                                                 )
@@ -322,7 +320,7 @@ const Page = () => {
                                                             className="bg-gray-200 px-3 py-1 rounded-md text-lg"
                                                             onClick={() =>
                                                                 updateCartItemQuantity(
-                                                                    data.id,
+                                                                    data.uid,
                                                                     data.quantity +
                                                                         1
                                                                 )
@@ -350,7 +348,7 @@ const Page = () => {
                                                                 }`}
                                                                 onClick={() =>
                                                                     handleSizeChange(
-                                                                        data.id,
+                                                                        data.uid,
                                                                         size
                                                                     )
                                                                 }
@@ -370,7 +368,7 @@ const Page = () => {
                                                     <Button
                                                         onClick={() =>
                                                             removeFromCart(
-                                                                data?.id
+                                                                data?.uid
                                                             )
                                                         }
                                                         className="btn btn-circle btn-outline btn-sm"

@@ -33,7 +33,7 @@ const Success = () => {
         Successfully Purchased🎉
       </h1>
       <p className="text-gray-400 text-center text-sm md:text-lg font-thin !italic">
-        Thanks for shopping from Floral Radiance ❤
+        Thanks for shopping from MENVERSE ❤
       </p>
       <div
         data-aos="zoom-in"

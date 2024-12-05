@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -21,7 +21,7 @@ interface ProductType {
     size: string;
 }
 
-export default function Suggetions() {
+export default function Suggetions({ isSuccess }: { isSuccess: any }) {
     const { modal1Open, setModal1Open } = useCart();
 
     // fetch all products froom server
@@ -33,6 +33,7 @@ export default function Suggetions() {
             );
             return res.data.data;
         },
+        enabled: isSuccess,
         retry: 2,
         refetchOnWindowFocus: false,
     });
