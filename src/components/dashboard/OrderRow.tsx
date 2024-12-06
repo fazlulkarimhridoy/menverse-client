@@ -25,8 +25,6 @@ type OrderType = {
     id: number;
     customerId: number;
     totalPrice: number;
-    deliveryDate: string;
-    deliveryTime: string;
     orderStatus: string;
     orderDate: string;
     orderTime: string;
@@ -34,13 +32,11 @@ type OrderType = {
     items: string[];
     customer: {
         name: string;
-        email: string;
         phone: string;
         address: string;
         customerId: string;
     };
     note: string;
-    transactionId: string;
 };
 
 const OrderRow = ({
@@ -62,26 +58,21 @@ const OrderRow = ({
         id,
         customerId,
         totalPrice,
-        deliveryDate,
-        deliveryTime,
         orderDate,
         orderStatus,
         paymentMethod,
         items,
         customer,
         note,
-        transactionId,
     } = categoryData;
 
     return (
         <tr>
             <th>{customerId}</th>
             <th>{customer?.name}</th>
-
+            <th>{customer?.phone}</th>
             <td>{totalPrice}</td>
             <td>{paymentMethod === "CASHON" ? "Cash On Delivery" : "Bkash"}</td>
-            <td>{deliveryDate}</td>
-            <td>{deliveryTime}</td>
             <td>
                 <div>
                     {typeof orderDate === "string"
@@ -146,22 +137,12 @@ const OrderRow = ({
                                 {customer?.name}
                             </p>
                             <p className="flex gap-2">
-                                <span className="font-semibold">Email:</span>{" "}
-                                {customer?.email}
-                            </p>
-                            <p className="flex gap-2">
                                 <span className="font-semibold">Phone:</span>{" "}
                                 {customer?.phone}
                             </p>
                             <p className="flex gap-2">
                                 <span className="font-semibold">Address:</span>{" "}
                                 {customer?.address}
-                            </p>
-                            <p className="flex gap-2">
-                                <span className="font-semibold">
-                                    Transaction Id:
-                                </span>{" "}
-                                {transactionId}
                             </p>
                             <p className="flex gap-2">
                                 <span className="font-semibold">Note:</span>{" "}

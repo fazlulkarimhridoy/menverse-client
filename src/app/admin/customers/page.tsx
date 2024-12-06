@@ -11,9 +11,9 @@ type CustomerType = {
     id: number;
     customerId: number;
     name: string;
-    email: string;
     phone: string;
     address: string;
+    createdAt: string;
 };
 
 const { Search } = Input;
@@ -30,10 +30,7 @@ const Products = () => {
     const [searchText, setSearchText] = useState("");
 
     // fetch all customers
-    const {
-        data: allCustomers = [],
-        isLoading,
-    } = useQuery<CustomerType[]>({
+    const { data: allCustomers = [], isLoading } = useQuery<CustomerType[]>({
         queryKey: ["allCustomers"],
         queryFn: async () => {
             const res = await axios.get(
@@ -55,9 +52,6 @@ const Products = () => {
                       // Check product name, category (strings), and productId (number)
                       return (
                           customer?.name
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          customer?.email
                               ?.toLowerCase()
                               ?.includes(searchString) ||
                           customer?.phone
@@ -121,9 +115,9 @@ const Products = () => {
                             <th>Id</th>
                             <th>Unique Id</th>
                             <th>Name</th>
-                            <th>Email Address</th>
-                            <th>Phone</th>
+                            <th>Phone Number</th>
                             <th>Address</th>
+                            <th>Order Date</th>
                         </tr>
                     </thead>
                     <tbody>

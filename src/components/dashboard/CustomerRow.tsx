@@ -5,9 +5,9 @@ interface CustomerType {
     id: number;
     customerId: number;
     name: string;
-    email: string;
     phone: string;
     address: string;
+    createdAt: string;
 }
 
 const CustomerRow = ({
@@ -15,7 +15,7 @@ const CustomerRow = ({
 }: {
     customerData: CustomerType;
 }) => {
-    const { id, customerId, name, email, phone, address } = customerData;
+    const { id, customerId, name, phone, address, createdAt } = customerData;
 
     return (
         <tr>
@@ -24,10 +24,17 @@ const CustomerRow = ({
             <td>
                 <div className="text-gray-600 font-bold">{name}</div>
             </td>
-            <td>{email}</td>
             <td>{phone}</td>
             <td>{address}</td>
-            
+            <td><div>
+                    {typeof createdAt === "string"
+                        ? new Date(createdAt).toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                          })
+                        : "Invalid date"}
+                </div></td>
         </tr>
     );
 };
