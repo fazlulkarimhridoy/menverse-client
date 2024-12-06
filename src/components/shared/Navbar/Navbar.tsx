@@ -51,7 +51,7 @@ const Navbar = () => {
                     : "bg-transparent shadow-[0_0_60px_-0_rgba(0,0,0,0.3)"
             }
         >
-            <div className="flex items-center justify-between px-2 md:px-2 py-2 font-semibold">
+            <div className="flex items-center justify-between px-3 md:px-2 py-2 font-semibold">
                 <Link href="/">
                     <div className="flex items-center cursor-pointer">
                         <Image
@@ -88,10 +88,10 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center gap-5">
                     <Link className="relative" href={"/cart"}>
                         <button>
-                            <ShoppingCartOutlined className="text-3xl font-bold hover:text-sky-600 transition-colors mr-8" />
+                            <ShoppingCartOutlined className="text-3xl font-bold hover:text-sky-600 transition-colors lg:mr-8" />
                         </button>
                         <p className="absolute -top-3 left-4 bg-sky-600 rounded-full w-5 text-center  text-white">
                             {cartData.length}
@@ -100,7 +100,7 @@ const Navbar = () => {
 
                     {/* Hamburger menu */}
                     <div className="lg:hidden block">
-                        <FiMenu size={25} onClick={showDrawer} />
+                        <FiMenu size={30} onClick={showDrawer} />
                         <Drawer
                             width={200}
                             closable={false}
