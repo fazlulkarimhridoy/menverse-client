@@ -52,7 +52,7 @@ const NewFooter = () => {
                         <li className="text-6xl cursor-pointer">
                             <a
                                 target="blank"
-                                href="https://www.instagram.com/floral.radiance/?igsh=ZmFyMXZzdWZ6dXIy"
+                                href="https://www.instagram.com"
                             >
                                 <FaInstagram />
                             </a>
@@ -60,7 +60,7 @@ const NewFooter = () => {
                         <li className="text-6xl cursor-pointer">
                             <a
                                 target="blank"
-                                href="https://www.facebook.com/Floralradiance"
+                                href="https://www.facebook.com/menverse.2.0"
                             >
                                 <FaFacebook />
                             </a>
