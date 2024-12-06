@@ -4,7 +4,7 @@ const Page = () => {
   return (
     <div className="p-10">
       <h1 className="playfair text-center text-4xl font-bold text-[#333333] mb-4">
-        Floral Radiance Privacy Policy
+        MENVERSE Privacy Policy
       </h1>
 
       <div className="max-w-[800px] mx-auto text-[#333333] space-y-10">
@@ -12,7 +12,7 @@ const Page = () => {
           Privacy Policy outlines how we collect, use, disclose, and safeguard
           your information when you visit our website and make purchases from
           us. By accessing or using our services, you agree to the terms of this
-          policy. At Floral Radiance, we are committed to protecting your
+          policy. At MENVERSE, we are committed to protecting your
           privacy.
         </h2>
 
@@ -77,7 +77,7 @@ const Page = () => {
           rights, please contact us at info@floralradiancebd.com
         </p>
         <p className="font-outfit text-lg">
-          8. Changes to This Privacy Policy Floral Radiance reserves the right
+          8. Changes to This Privacy Policy MENVERSE reserves the right
           to update or change this Privacy Policy at any time. Any updates will
           be posted on this page with a revised date. We encourage you to review
           this policy regularly to stay informed about how we are protecting
@@ -85,8 +85,8 @@ const Page = () => {
         </p>
         <p className="font-outfit text-lg">
           9. Contact Us If you have any questions or concerns about our Privacy
-          Policy, please contact us at: Floral Radiance Email:
-          info@floralradiancebd.com Phone: 01304-035398
+          Policy, please contact us at: MENVERSE Email:
+          urbanfits23@gmail.com Phone: 01328-369000
         </p>
       </div>
     </div>

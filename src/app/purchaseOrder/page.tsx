@@ -57,11 +57,6 @@ const Page = () => {
         );
     };
 
-    useEffect(() => {
-        const total = calculateTotal();
-        console.log(total + value);
-    }, [value]);
-
     const { TextArea } = Input;
 
     const onChangeNote = (
