@@ -15,8 +15,6 @@ type OrderType = {
     id: number;
     customerId: number;
     totalPrice: number;
-    deliveryDate: string;
-    deliveryTime: string;
     orderStatus: string;
     orderDate: string;
     orderTime: string;
@@ -24,13 +22,11 @@ type OrderType = {
     items: string[];
     customer: {
         name: string;
-        email: string;
         phone: string;
         address: string;
         customerId: string;
     };
     note: string;
-    transactionId: string;
 };
 
 const Orders = () => {
@@ -74,10 +70,7 @@ const Orders = () => {
                       return (
                           order?.customer.name
                               ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          order?.customer.email
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
+                              ?.includes(searchString)||
                           order?.customer.phone
                               ?.toString()
                               ?.toLowerCase()
@@ -187,10 +180,9 @@ const Orders = () => {
                         <tr className="bg-gray-200">
                             <th>Customer Id</th>
                             <th>Name</th>
+                            <th>Phone Number</th>
                             <th>Total Price</th>
                             <th>Payment Method</th>
-                            <th>Delivery Date</th>
-                            <th>Delivery Time</th>
                             <th>Order Date</th>
                             <th>Details</th>
                             <th>Order Status</th>

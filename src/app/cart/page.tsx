@@ -12,7 +12,7 @@ const Cart: React.FC = () => {
 
     const handleSizeChange = (id: number, size: string) => {
         setCartData((prevCart) =>
-            prevCart.map((item) => (item.id === id ? { ...item, size } : item))
+            prevCart.map((item) => (item.uid === id ? { ...item, size } : item))
         );
     };
 
@@ -71,7 +71,7 @@ const Cart: React.FC = () => {
                                                 className="bg-gray-200 px-3 py-1 rounded-md text-lg font-bold"
                                                 onClick={() =>
                                                     updateCartItemQuantity(
-                                                        data.id,
+                                                        data.uid,
                                                         data.quantity - 1
                                                     )
                                                 }
@@ -86,7 +86,7 @@ const Cart: React.FC = () => {
                                                 className="bg-gray-200 px-3 py-1 rounded-md text-lg font-bold"
                                                 onClick={() =>
                                                     updateCartItemQuantity(
-                                                        data.id,
+                                                        data.uid,
                                                         data.quantity + 1
                                                     )
                                                 }
@@ -108,7 +108,7 @@ const Cart: React.FC = () => {
                                                         }`}
                                                         onClick={() =>
                                                             handleSizeChange(
-                                                                data.id,
+                                                                data.uid,
                                                                 size
                                                             )
                                                         }
@@ -129,7 +129,7 @@ const Cart: React.FC = () => {
                                     <td className="text-right">
                                         <Button
                                             onClick={() =>
-                                                removeFromCart(data?.id)
+                                                removeFromCart(data?.uid)
                                             }
                                             className="btn btn-sm btn-circle"
                                         >
@@ -157,7 +157,7 @@ const Cart: React.FC = () => {
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-10 my-[22px]">
                 {cartData?.length > 0 && (
-                    <CartTotal calculateTotal={calculateTotal} show={true} />
+                    <CartTotal deliveryCharge={60} calculateTotal={calculateTotal} show={true} />
                 )}
             </div>
         </div>

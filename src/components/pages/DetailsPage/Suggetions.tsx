@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Empty, Spin } from "antd";
@@ -21,21 +21,36 @@ interface ProductType {
     size: string;
 }
 
-export default function Suggetions() {
+export default function Suggetions({ isSuccess }: { isSuccess: any }) {
     const { modal1Open, setModal1Open } = useCart();
+    const [randomProducts, setRandomProducts] = useState<ProductType[]>([]);
+
 
     // fetch all products froom server
     const { data: recentProducts = [], isLoading } = useQuery<ProductType[]>({
         queryKey: ["recentProducts"],
         queryFn: async () => {
             const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/recent-products`
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/all-products`
             );
             return res.data.data;
         },
+        enabled: isSuccess,
         retry: 2,
         refetchOnWindowFocus: false,
     });
+
+    useEffect(() => {
+        if (!isLoading && recentProducts.length > 0) {
+            const shuffledArray = [...recentProducts];
+            for (let i = shuffledArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+            }
+            setRandomProducts(shuffledArray.slice(0, 4));
+        }
+    }, [recentProducts]);
+
     return (
         <div className="border-t py-4">
             <h1 className="text-center text-3xl font-semibold md:text-4xl font-outfit ">
@@ -46,7 +61,7 @@ export default function Suggetions() {
                     <Spin size="large" />
                 ) : recentProducts?.length > 0 ? (
                     recentProducts?.length > 0 ? (
-                        recentProducts?.map((item) => (
+                        randomProducts?.map((item) => (
                             <ProductCard
                                 key={item?.id}
                                 item={item}

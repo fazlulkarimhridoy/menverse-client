@@ -18,7 +18,8 @@ type CartItem = {
     price: number;
     quantity: number;
     discount_price: number;
-    size: string
+    size: string;
+    uid: number;
 };
 
 type CartContextType = {
@@ -59,36 +60,36 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const addToCart = (item: CartItem) => {
         // for a product to be selected multiple times
-        // setCartData((prevCartData) => [
-        //     ...prevCartData,
-        //     { ...item, quantity: 1 },
-        // ]);
-        // setModal1Open(true); // Open the modal when a new item is added
+        setCartData((prevCartData) => [
+            ...prevCartData,
+            { ...item, quantity: 1 },
+        ]);
+        setModal1Open(true); // Open the modal when a new item is added
 
         // for a product to be selected single times
-        const existingProduct = cartData.find(
-            (cartItem) => cartItem.id === item.id
-        );
-        if (!existingProduct) {
-            setCartData((prevCartData) => [
-                ...prevCartData,
-                { ...item, quantity: 1 },
-            ]);
-            setModal1Open(true); // Open the modal when a new item is added
-        } else {
-            Swal.fire({
-                position: "center",
-                icon: "warning",
-                title: "Product already in the cart!",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-        }
+        // const existingProduct = cartData.find(
+        //     (cartItem) => cartItem.id === item.id
+        // );
+        // if (!existingProduct) {
+        //     setCartData((prevCartData) => [
+        //         ...prevCartData,
+        //         { ...item, quantity: 1 },
+        //     ]);
+        //     setModal1Open(true); // Open the modal when a new item is added
+        // } else {
+        //     Swal.fire({
+        //         position: "center",
+        //         icon: "warning",
+        //         title: "Product already in the cart!",
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     });
+        // }
     };
 
     const removeFromCart = (id: number) => {
         setCartData((prevCartData) =>
-            prevCartData.filter((item) => item.id !== id)
+            prevCartData.filter((item) => item.uid !== id)
         );
     };
 
@@ -99,7 +100,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const updateCartItemQuantity = (id: number, newQuantity: number) => {
         setCartData((prevCart) =>
             prevCart.map((item) =>
-                item.id === id ? { ...item, quantity: newQuantity } : item
+                item.uid === id ? { ...item, quantity: newQuantity } : item
             )
         );
     };

@@ -5,9 +5,10 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 interface CartTotalProps {
     show: boolean;
     calculateTotal: Function;
+    deliveryCharge: number;
 }
 
-const CartTotal: React.FC<CartTotalProps> = ({ calculateTotal, show }) => {
+const CartTotal: React.FC<CartTotalProps> = ({ calculateTotal, show, deliveryCharge }) => {
     const total = calculateTotal();
 
     return (
@@ -16,16 +17,23 @@ const CartTotal: React.FC<CartTotalProps> = ({ calculateTotal, show }) => {
                 Cart Totals
             </h1>
             <h1 className="text-lg font-semibold text-fade-black flex justify-between">
-                <span>Sub total:</span>{" "}
+                <span>Sub Total:</span>{" "}
                 <span className="flex items-center">
                     <p>{total}</p>
+                    <FaBangladeshiTakaSign className="text-sm" />
+                </span>{" "}
+            </h1>
+            <h1 className="text-lg font-semibold text-fade-black flex justify-between">
+                <span>Delivery Charge:</span>{" "}
+                <span className="flex items-center">
+                    <p>{deliveryCharge}</p>
                     <FaBangladeshiTakaSign className="text-sm" />
                 </span>{" "}
             </h1>
             <div className="text-lg font-semibold text-fade-black flex justify-between">
                 <span>Total:</span>{" "}
                 <span className="flex items-center">
-                    <p>{total}</p>
+                    <p>{total+deliveryCharge}</p>
                     <FaBangladeshiTakaSign className="text-sm" />
                 </span>{" "}
             </div>

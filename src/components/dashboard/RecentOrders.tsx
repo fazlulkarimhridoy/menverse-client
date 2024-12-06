@@ -123,10 +123,9 @@ const RecentOrders = () => {
               <tr className="bg-gray-200">
                 <th>Customer Id</th>
                 <th>Name</th>
+                <th>Phone Number</th>
                 <th>Total Price</th>
                 <th>Payment Method</th>
-                <th>Delivery Date</th>
-                <th>Delivery Time</th>
                 <th>Order Date</th>
                 <th>Details</th>
                 <th>Order Status</th>

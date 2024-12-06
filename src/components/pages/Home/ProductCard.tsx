@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Modal } from 'antd';
+import { Modal } from "antd";
 import { FaCheckCircle } from "react-icons/fa";
 import { useCart } from "@/context/CartProvider";
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -27,11 +27,12 @@ interface ProductCardProps {
     setModal1Open: Function;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Open }) => {
-
-
-
-    const { addToCart } = useCart()
+const ProductCard: React.FC<ProductCardProps> = ({
+    item,
+    modal1Open,
+    setModal1Open,
+}) => {
+    const { addToCart } = useCart();
 
     const itemObject = {
         id: item?.id,
@@ -40,9 +41,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
         price: item?.price,
         quantity: item?.quantity,
         discount_price: item?.discount_price,
-        size: item?.size
-
-    }
+        size: item?.size,
+        uid: Math.ceil(Math.random() * 999),
+    };
 
     return (
         <div className="w-[170px] md:w-[250px] flex flex-col items-stretch text-center justify-center gap-1 md:gap-4 p-3 md:px-4 lg:pt-4 md:pb-8 rounded-xl amoled-shadow bg-white lg:bg-none">
@@ -66,17 +67,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
                     {/* price ...............................*/}
                     <div className="flex flex-col items-center font-semibold text-xl">
                         <div
-                            className={`flex flex-row-reverse ${item.discount_price
-                                ? "flex-row-reverse justify-end items-center "
-                                : ""
-                                }`}
+                            className={`flex flex-row-reverse ${
+                                item.discount_price
+                                    ? "flex-row-reverse justify-end items-center "
+                                    : ""
+                            }`}
                         >
                             <div className="text-center rounded-lg  text-[#184364] font-bold text-lg flex justify-center items-center">
                                 <span
-                                    className={`${item?.discount_price
-                                        ? "line-through text-red-500 text-xl"
-                                        : ""
-                                        } text-lg font-semibold`}
+                                    className={`${
+                                        item?.discount_price
+                                            ? "line-through text-red-500 text-xl"
+                                            : ""
+                                    } text-lg font-semibold`}
                                 >
                                     {item?.price}
                                 </span>{" "}
@@ -103,9 +106,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
 
             <div className="md:px-4">
                 <button
-                    onClick={() =>
-                        addToCart(itemObject)
-                    }
+                    onClick={() => addToCart(itemObject)}
                     className="w-full btn btn-sm md:btn-md border-2 border-[#194464] p-1 md:p-2 rounded-lg md:rounded-xl text-sm md:text-base font-semibold font-outfit bg-[#194464] text-white transition-colors duration-300 text-center"
                 >
                     Add to cart
@@ -116,16 +117,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
                     footer={[
                         <div key={item?.id} className="flex gap-2 justify-end">
                             <Link href={`/cart`}>
-                                <button className="border-2 border-[#194464] px-2 py-2 rounded-xl text-base font-semibold font-outfit hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center" >
+                                <button className="border-2 border-[#194464] px-2 py-2 rounded-xl text-base font-semibold font-outfit hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center">
                                     View cart
                                 </button>
                             </Link>
                             <Link href={`/purchaseOrder`}>
-                                <button className="border-2 border-[#194464] px-2 py-2 rounded-xl text-base font-semibold font-outfit hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center" >
+                                <button className="border-2 border-[#194464] px-2 py-2 rounded-xl text-base font-semibold font-outfit hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center">
                                     Purchase
                                 </button>
                             </Link>
-                        </div>
+                        </div>,
                     ]}
                     closeIcon
                     mask={false}
@@ -142,8 +143,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, modal1Open, setModal1Op
                         </figure> */}
                         <div className="flex space-y-8">
                             <div className="space-y-4">
-                                <h1 className="font-outfit md:text-2xl font-semibold">{item?.product_name}</h1>
-                                <h1 className="flex items-center gap-2 md:text-xl font-bold"><FaCheckCircle className="text-xl" /> Added to cart successfully!</h1>
+                                <h1 className="font-outfit md:text-2xl font-semibold">
+                                    {item?.product_name}
+                                </h1>
+                                <h1 className="flex items-center gap-2 md:text-xl font-bold">
+                                    <FaCheckCircle className="text-xl" /> Added
+                                    to cart successfully!
+                                </h1>
                             </div>
                         </div>
                     </div>

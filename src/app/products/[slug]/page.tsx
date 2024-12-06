@@ -9,7 +9,7 @@ import { Flex, Rate } from "antd";
 import { Spin } from "antd";
 import ImageDetails from "@/components/pages/DetailsPage/ImageDetails";
 import { useRouter } from "next/navigation";
-import { FaThumbsUp } from "react-icons/fa";
+import { FaThumbsUp, FaTshirt } from "react-icons/fa";
 import { useCart } from "@/context/CartProvider";
 import Suggetions from "@/components/pages/DetailsPage/Suggetions";
 
@@ -34,24 +34,12 @@ const Page = ({ params }: { params: { slug: string } }) => {
     const { addToCart } = useCart();
     const router = useRouter();
     const { push } = router;
-    const [modal1Open, setModal1Open] = useState(false);
-    const [activeButton, setActiveButton] = useState<number | null>(null);
 
-    const [price, setPrice] = useState(250);
-
-    const handlePrice = (quantity: number) => {
-        if (price > 0) {
-            setPrice(0);
-        }
-        setPrice(quantity * 250);
-    };
-
-    const handleClick = (buttonIndex: number): void => {
-        setActiveButton(buttonIndex);
-        handlePrice(buttonIndex);
-    };
-
-    const { data: singleProduct, isLoading } = useQuery<ProductType>({
+    const {
+        data: singleProduct,
+        isLoading,
+        isSuccess,
+    } = useQuery<ProductType>({
         queryKey: ["singleProduct"],
         queryFn: async () => {
             const res = await axios.get(
@@ -71,6 +59,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
         quantity: singleProduct?.quantity ?? 0,
         discount_price: singleProduct?.discount_price ?? 0,
         size: singleProduct?.size ?? "",
+        uid: Math.ceil(Math.random() * 999),
     };
 
     // handle cart click
@@ -169,7 +158,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                 </div>
                                 <p className="flex items-center gap-2 text-xl font-semibold">
                                     <span>
-                                        <PiFlowerFill />{" "}
+                                        <FaTshirt />{" "}
                                     </span>
                                     {singleProduct?.category}
                                 </p>
@@ -189,7 +178,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                 )
             )}
             <div>
-                <Suggetions />
+                <Suggetions isSuccess={isSuccess} />
             </div>
         </div>
     );
