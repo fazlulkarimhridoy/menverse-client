@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         alt={`Image`}
                         width={120}
                         height={100}
-                        className="w-full h-[165px] md:w-[200px] md:h-[210px] rounded-lg"
+                        className="w-full h-[150px] md:w-[200px] md:h-[200px] rounded-lg"
                     />
                 </div>
                 <div className="border-[#194464] flex flex-col gap-1 md:px-4 mt-2">

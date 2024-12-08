@@ -2,9 +2,7 @@
 
 import { useCategory } from "@/context/CategoryContext";
 import { useQuery } from "@tanstack/react-query";
-import { Spin } from "antd";
 import axios from "axios";
-import { list } from "postcss";
 import React from "react";
 
 interface CategoryType {
@@ -17,7 +15,7 @@ interface CategoryType {
 const SideBarMenu = () => {
     const { setCategoryName } = useCategory();
     // fetch all products from server
-    const { data: allCategories = [], isLoading } = useQuery<CategoryType[]>({
+    const { data: allCategories = [] } = useQuery<CategoryType[]>({
         queryKey: ["categories"],
         queryFn: async () => {
             const res = await axios.get(
@@ -41,10 +39,7 @@ const SideBarMenu = () => {
                 >
                     All product
                 </li>
-                {isLoading ? (
-                    <Spin />
-                ) : (
-                    allCategories?.length > 0 &&
+                {allCategories?.length > 0 &&
                     allCategories?.map((item) => (
                         <li
                             onClick={() => handleCategoryClick(item?.name)}
@@ -53,8 +48,7 @@ const SideBarMenu = () => {
                         >
                             {item?.name}
                         </li>
-                    ))
-                )}
+                    ))}
             </ul>
         </div>
     );
