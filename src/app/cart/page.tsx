@@ -44,7 +44,7 @@ const Cart: React.FC = () => {
                         {/* rows */}
                         {cartData?.length > 0 &&
                             cartData?.map((data, index) => (
-                                <tr key={data?.id}>
+                                <tr key={data?.uid}>
                                     <th>{index + 1}</th>
                                     <td>
                                         <div className="flex items-center gap-3">
