@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { TbCurrencyTaka } from "react-icons/tb";
-import { PiFlowerFill } from "react-icons/pi";
 import { Flex, Rate } from "antd";
 import { Spin } from "antd";
 import ImageDetails from "@/components/pages/DetailsPage/ImageDetails";

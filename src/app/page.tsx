@@ -5,6 +5,7 @@ import Banner from "@/components/pages/Home/Banner";
 import FeaturedProducts from "@/components/pages/Home/FeaturedProducts";
 import HowItWorks from "@/components/pages/Home/HowItWorks";
 import GetBouquet from "@/components/pages/Home/GetBouquet";
+import FacebookMsg from "@/components/FacebookMsg";
 
 const Home = () => {
   const [bgColor, setBgColor] = useState("bg-[#b8cedc]");
@@ -41,6 +42,7 @@ const Home = () => {
       <FeaturedProducts/>
       <HowItWorks/>
       <GetBouquet/>
+      <FacebookMsg />
     </div>
   );
 };

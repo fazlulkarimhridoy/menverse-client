@@ -12,8 +12,6 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
         return <p>No images available</p>;
     }
 
-    console.log(srcList);
-
     // const images = typeof srcList === "string" ? JSON.parse(item.images) : [];
     return (
         <div className="max-w-[450px] space-y-4">

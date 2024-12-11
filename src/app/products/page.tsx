@@ -5,7 +5,7 @@ import Banner from "@/components/pages/Shop/Banner";
 import ButtonGroup from "@/components/pages/Shop/ScrollBarSlider";
 import Search from "@/components/pages/Shop/Search";
 import SideBarMenu from "@/components/pages/Shop/SideBarMenu";
-
+import { useState } from "react";
 
 const Page = () => {
     const images = [
@@ -15,10 +15,16 @@ const Page = () => {
         "/images/flowerThree.jpeg",
     ];
 
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    const handleSuccess = (success: boolean) => {
+        setIsSuccess(success);
+    };
+
     return (
         <div className="flex flex-col-reverse  lg:flex-row  gap-4 max-w-[1440px] mx-auto px-2 no-scrollbar">
             <div className="border-r-2 ">
-                <SideBarMenu></SideBarMenu>
+                <SideBarMenu isSuccess={isSuccess}></SideBarMenu>
             </div>
             <div
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
@@ -32,7 +38,7 @@ const Page = () => {
                     <Banner images={images}></Banner>
                 </div>
                 <div className="bg-[#f4f4f4] rounded-2xl">
-                    <AllProducts />
+                    <AllProducts handleSuccess={handleSuccess} />
                 </div>
             </div>
         </div>

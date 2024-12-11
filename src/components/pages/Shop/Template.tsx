@@ -9,7 +9,7 @@ const Template = () => {
             </p>
             <div>
                 <Image
-                    className="bg-[#b8cedc]"
+                    className="bg-[#b8cedc] w-auto h-auto"
                     src="https://photostore.menverseshop.com/public/photos/tshirt.png"
                     alt="flower"
                     width={250}
