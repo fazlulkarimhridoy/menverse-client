@@ -26,7 +26,9 @@ const Cart: React.FC = () => {
 
     return (
         <div className="w-full lg:w-[70%] mx-auto px-2 lg:px-0 py-4">
-            <div className="overflow-x-auto scroll-smooth pt-4 mb-5 md:mb-0 ">
+            <div
+                className="overflow-x-auto scroll-smooth pt-4 mb-5 md:mb-0 "
+            >
                 <table className="table whitespace-nowrap">
                     {/* head */}
                     <thead>
@@ -145,7 +147,10 @@ const Cart: React.FC = () => {
                                 <td></td>
                                 <td>
                                     {" "}
-                                    <Empty className="my-[46.5px]" description="No items in cart." />
+                                    <Empty
+                                        className="my-[46.5px]"
+                                        description="No items in cart."
+                                    />
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -155,9 +160,14 @@ const Cart: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="flex flex-col md:flex-row justify-center gap-10 my-[22px]">
+            
+            <div className="flex flex-col md:flex-row justify-center gap-10 my-[34px]">
                 {cartData?.length > 0 && (
-                    <CartTotal deliveryCharge={60} calculateTotal={calculateTotal} show={true} />
+                    <CartTotal
+                        deliveryCharge={60}
+                        calculateTotal={calculateTotal}
+                        show={true}
+                    />
                 )}
             </div>
         </div>

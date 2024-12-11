@@ -89,7 +89,7 @@ const AdminDashboard = () => {
         </div>
         <div>
           <Statistic
-            className="bg-teal-200 p-5 text-center font-bold rounded-2xl"
+            className="bg-[#D3E3CD] p-5 text-center font-bold rounded-2xl"
             title="Total Orders"
             value={data?.orderStatistic?._count}
             formatter={formatter}

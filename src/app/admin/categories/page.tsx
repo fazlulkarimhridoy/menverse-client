@@ -90,8 +90,8 @@ const Categories = () => {
         });
     };
 
-    // Handle product filter for search
-    const filteredCustomers =
+    // Handle category filter for search
+    const filteredCategoriess =
         allCategories?.length > 0
             ? allCategories?.filter((category) => {
                   if (searchText) {
@@ -138,7 +138,7 @@ const Categories = () => {
         <div className="relative">
             <div>
                 <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Categories
+                    Categories<span className="text-sm text-red-200">{filteredCategoriess?.length}</span>
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search
@@ -174,7 +174,7 @@ const Categories = () => {
                     <tbody>
                         {/* rows */}
                         {allCategories.length > 0 ? (
-                            filteredCustomers?.map((data, index) => (
+                            filteredCategoriess?.map((data, index) => (
                                 <CategoryRow
                                     key={data.id}
                                     index={index}

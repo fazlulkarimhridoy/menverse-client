@@ -51,12 +51,13 @@ const ContactUs = () => {
     return (
         <div className="bg-[#C3B2E8]">
             <div className="space-y-2">
-                <h2 className="text-center py-10 text-4xl font-bold lg:text-5xl italic px-2">
+                <h2 className="text-center py-5 md:py-10 text-3xl md:text-4xl font-bold lg:text-5xl italic px-2">
                     Reach out via mail 💌
                 </h2>
             </div>
             <div className="grid grid-cols-1 justify-items-center gap-5 px-3 pb-5 max-w-[1590px] mx-auto rounded-lg xl:grid-cols-2 md:px-12 lg:px-16 xl:px-32 text-gray-800">
                 <div
+                className="hidden xl:flex"
                     data-aos="zoom-in"
                     data-aos-delay="500"
                     data-aos-easing="ease-in-out"
@@ -103,7 +104,7 @@ const ContactUs = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full p-3 text-sm font-bold uppercase rounded-xl bg-[#B8CEDC] text-gray-50"
+                        className="w-full btn p-3 text-sm font-bold uppercase rounded-xl border-2 border-[#194464] bg-[#194464] transition-colors duration-300 text-gray-50"
                     >
                         Send Message
                     </button>

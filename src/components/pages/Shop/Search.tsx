@@ -1,7 +1,11 @@
-"use client"
+"use client";
 
 import { useSearchText } from "@/context/SearchTextContext";
+// import { SearchProps } from "antd/es/input";
+// import { Input } from "antd";
 import React, { useEffect, useRef, useState } from "react";
+
+// const { Search } = Input;
 
 const Search = () => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -31,6 +35,11 @@ const Search = () => {
         };
     }, []);
 
+    // handle search filed value
+    // const onSearch: SearchProps["onSearch"] = (value) => {
+    //     setSearchText(value);
+    // };
+
     return (
         <div>
             <input
@@ -45,7 +54,6 @@ const Search = () => {
                         setSearchText(e.target.value);
                     }
                 }}
-                
             />
             <style jsx>{`
                 .input-container {
@@ -69,6 +77,19 @@ const Search = () => {
                     }
                 }
             `}</style>
+            {/* <Search
+                className="md:hidden"
+                placeholder="search by id, name, category..."
+                allowClear
+                enterButton="Search"
+                size="large"
+                onSearch={onSearch}
+                onKeyDown={(e: any) => {
+                    if (e.key === "Enter") {
+                        setSearchText(e.target.value);
+                    }
+                }}
+            /> */}
         </div>
     );
 };
