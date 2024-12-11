@@ -9,7 +9,6 @@ import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import { useCart } from "@/context/CartProvider";
 import { usePathname } from "next/navigation";
-import { FaMobileScreen } from "react-icons/fa6";
 
 const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(false);
