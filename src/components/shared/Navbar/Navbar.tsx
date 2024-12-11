@@ -9,6 +9,7 @@ import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import { useCart } from "@/context/CartProvider";
 import { usePathname } from "next/navigation";
+import { FaMobileScreen } from "react-icons/fa6";
 
 const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(false);
@@ -63,6 +64,9 @@ const Navbar = () => {
                         />
                     </div>
                 </Link>
+                <div className="lg:hidden md:text-xl italic text-gray-400">
+                    <a href="tel:+8801304-035398">+880 1328-369000</a>
+                </div>
                 <div className="mr-10 hidden lg:block">
                     <ul className="flex text-xl font-bold gap-6 font-poppins">
                         <li

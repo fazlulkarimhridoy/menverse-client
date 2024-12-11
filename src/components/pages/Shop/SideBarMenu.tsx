@@ -12,7 +12,7 @@ interface CategoryType {
     description: string;
 }
 
-const SideBarMenu = () => {
+const SideBarMenu = ({isSuccess}: {isSuccess: any}) => {
     const { setCategoryName } = useCategory();
     // fetch all products from server
     const { data: allCategories = [] } = useQuery<CategoryType[]>({
@@ -23,6 +23,7 @@ const SideBarMenu = () => {
             );
             return res?.data?.data;
         },
+        enabled: isSuccess,
         retry: 2,
         refetchOnWindowFocus: false,
     });

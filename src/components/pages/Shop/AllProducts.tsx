@@ -21,16 +21,20 @@ interface ProductType {
     rating: number;
     category: string;
     quantity: number;
-    size: string
+    size: string;
 }
 
-const AllProducts = () => {
+const AllProducts = ({ handleSuccess }: { handleSuccess: any }) => {
     const { categoryName } = useCategory();
     const { searchText } = useSearchText();
-    const {modal1Open, setModal1Open} = useCart();
+    const { modal1Open, setModal1Open } = useCart();
 
     // fetch all products froom server
-    const { data: shopProducts = [], isLoading } = useQuery<ProductType[]>({
+    const {
+        data: shopProducts = [],
+        isLoading,
+        isSuccess,
+    } = useQuery<ProductType[]>({
         queryKey: ["featuredProducts"],
         queryFn: async () => {
             const res = await axios.get(
@@ -41,6 +45,12 @@ const AllProducts = () => {
         retry: 2,
         refetchOnWindowFocus: false,
     });
+
+    useEffect(() => {
+        if (isSuccess) {
+            handleSuccess(isSuccess);
+        }
+    }, [isSuccess]);
 
     // Handle product filter for search
     const filteredProducts =
@@ -67,7 +77,6 @@ const AllProducts = () => {
               })
             : [];
 
- 
     return (
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-10 my-3 px-1 md:my-20 md:px-5">
             {isLoading ? (
