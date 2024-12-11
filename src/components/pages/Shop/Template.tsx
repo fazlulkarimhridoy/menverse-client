@@ -3,14 +3,14 @@ import React from "react";
 
 const Template = () => {
     return (
-        <div className="flex w-full  justify-between items-center bg-[#b8cedc] rounded-2xl relative  h-full  p-4">
-            <p className="font-dm text-2xl font-semibold self-end text-[#52225e] text-wrap">
+        <div className="flex w-full  justify-between items-center bg-[#b8cedc] rounded-2xl relative p-4">
+            <p className="font-dm text-base md:text-2xl font-semibold self-end text-[#52225e] text-wrap">
                 Send birthday Gift with t-shirts
             </p>
-            <div className="">
+            <div>
                 <Image
-                    className="bg-[#b8cedc]  "
-                    src="https://backend.floralradiancebd.com/public/photos/flowerImg2.png"
+                    className="bg-[#b8cedc]"
+                    src="https://photostore.menverseshop.com/public/photos/tshirt.png"
                     alt="flower"
                     width={250}
                     height={100}

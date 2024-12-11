@@ -1,8 +1,6 @@
-import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import Template from "./Template";
-import { Carousel } from "antd";
 interface CarouselProps {
     images: string[];
 }

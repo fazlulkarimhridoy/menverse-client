@@ -50,7 +50,7 @@ const Products = () => {
                       const searchString = searchText.toLowerCase();
 
                       // Check product name, category (strings), and productId (number)
-                      return (
+                      const isCustomerMatch =
                           customer?.name
                               ?.toLowerCase()
                               ?.includes(searchString) ||
@@ -61,8 +61,30 @@ const Products = () => {
                           customer?.customerId
                               ?.toString()
                               ?.toLowerCase()
-                              ?.includes(searchString)
-                      );
+                              ?.includes(searchString);
+
+                      // Format and filter by orderDate
+                      let isDateMatch = false;
+                      if (customer?.createdAt) {
+                          try {
+                              // Convert orderDate string to a comparable format (YYYY-MM-DD)
+                              const formattedOrderDate = new Date(
+                                  customer.createdAt
+                              )
+                                  .toISOString()
+                                  .split("T")[0];
+                              isDateMatch =
+                                  formattedOrderDate.includes(searchString);
+                          } catch (e) {
+                              console.error(
+                                  "Error parsing orderDate:",
+                                  customer?.createdAt,
+                                  e
+                              );
+                          }
+                      }
+
+                      return isCustomerMatch || isDateMatch;
                   }
                   return true; // If no searchText, return all products
               })
@@ -87,7 +109,7 @@ const Products = () => {
         <div className="relative">
             <div>
                 <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Customers
+                    Customers<span className="text-sm text-red-200 ml-1">{filteredCustomers?.length}</span>
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search

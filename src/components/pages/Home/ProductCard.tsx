@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     };
 
     return (
-        <div className="w-[170px] md:w-[250px] flex flex-col items-stretch text-center justify-center gap-1 md:gap-4 p-3 md:px-4 lg:pt-4 md:pb-8 rounded-xl amoled-shadow bg-white lg:bg-none">
+        <div className="w-[170px] md:w-[250px] flex flex-col items-stretch text-center justify-center gap-1 md:gap-4 p-3 md:px-4 lg:pt-4 md:pb-8 rounded-xl amoled-shadow bg-white hover:bg-sky-50 transition-all duration-200 lg:bg-none">
             <Link href={`/products/${item.id}`}>
                 <div className="md:p-4">
                     <Image
@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         alt={`Image`}
                         width={120}
                         height={100}
-                        className="w-full h-[165px] md:w-[200px] md:h-[210px] rounded-lg"
+                        className="w-full h-[150px] md:w-[200px] md:h-[200px] rounded-lg"
                     />
                 </div>
                 <div className="border-[#194464] flex flex-col gap-1 md:px-4 mt-2">

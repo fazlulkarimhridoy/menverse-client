@@ -247,7 +247,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 </span>
               </div>
             </div>
-            <div className="p-2 bg-[#B8CEDC] rounded-2xl h-[92%]">
+            <div className="p-2 bg-[#B8CEDC] rounded-2xl h-[92%] flex flex-col justify-between">
               <ul
                 id="link1"
                 className="menu menu-vertical text-[16px] px-1 gap-2 text-gray-500"

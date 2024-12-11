@@ -51,7 +51,7 @@ const Navbar = () => {
                     : "bg-transparent shadow-[0_0_60px_-0_rgba(0,0,0,0.3)"
             }
         >
-            <div className="flex items-center justify-between px-2 md:px-2 py-2 font-semibold">
+            <div className="flex items-center justify-between px-3 md:px-2 py-2 font-semibold">
                 <Link href="/">
                     <div className="flex items-center cursor-pointer">
                         <Image
@@ -65,33 +65,41 @@ const Navbar = () => {
                 </Link>
                 <div className="mr-10 hidden lg:block">
                     <ul className="flex text-xl font-bold gap-6 font-poppins">
-                        <li className={`${getActiveClass(
+                        <li
+                            className={`${getActiveClass(
                                 "/"
-                            )} cursor-pointer transition-colors`}>
+                            )} cursor-pointer transition-colors`}
+                        >
                             <Link href="/">Home</Link>
                         </li>
-                        <li className={`${getActiveClass(
+                        <li
+                            className={`${getActiveClass(
                                 "/products"
-                            )} cursor-pointer transition-colors`}>
+                            )} cursor-pointer transition-colors`}
+                        >
                             <Link href="/products">Shop</Link>
                         </li>
-                        <li className={`${getActiveClass(
+                        <li
+                            className={`${getActiveClass(
                                 "/aboutUs"
-                            )} cursor-pointer transition-colors`}>
+                            )} cursor-pointer transition-colors`}
+                        >
                             <Link href="/aboutUs">About Us</Link>
                         </li>
-                        <li className={`${getActiveClass(
+                        <li
+                            className={`${getActiveClass(
                                 "/contactUs"
-                            )} cursor-pointer transition-colors`}>
+                            )} cursor-pointer transition-colors`}
+                        >
                             <Link href="/contactUs">Contact Us</Link>
                         </li>
                     </ul>
                 </div>
 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center gap-5">
                     <Link className="relative" href={"/cart"}>
                         <button>
-                            <ShoppingCartOutlined className="text-3xl font-bold hover:text-sky-600 transition-colors mr-8" />
+                            <ShoppingCartOutlined className="text-3xl font-bold hover:text-sky-600 transition-colors lg:mr-8" />
                         </button>
                         <p className="absolute -top-3 left-4 bg-sky-600 rounded-full w-5 text-center  text-white">
                             {cartData.length}
@@ -100,9 +108,9 @@ const Navbar = () => {
 
                     {/* Hamburger menu */}
                     <div className="lg:hidden block">
-                        <FiMenu size={25} onClick={showDrawer} />
+                        <FiMenu size={30} onClick={showDrawer} />
                         <Drawer
-                            width={200}
+                            width={250}
                             closable={false}
                             closeIcon={false}
                             onClose={onClose}
@@ -110,12 +118,12 @@ const Navbar = () => {
                             style={{ backgroundColor: "white", opacity: "90%" }}
                             className="relative"
                         >
-                            <ul className="text-2xl text-right space-y-5 mt-5 font-poppins font-bold">
+                            <ul className="absolute text-nowrap top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-center space-y-5 font-poppins font-bold">
                                 <li
                                     onClick={onClose}
                                     className={`${getActiveClass(
-                                "/"
-                            )} cursor-pointer transition-colors`}
+                                        "/"
+                                    )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/">Home</Link>
                                 </li>
@@ -123,8 +131,8 @@ const Navbar = () => {
                                 <li
                                     onClick={onClose}
                                     className={`${getActiveClass(
-                                "/products"
-                            )} cursor-pointer transition-colors`}
+                                        "/products"
+                                    )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/products">Shop</Link>
                                 </li>
@@ -132,22 +140,23 @@ const Navbar = () => {
                                 <li
                                     onClick={onClose}
                                     className={`${getActiveClass(
-                                "/aboutUs"
-                            )} cursor-pointer transition-colors`}
+                                        "/aboutUs"
+                                    )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/aboutUs">About Us</Link>
                                 </li>
                                 <li
                                     onClick={onClose}
                                     className={`${getActiveClass(
-                                "/contactUs"
-                            )} cursor-pointer transition-colors`}
+                                        "/contactUs"
+                                    )} cursor-pointer transition-colors`}
                                 >
                                     <Link href="/contactUs">Contact Us</Link>
                                 </li>
                             </ul>
                             <Link href="/">
                                 <Image
+                                    onClick={onClose}
                                     width={120}
                                     height={120}
                                     src="/Images/logo.png"
