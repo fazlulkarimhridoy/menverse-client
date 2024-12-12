@@ -17,11 +17,6 @@ export default function RootLayout({
                     href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css"
                     rel="stylesheet"
                 ></link>
-                <script
-                    async
-                    defer
-                    src="https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js"
-                    ></script>
             </head>
             <body className="scroll-container">
                 <LayoutClient>{children}</LayoutClient>
