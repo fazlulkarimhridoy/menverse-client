@@ -52,8 +52,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     <Image
                         src={item?.images[0]}
                         alt={`Image`}
-                        width={120}
-                        height={100}
+                        width={500}
+                        height={500}
                         className="w-full h-[150px] md:w-[200px] md:h-[200px] rounded-lg"
                     />
                 </div>

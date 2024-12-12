@@ -1,30 +1,73 @@
 "use client";
 
 import AllProducts from "@/components/pages/Shop/AllProducts";
-import Banner from "@/components/pages/Shop/Banner";
 import ButtonGroup from "@/components/pages/Shop/ScrollBarSlider";
 import Search from "@/components/pages/Shop/Search";
 import SideBarMenu from "@/components/pages/Shop/SideBarMenu";
-import { useState } from "react";
+import { useCategory } from "@/context/CategoryContext";
+import { useQuery } from "@tanstack/react-query";
+import { Segmented } from "antd";
+import axios from "axios";
+
+interface ProductType {
+    id: number;
+    product_id: number;
+    images: string[];
+    product_name: string;
+    price: number;
+    discount_price: number;
+    description: string;
+    rating: number;
+    category: string;
+    quantity: number;
+    size: string;
+}
+
+interface CategoryType {
+    id: number;
+    categoryId: number;
+    name: string;
+    description: string;
+}
 
 const Page = () => {
-    const images = [
-        "/images/flowerVector.png",
-        "/images/floweOne.jpeg",
-        "/images/flowerTwo.jpeg",
-        "/images/flowerThree.jpeg",
-    ];
+    const { setCategoryName } = useCategory();
 
-    const [isSuccess, setIsSuccess] = useState(false);
+    // fetch all products froom server
+    const {
+        data: shopProducts = [],
+        isLoading,
+        isSuccess,
+    } = useQuery<ProductType[]>({
+        queryKey: ["featuredProducts"],
+        queryFn: async () => {
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/all-products`
+            );
+            return res.data.data;
+        },
+        retry: 2,
+        refetchOnWindowFocus: false,
+    });
 
-    const handleSuccess = (success: boolean) => {
-        setIsSuccess(success);
-    };
+    // fetch all categories from server
+    const { data: allCategories = [] } = useQuery<CategoryType[]>({
+        queryKey: ["categories"],
+        queryFn: async () => {
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/all-category`
+            );
+            return res?.data?.data;
+        },
+        enabled: isSuccess,
+        retry: 2,
+        refetchOnWindowFocus: false,
+    });
 
     return (
-        <div className="flex flex-col-reverse  lg:flex-row  gap-4 max-w-[1440px] mx-auto px-2 no-scrollbar">
-            <div className="border-r-2 ">
-                <SideBarMenu isSuccess={isSuccess}></SideBarMenu>
+        <div className="flex flex-col-reverse  lg:flex-row  gap-4 max-w-[1340px] mx-auto px-2 no-scrollbar">
+            <div className="border-r-2 hidden lg:block">
+                <SideBarMenu allCategories={allCategories}></SideBarMenu>
             </div>
             <div
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
@@ -34,11 +77,28 @@ const Page = () => {
                     <Search></Search>
                     <ButtonGroup></ButtonGroup>
                 </div>
-                <div className="w-full">
-                    <Banner images={images}></Banner>
+                <div className="w-full sm:w-[450px] mx-auto">
+                    {" "}
+                    <Segmented<string>
+                        style={{
+                            flex: "row",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                        options={["Half Sleeve", "Full Sleeve", "Sleeveless"]}
+                        size="large"
+                        block
+                        onChange={(value) => setCategoryName(value)}
+                    />
+                </div>
+                <div className="w-full lg:hidden">
+                    <SideBarMenu allCategories={allCategories}></SideBarMenu>
                 </div>
                 <div className="bg-[#f4f4f4] rounded-2xl">
-                    <AllProducts handleSuccess={handleSuccess} />
+                    <AllProducts
+                        shopProducts={shopProducts}
+                        isLoading={isLoading}
+                    />
                 </div>
             </div>
         </div>

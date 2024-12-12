@@ -16,12 +16,11 @@ interface ProductType {
     description: string;
     rating: number;
     quantity: number;
-    size: string
+    size: string;
 }
 
-
 const FeaturedProducts = () => {
-    const {modal1Open, setModal1Open} = useCart();
+    const { modal1Open, setModal1Open } = useCart();
     // fetch all products from server
     const { data: featuredProducts = [], isLoading } = useQuery<ProductType[]>({
         queryKey: ["featuredProducts"],

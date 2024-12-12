@@ -55,8 +55,8 @@ const Navbar = () => {
                 <Link href="/">
                     <div className="flex items-center cursor-pointer">
                         <Image
-                            width={120}
-                            height={120}
+                            width={500}
+                            height={500}
                             src="/Images/logo.png"
                             alt="logo"
                             className="bg-none w-[45px] md:w-[60px]"
@@ -64,7 +64,7 @@ const Navbar = () => {
                     </div>
                 </Link>
                 <div className="lg:hidden md:text-xl italic text-gray-400">
-                    <a href="tel:+8801304-035398">+880 1328-369000</a>
+                    <a href="tel:+880 1328-369000">+880 1328-369000</a>
                 </div>
                 <div className="mr-10 hidden lg:block">
                     <ul className="flex text-xl font-bold gap-6 font-poppins">
