@@ -51,8 +51,8 @@ const ContactUs = () => {
     return (
         <div className="bg-[#C3B2E8]">
             <div className="space-y-2">
-                <h2 className="text-center py-5 md:py-10 text-3xl md:text-4xl font-bold lg:text-5xl italic px-2">
-                    Reach out via mail 💌
+                <h2 className="text-center py-5 md:py-10 text-3xl md:text-3xl font-bold lg:text-3xl italic px-2">
+                    Contact With Us
                 </h2>
             </div>
             <div className="grid grid-cols-1 justify-items-center gap-5 px-3 pb-5 max-w-[1590px] mx-auto rounded-lg xl:grid-cols-2 md:px-12 lg:px-16 xl:px-32 text-gray-800">
@@ -80,7 +80,7 @@ const ContactUs = () => {
                         <input
                             type="text"
                             name="from_name"
-                            placeholder="Enter you name here..."
+                            placeholder="Enter your name here..."
                             className="w-full rounded-xl p-3 border border-gray-200 bg-gray-100 focus:outline-none"
                         />
                     </div>
@@ -89,7 +89,7 @@ const ContactUs = () => {
                         <input
                             type="email"
                             name="reply_to"
-                            placeholder="Enter you email here..."
+                            placeholder="Enter your email here..."
                             className="w-full p-3 border border-gray-200 rounded-xl bg-gray-100 focus:outline-none"
                         />
                     </div>
@@ -97,7 +97,7 @@ const ContactUs = () => {
                         <label className="text-sm">Message</label>
                         <textarea
                             name="message"
-                            placeholder="Enter you description here..."
+                            placeholder="Enter your description here..."
                             rows={10}
                             className="w-full p-3 border border-gray-200 rounded-xl bg-gray-100 focus:outline-none"
                         ></textarea>
