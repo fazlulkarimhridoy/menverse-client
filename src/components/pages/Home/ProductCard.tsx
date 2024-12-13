@@ -31,7 +31,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     const [quantity, setQuantity] = useState(1);
     // const [size, setSize] = useState("");
     const [uniqueId, setUniqueId] = useState<number>(0);
-    const [activeSizeButton, setActiveSizeButton] = useState<number | null>(null);
+    const [activeSizeButton, setActiveSizeButton] = useState<number | null>(
+        null
+    );
 
     // handle cart data
     const handleAddToCart = () => {
@@ -148,7 +150,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                     title={null}
                     style={{ top: 20 }}
                     open={!!modalData}
-                    onCancel={() => setModalData(null)}
+                    onCancel={() => {
+                        setModalData(null);
+                        setQuantity(1); // Reset quantity
+                        setActiveSizeButton(null); // Reset size selection
+                    }}
                 >
                     {modalData && (
                         <div id={`${modalData.id}`} className="flex gap-4">
@@ -204,7 +210,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                                                 <Button
                                                     key={size}
                                                     className={`px-3 py-1 border rounded-md ${
-                                                        activeSizeButton === index
+                                                        activeSizeButton ===
+                                                        index
                                                             ? "bg-black text-white border-black"
                                                             : "bg-gray-200 text-gray-700 border-gray-300"
                                                     }`}
@@ -213,7 +220,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                                                             uniqueId,
                                                             size
                                                         );
-                                                        setActiveSizeButton(index);
+                                                        setActiveSizeButton(
+                                                            index
+                                                        );
                                                     }}
                                                 >
                                                     {size}
