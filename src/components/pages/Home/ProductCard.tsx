@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Skeleton } from "antd";
 import { FaCheckCircle } from "react-icons/fa";
 import { useCart } from "@/context/CartProvider";
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -159,14 +159,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                 >
                     {modalData && (
                         <div id={`${modalData.id}`} className="flex gap-4">
-                            <Image
-                                loading="lazy"
-                                width={150}
-                                height={150}
-                                src={modalData?.images[0]}
-                                alt="cart-tshirt"
-                                className="w-[30%] h-[30%] rounded-lg"
-                            />
+                            {/* show skeleton image if the image takes time to load in viewport */}
+                            {item.images.length === 0 ? (
+                                <Skeleton.Image active={true} />
+                            ) : (
+                                <Image
+                                    loading="eager"
+                                    width={100}
+                                    height={100}
+                                    src={modalData?.images[0]}
+                                    alt="cart-tshirt"
+                                    className="w-[30%] h-[30%] rounded-lg"
+                                />
+                            )}
+
                             <div className="flex">
                                 <div className="space-y-1 md:space-y-2">
                                     <h1 className="font-outfit md:text-2xl font-semibold">
