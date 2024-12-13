@@ -160,18 +160,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                     {modalData && (
                         <div id={`${modalData.id}`} className="flex gap-4">
                             {/* show skeleton image if the image takes time to load in viewport */}
-                            {item.images.length === 0 ? (
-                                <Skeleton.Image active={true} />
-                            ) : (
-                                <Image
-                                    loading="eager"
-                                    width={100}
-                                    height={100}
-                                    src={modalData?.images[0]}
-                                    alt="cart-tshirt"
-                                    className="w-[30%] h-[30%] rounded-lg"
-                                />
-                            )}
+                            <Image
+                                loading="eager"
+                                width={50}
+                                height={50}
+                                src={modalData?.images[0]}
+                                alt="cart-tshirt"
+                                className="w-[30%] h-[30%] rounded-lg"
+                            />
 
                             <div className="flex">
                                 <div className="space-y-1 md:space-y-2">
