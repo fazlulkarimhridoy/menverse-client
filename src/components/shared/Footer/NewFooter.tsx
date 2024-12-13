@@ -109,7 +109,7 @@ const NewFooter = () => {
                     <div>
                         <p className="flex items-center text-2xl font-semibold font-outfit gap-2 text-center px-4 py-0 lg:py-4">
                             <FaMobileScreen />{" "}
-                            <a href="tel:+8801304-035398">+880 1328-369000</a>
+                            <a href="tel:+880 1328-369000">+880 1328-369000</a>
                         </p>
                         <p className="flex items-center text-2xl font-semibold font-outfit gap-2 text-center p-4 truncate">
                             {" "}

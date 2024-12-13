@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Empty, Spin } from "antd";
-import { useCart } from "@/context/CartProvider";
 
 interface ProductType {
     id: number;
@@ -16,12 +15,10 @@ interface ProductType {
     description: string;
     rating: number;
     quantity: number;
-    size: string
+    size: string;
 }
 
-
 const FeaturedProducts = () => {
-    const {modal1Open, setModal1Open} = useCart();
     // fetch all products from server
     const { data: featuredProducts = [], isLoading } = useQuery<ProductType[]>({
         queryKey: ["featuredProducts"],
@@ -53,8 +50,6 @@ const FeaturedProducts = () => {
                         <ProductCard
                             key={item?.id}
                             item={item}
-                            modal1Open={modal1Open}
-                            setModal1Open={setModal1Open}
                         />
                     ))
                 ) : (

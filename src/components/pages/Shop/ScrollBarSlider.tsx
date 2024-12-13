@@ -1,5 +1,5 @@
 "use client";
-import { Divider } from "antd";
+
 import React, { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 
@@ -9,23 +9,24 @@ const ButtonGroup: React.FC = () => {
     width: 0,
   });
   const [tags] = useState<string[]>([
-    "greetings",
-    "congratulation",
-    "get well soon",
-    "just because",
-    "Anniversary",
-    "birthday",
-    "Apology",
-    "new baby",
-    "fathers day",
-    "mothers day",
-    "valentines day",
-    "surprise gift",
+    "t-shirt",
+    "men's t-shirt",
+    "jersey",
+    "mesh",
+    "soft mesh",
+    "cinigura mesh",
+    "unisex t-shirt",
+    "adidas",
+    "puma",
+    "nike",
+    "half sleeve",
+    "full sleeve",
   ]);
 
   const scrollBar = useRef<HTMLDivElement>(null);
   const leftArrow = useRef<HTMLDivElement>(null);
   const rightArrow = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -40,6 +41,7 @@ const ButtonGroup: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
   useEffect(() => {
     const manageIcons = () => {
       if (scrollBar.current) {

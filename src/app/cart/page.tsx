@@ -53,8 +53,8 @@ const Cart: React.FC = () => {
                                             <div className="avatar">
                                                 <div className="mask mask-squircle w-10 h-10">
                                                     <Image
-                                                        width={500}
-                                                        height={500}
+                                                        width={300}
+                                                        height={300}
                                                         src={data?.image}
                                                         alt="product-image"
                                                     />
@@ -68,6 +68,7 @@ const Cart: React.FC = () => {
                                         </div>
                                     </td>
                                     <td>
+                                        {/* quantity select */}
                                         <div className="flex items-center gap-2">
                                             <Button
                                                 className="bg-gray-200 px-3 py-1 rounded-md text-lg font-bold"
@@ -98,6 +99,7 @@ const Cart: React.FC = () => {
                                         </div>
                                     </td>
                                     <td>
+                                        {/* size select */}
                                         <div className="flex gap-2">
                                             {["M", "L", "XL", "XXL"].map(
                                                 (size) => (
@@ -105,7 +107,7 @@ const Cart: React.FC = () => {
                                                         key={size}
                                                         className={`px-3 py-1 border rounded-md ${
                                                             data?.size === size
-                                                                ? "bg-blue-500 text-white border-blue-500"
+                                                                ? "bg-black text-white border-black"
                                                                 : "bg-gray-200 text-gray-700 border-gray-300"
                                                         }`}
                                                         onClick={() =>

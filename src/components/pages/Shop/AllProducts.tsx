@@ -1,14 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductCard from "../Home/ProductCard";
-import { Empty, message, Spin } from "antd";
+import { Empty, Spin } from "antd";
 import { useCategory } from "@/context/CategoryContext";
 import { useSearchText } from "@/context/SearchTextContext";
-import Swal from "sweetalert2";
-import { useCart } from "@/context/CartProvider";
 
 interface ProductType {
     id: number;
@@ -24,38 +20,14 @@ interface ProductType {
     size: string;
 }
 
-const AllProducts = ({ handleSuccess }: { handleSuccess: any }) => {
+const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading: Boolean }) => {
     const { categoryName } = useCategory();
     const { searchText } = useSearchText();
-    const { modal1Open, setModal1Open } = useCart();
-
-    // fetch all products froom server
-    const {
-        data: shopProducts = [],
-        isLoading,
-        isSuccess,
-    } = useQuery<ProductType[]>({
-        queryKey: ["featuredProducts"],
-        queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/all-products`
-            );
-            return res.data.data;
-        },
-        retry: 2,
-        refetchOnWindowFocus: false,
-    });
-
-    useEffect(() => {
-        if (isSuccess) {
-            handleSuccess(isSuccess);
-        }
-    }, [isSuccess]);
 
     // Handle product filter for search
     const filteredProducts =
         shopProducts?.length > 0
-            ? shopProducts?.filter((product) => {
+            ? shopProducts?.filter((product: any) => {
                   const searchingText = categoryName || searchText;
                   if (searchingText) {
                       const searchString = searchingText.toLowerCase();
@@ -83,12 +55,10 @@ const AllProducts = ({ handleSuccess }: { handleSuccess: any }) => {
                 <Spin size="large" />
             ) : shopProducts?.length > 0 ? (
                 filteredProducts?.length > 0 ? (
-                    filteredProducts?.map((item) => (
+                    filteredProducts?.map((item: ProductType) => (
                         <ProductCard
                             key={item?.id}
                             item={item}
-                            modal1Open={modal1Open}
-                            setModal1Open={setModal1Open}
                         />
                     ))
                 ) : (
