@@ -159,8 +159,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                     {modalData && (
                         <div id={`${modalData.id}`} className="flex gap-4">
                             <Image
-                                width={300}
-                                height={300}
+                                width={150}
+                                height={150}
                                 src={item?.images[0]}
                                 alt="cart-tshirt"
                                 className="w-[30%] h-[30%] rounded-lg"
