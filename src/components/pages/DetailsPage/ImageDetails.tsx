@@ -17,6 +17,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
         <div className="max-w-[450px] space-y-4">
             <div className="p-2 flex justify-center">
                 <Image
+                    loading="lazy"
                     className="rounded-lg"
                     // width={400}
                     // height={450}
@@ -32,6 +33,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                 {srcList[1] && (
                     <div className="p-2">
                         <Image
+                            loading="lazy"
                             className="rounded-lg"
                             width={90}
                             height={100}
@@ -43,6 +45,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                 {srcList[2] && (
                     <div className="p-2">
                         <Image
+                            loading="lazy"
                             className="rounded-lg"
                             width={90}
                             height={100}
@@ -54,6 +57,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                 {srcList[3] && (
                     <div className="p-2">
                         <Image
+                            loading="lazy"
                             className="rounded-lg"
                             width={90}
                             height={100}
@@ -65,6 +69,7 @@ const ImageDetails: React.FC<SrcType> = ({ srcList }) => {
                 {srcList[4] && (
                     <div className="p-2">
                         <Image
+                            loading="lazy"
                             className="rounded-lg"
                             width={90}
                             height={100}
