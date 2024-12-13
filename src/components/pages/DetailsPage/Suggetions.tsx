@@ -22,7 +22,6 @@ interface ProductType {
 }
 
 export default function Suggetions({ isSuccess }: { isSuccess: any }) {
-    const { modal1Open, setModal1Open } = useCart();
     const [randomProducts, setRandomProducts] = useState<ProductType[]>([]);
 
 
@@ -65,8 +64,6 @@ export default function Suggetions({ isSuccess }: { isSuccess: any }) {
                             <ProductCard
                                 key={item?.id}
                                 item={item}
-                                modal1Open={modal1Open}
-                                setModal1Open={setModal1Open}
                             />
                         ))
                     ) : (

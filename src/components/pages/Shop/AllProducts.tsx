@@ -5,7 +5,6 @@ import ProductCard from "../Home/ProductCard";
 import { Empty, Spin } from "antd";
 import { useCategory } from "@/context/CategoryContext";
 import { useSearchText } from "@/context/SearchTextContext";
-import { useCart } from "@/context/CartProvider";
 
 interface ProductType {
     id: number;
@@ -24,7 +23,6 @@ interface ProductType {
 const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading: Boolean }) => {
     const { categoryName } = useCategory();
     const { searchText } = useSearchText();
-    const { modal1Open, setModal1Open } = useCart();
 
     // Handle product filter for search
     const filteredProducts =
@@ -61,8 +59,6 @@ const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading
                         <ProductCard
                             key={item?.id}
                             item={item}
-                            modal1Open={modal1Open}
-                            setModal1Open={setModal1Open}
                         />
                     ))
                 ) : (
