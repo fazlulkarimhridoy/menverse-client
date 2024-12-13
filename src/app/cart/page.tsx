@@ -170,7 +170,7 @@ const Cart: React.FC = () => {
                 <div className="flex items-center justify-end">
                     <Button
                         onClick={() => clearCart()}
-                        className="bg-red-100 border-red-100 text-xs md:text-base flex items-center justify-center gap-0.5"
+                        className="bg-red-100 border-red-100 text-red-500 text-xs md:text-base flex items-center justify-center gap-0.5"
                     >
                         <FaX size={11} /> Clear Cart
                     </Button>
