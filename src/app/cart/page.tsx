@@ -5,10 +5,16 @@ import { FaTrash } from "react-icons/fa";
 import CartTotal from "@/components/pages/Cart/CartTotal";
 import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
+import { FaX } from "react-icons/fa6";
 
 const Cart: React.FC = () => {
-    const { cartData, updateCartItemQuantity, removeFromCart, setCartData } =
-        useCart();
+    const {
+        cartData,
+        updateCartItemQuantity,
+        removeFromCart,
+        setCartData,
+        clearCart,
+    } = useCart();
 
     const handleSizeChange = (id: number, size: string) => {
         setCartData((prevCart) =>
@@ -26,9 +32,7 @@ const Cart: React.FC = () => {
 
     return (
         <div className="w-full lg:w-[70%] mx-auto px-2 lg:px-0 py-4">
-            <div
-                className="overflow-x-auto scroll-smooth pt-4 mb-5 md:mb-0 "
-            >
+            <div className="overflow-x-auto scroll-smooth pt-4 mb-2 md:mb-5">
                 <table className="table whitespace-nowrap">
                     {/* head */}
                     <thead>
@@ -150,7 +154,7 @@ const Cart: React.FC = () => {
                                 <td>
                                     {" "}
                                     <Empty
-                                        className="my-[46.5px]"
+                                        className="my-[66.5px]"
                                         description="No items in cart."
                                     />
                                 </td>
@@ -162,8 +166,18 @@ const Cart: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-            
-            <div className="flex flex-col md:flex-row justify-center gap-10 my-[34px]">
+            {cartData?.length > 0 && (
+                <div className="flex items-center justify-end">
+                    <Button
+                        onClick={() => clearCart()}
+                        className="bg-red-100 border-red-100 text-red-500 text-xs md:text-base flex items-center justify-center gap-0.5"
+                    >
+                        <FaX size={11} /> Clear Cart
+                    </Button>
+                </div>
+            )}
+
+            <div className="flex flex-col md:flex-row justify-center gap-10 my-[8px]">
                 {cartData?.length > 0 && (
                     <CartTotal
                         deliveryCharge={60}

@@ -72,6 +72,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
             <Link href={`/products/${item.id}`}>
                 <div className="md:p-4">
                     <Image
+                        loading="lazy"
                         src={item?.images[0]}
                         alt={`Image`}
                         width={500}
@@ -159,9 +160,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                     {modalData && (
                         <div id={`${modalData.id}`} className="flex gap-4">
                             <Image
+                                loading="lazy"
                                 width={150}
                                 height={150}
-                                src={item?.images[0]}
+                                src={modalData?.images[0]}
                                 alt="cart-tshirt"
                                 className="w-[30%] h-[30%] rounded-lg"
                             />
