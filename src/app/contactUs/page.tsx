@@ -1,17 +1,11 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
-import Aos from "aos";
-import "aos/dist/aos.css";
+import React from "react";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 
 const ContactUs = () => {
-    useEffect(() => {
-        Aos.init({});
-    }, []);
-
     const form = useRef<HTMLFormElement>(null);
 
     const sendEmail = (e: React.FormEvent) => {
@@ -29,51 +23,65 @@ const ContactUs = () => {
                 //     publicKey: 'NwR0aEAxZOl7VG94z',
                 //   }
                 // )
-                .then(
-                    () => {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Successfull",
-                            text: "Successfully sent.",
-                        });
-                    },
-                    (error) => {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong!",
-                        });
-                    }
-                );
+                .then((data) => {
+                    console.log(data.status);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Successfull",
+                        text: "Email has been sent!",
+                    });
+                    form.current?.reset();
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
+                });
         }
     };
 
     return (
-        <div className="bg-[#C3B2E8]">
-            <div className="space-y-2">
-                <h2 className="text-center py-5 md:py-10 text-3xl md:text-3xl font-bold lg:text-3xl italic px-2">
-                    Contact With Us
-                </h2>
-            </div>
-            <div className="grid grid-cols-1 justify-items-center gap-5 px-3 pb-5 max-w-[1590px] mx-auto rounded-lg xl:grid-cols-2 md:px-12 lg:px-16 xl:px-32 text-gray-800">
-                <div
-                className="hidden xl:flex"
-                    data-aos="zoom-in"
-                    data-aos-delay="500"
-                    data-aos-easing="ease-in-out"
-                >
-                    <Image
-                        width={500}
-                        height={500}
-                        src="/Images/share.jpg"
-                        alt="contact_image"
-                        className="w-full rounded-2xl"
-                    />
+        <div className="mt-5 max-w-[1320px] mx-auto">
+            <div className=" rounded-xl grid grid-cols-1 md:gap-5 mx-1 md:grid-cols-2 text-gray-800">
+                <div className="px-1.5 md:px-3 flex flex-col gap-2 md:gap-5">
+                    <p className="font-medium">
+                        If you have any questions, concerns, or need assistance
+                        with anything related to our products or services,
+                        please don&apos;t hesitate to contact us.
+                    </p>
+                    <div className="md:text-lg lg:text-xl xl:text-2xl">
+                        <h1 className="text-sky-500 font-bold">
+                            <span className="font-semibold text-gray-400">Company Name:</span>{" "}
+                            MENVERSE
+                        </h1>
+                        <h3>
+                            <span className="font-semibold text-gray-400">
+                                Official Number:
+                            </span>{" "}
+                            +880 132 836 9000
+                        </h3>
+                        <h3>
+                            <span className="font-semibold text-gray-400">
+                                Email Address:
+                            </span>{" "}
+                            urbanfits23@gmail.com
+                        </h3>
+                    </div>
+                    <p className="md:text-lg lg:text-xl xl:text-2xl">
+                        <span className="font-semibold text-gray-400">Office Address:</span>{" "}
+                        3rd Floor, House: 27, Road: 12, PC Culture Housing
+                        Society, Shekhertek, Adabor, Mohammadpur, Dhaka-1207 (
+                        Mohammadpur Grace International School )
+                    </p>
                 </div>
+                <p className="text-center text-sm text-gray-400 md:hidden">Send us a message</p>
                 <form
                     ref={form}
                     onSubmit={sendEmail}
-                    className="space-y-5 bg-white p-5 md:p-10 rounded-2xl w-full"
+                    className="space-y-2 border rounded-lg md:space-y-5 p-3 md:p-5 lg:p-10 w-full"
                 >
                     <div>
                         <label className="text-sm">Full name</label>
@@ -81,7 +89,7 @@ const ContactUs = () => {
                             type="text"
                             name="from_name"
                             placeholder="Enter your name here..."
-                            className="w-full rounded-xl p-3 border border-gray-200 bg-gray-100 focus:outline-none"
+                            className="w-full rounded-lg p-2 border border-gray-50 bg-gray-50 focus:outline-none"
                         />
                     </div>
                     <div>
@@ -90,7 +98,7 @@ const ContactUs = () => {
                             type="email"
                             name="reply_to"
                             placeholder="Enter your email here..."
-                            className="w-full p-3 border border-gray-200 rounded-xl bg-gray-100 focus:outline-none"
+                            className="w-full p-2 border border-gray-50 rounded-lg bg-gray-50 focus:outline-none"
                         />
                     </div>
                     <div>
@@ -98,17 +106,27 @@ const ContactUs = () => {
                         <textarea
                             name="message"
                             placeholder="Enter your description here..."
-                            rows={10}
-                            className="w-full p-3 border border-gray-200 rounded-xl bg-gray-100 focus:outline-none"
+                            className="w-full p-2 border border-gray-50 rounded-lg bg-gray-50 focus:outline-none"
                         ></textarea>
                     </div>
                     <button
                         type="submit"
-                        className="w-full btn p-3 text-sm font-bold uppercase rounded-xl border-2 border-[#194464] bg-[#194464] transition-colors duration-300 text-gray-50"
+                        className="w-full btn p-2 text-sm font-bold uppercase rounded-lg border-2 border-[#194464] bg-[#194464] transition-colors duration-300 text-gray-50"
                     >
                         Send Message
                     </button>
                 </form>
+            </div>
+            {/* location map */}
+            <div className="mt-3 mx-1">
+                <iframe
+                    className="w-full h-[250px] md:h-[350px] lg:h-[400px] rounded-xl mt-1"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.365854150828!2d90.35289977602339!3d23.769982988023067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c098bcb782e9%3A0x2cbb44aa4e5d3198!2sMohammadpur%20Grace%20International%20School%20%26%20College!5e0!3m2!1sen!2sbd!4v1734124883516!5m2!1sen!2sbd"
+                    style={{ border: "0" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
             </div>
         </div>
     );
