@@ -321,7 +321,7 @@ const Page = () => {
                                                             className={`px-3 py-1 border rounded-md ${
                                                                 data?.size ===
                                                                 size
-                                                                    ? "bg-blue-500 text-white border-blue-500"
+                                                                    ? "bg-black text-white border-black"
                                                                     : "bg-gray-200 text-gray-700 border-gray-300"
                                                             }`}
                                                             onClick={() =>

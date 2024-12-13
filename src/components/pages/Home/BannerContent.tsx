@@ -36,10 +36,10 @@ const BannerContent = () => {
                             className=""
                         >
                             <Image
-                                className="rounded-full"
+                                className=""
                                 width={400}
                                 height={300}
-                                src={"/Images/banner-image-1.jpg"}
+                                src={"/Images/banner-image-1.png"}
                                 alt="flower"
                                 priority={true}
                             ></Image>
