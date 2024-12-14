@@ -92,17 +92,6 @@ const Page = () => {
 
     const handleSubmitData = async () => {
         setLoading(true);
-        if (!name || !phone || !address || !cartData) {
-            setLoading(false);
-            Swal.fire({
-                position: "center",
-                icon: "warning",
-                title: "Please fill in all required fields.",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-            return;
-        }
 
         if (cartData.length === 0) {
             setLoading(false);
@@ -110,6 +99,18 @@ const Page = () => {
                 position: "center",
                 icon: "warning",
                 title: "Your cart is empty.",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            return;
+        }
+
+        if (!name || !phone || !address || !cartData) {
+            setLoading(false);
+            Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: "Please fill in all required fields.",
                 showConfirmButton: false,
                 timer: 1500,
             });
