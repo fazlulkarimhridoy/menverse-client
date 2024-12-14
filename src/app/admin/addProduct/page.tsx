@@ -100,6 +100,7 @@ const AddProduct = () => {
     const handleChange: UploadProps["onChange"] = ({
         fileList: newFileList,
     }) => {
+        console.log("files", fileList);
         setFileList(newFileList);
         const dataUrlArray: any = []; // Array to store the results
         let completedRequests = 0; // To track completed requests
