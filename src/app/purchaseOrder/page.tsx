@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaShippingFast, FaTrash, FaUser } from "react-icons/fa";
 import {
     Button,
     Input,
+    InputNumber,
     Radio,
     RadioChangeEvent,
     Select,
@@ -91,6 +92,7 @@ const Page = () => {
     };
 
     const handleSubmitData = async () => {
+        console.log("number", phone);
         setLoading(true);
 
         if (cartData.length === 0) {
@@ -384,7 +386,7 @@ const Page = () => {
                                 required
                                 type="string"
                                 maxLength={100}
-                                placeholder="full name"
+                                placeholder="নাম লিখুন"
                                 onChange={handleCustomerNameChange}
                             />
                         </div>
@@ -395,12 +397,12 @@ const Page = () => {
                                 <FaMobileAlt /> মোবাইল নাম্বারঃ
                             </label>
                             <Input
+                                type="number"
+                                style={{ width: "100%" }}
                                 size="large"
                                 required
-                                type="number"
-                                minLength={11}
                                 maxLength={11}
-                                placeholder="017XXXXXXXX"
+                                placeholder="নাম্বার লিখুন"
                                 onChange={handlePhoneNumberChange}
                             />
                         </div>
@@ -413,7 +415,7 @@ const Page = () => {
                             <TextArea
                                 required
                                 maxLength={100}
-                                placeholder="address"
+                                placeholder="বাড়ি, রোড, এলাকা, থানা, জেলা লিখুন"
                                 onChange={handleAddressChange}
                                 style={{ height: 80, resize: "none" }}
                             />
@@ -436,7 +438,7 @@ const Page = () => {
                                     showCount
                                     maxLength={100}
                                     onChange={onChangeNote}
-                                    placeholder="special instructions"
+                                    placeholder="বিশেষ নোট লিখুন"
                                     style={{ height: 80, resize: "none" }}
                                 />
                             </div>

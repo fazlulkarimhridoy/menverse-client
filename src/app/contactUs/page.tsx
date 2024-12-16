@@ -59,7 +59,10 @@ const ContactUs = () => {
 
     return (
         <div className="mt-5 max-w-[1320px] mx-auto">
-            <div className="rounded-xl grid grid-cols-1 md:gap-5 mx-3 xl:mx-0 md:grid-cols-2 text-gray-800">
+            <h1 className="text-center text-xl font-semibold italic mt-10">
+                Contact Us / Visit Us
+            </h1>
+            <div className="rounded-xl grid grid-cols-1 my-10 md:gap-5 mx-3 xl:mx-0 md:grid-cols-2 text-gray-800">
                 <div className="flex flex-col gap-2 md:gap-5">
                     <p className="font-medium">
                         If you have any questions, concerns, or need assistance
@@ -77,13 +80,23 @@ const ContactUs = () => {
                             <span className="font-semibold text-gray-400">
                                 Official Number:
                             </span>{" "}
-                            +880 132 836 9000
+                            <a
+                                className="underline"
+                                href="tel:+880 1328-369000"
+                            >
+                                +880 1328-369000
+                            </a>
                         </h3>
                         <h3>
                             <span className="font-semibold text-gray-400">
                                 Email Address:
                             </span>{" "}
-                            urbanfits23@gmail.com
+                            <a
+                                className="underline"
+                                href="mailto:floralradiancee@gmail.com"
+                            >
+                                urbanfits23@gmail.com
+                            </a>
                         </h3>
                     </div>
                     <p className="md:text-lg lg:text-xl xl:text-2xl">
@@ -95,7 +108,7 @@ const ContactUs = () => {
                         Mohammadpur Grace International School )
                     </p>
                 </div>
-                <p className="text-center text-sm text-gray-400 md:hidden">
+                <p className="text-center mt-10 pb-5 text-sm text-gray-400 md:hidden">
                     Send us a message
                 </p>
                 <form
@@ -138,7 +151,10 @@ const ContactUs = () => {
                 </form>
             </div>
             {/* location map */}
-            <div className="mt-3 mx-3 xl:mx-0">
+            <h1 className="text-center text-xl font-semibold italic mt-10">
+                Find us on map
+            </h1>
+            <div className="my-10 mx-3 xl:mx-0">
                 <iframe
                     className="w-full h-[250px] md:h-[350px] lg:h-[400px] rounded-xl mt-1"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.365854150828!2d90.35289977602339!3d23.769982988023067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c098bcb782e9%3A0x2cbb44aa4e5d3198!2sMohammadpur%20Grace%20International%20School%20%26%20College!5e0!3m2!1sen!2sbd!4v1734124883516!5m2!1sen!2sbd"
