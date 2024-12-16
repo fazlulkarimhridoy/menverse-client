@@ -75,7 +75,9 @@ const Page = () => {
             >
                 <div className="flex flex-col md:flex-row  gap-4 md:items-center">
                     <Search></Search>
-                    <ButtonGroup></ButtonGroup>
+                    <div className="hidden md:block">
+                        <ButtonGroup></ButtonGroup>
+                    </div>
                 </div>
                 <div className="w-full sm:w-[450px] mx-auto">
                     {" "}

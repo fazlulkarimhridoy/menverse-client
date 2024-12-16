@@ -301,6 +301,7 @@ const AddProduct = () => {
                             ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter price..."
                                 size="large"
@@ -318,6 +319,7 @@ const AddProduct = () => {
                             // ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter discounted..."
                                 size="large"
@@ -339,6 +341,7 @@ const AddProduct = () => {
                             // ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter stock..."
                                 size="large"
@@ -388,6 +391,7 @@ const AddProduct = () => {
                             ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter rating (1~5)"
                                 size="large"
@@ -406,6 +410,7 @@ const AddProduct = () => {
                             ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter product id..."
                                 size="large"
@@ -445,6 +450,7 @@ const AddProduct = () => {
                             name="images"
                         >
                             <Upload
+                                multiple
                                 listType="picture-card"
                                 fileList={fileList}
                                 onPreview={handlePreview}

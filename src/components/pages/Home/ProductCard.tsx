@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Button, Modal, Skeleton } from "antd";
+import { Button, Modal } from "antd";
 import { FaCheckCircle } from "react-icons/fa";
 import { useCart } from "@/context/CartProvider";
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -136,12 +136,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
                             className="flex gap-2 justify-end"
                         >
                             <Link href={`/cart`}>
-                                <button className="border-2 border-[#194464] px-4 py-2 rounded-xl text-sm md:text-base font-semibold font-outfit bg-[#def0ff] hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center">
+                                <button className="text-black border-2 border-[#194464] px-4 py-2 rounded-xl text-sm md:text-base font-semibold font-outfit bg-[#def0ff] hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center">
                                     View cart
                                 </button>
                             </Link>
                             <Link href={`/purchaseOrder`}>
-                                <button className="border-2 border-[#194464] px-4 py-2 rounded-xl text-sm md:text-base font-semibold font-outfit bg-[#deffe5] hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center">
+                                <button className="text-black border-2 border-[#194464] px-4 py-2 rounded-xl text-sm md:text-base font-semibold font-outfit bg-[#deffe5] hover:bg-[#194464] hover:text-white transition-colors duration-300 text-center">
                                     Purchase
                                 </button>
                             </Link>

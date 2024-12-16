@@ -326,6 +326,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter price..."
                                 size="large"
@@ -344,6 +345,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             // ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter discounted..."
                                 size="large"
@@ -366,6 +368,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             // ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter stock..."
                                 size="large"
@@ -418,6 +421,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter rating (1~5)"
                                 size="large"
@@ -436,6 +440,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             ]}
                         >
                             <InputNumber
+                                style={{ width: "100%" }}
                                 className="w-full"
                                 placeholder="Enter product id..."
                                 size="large"
@@ -476,6 +481,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             name="images"
                         >
                             <Upload
+                                multiple
                                 listType="picture-card"
                                 fileList={fileList}
                                 onChange={handleChange}
