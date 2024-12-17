@@ -50,7 +50,7 @@ const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading
             : [];
 
     return (
-        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-10 my-3 px-1 md:my-20 md:px-5">
+        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-10 my-10 px-1 md:my-28 md:px-5">
             {isLoading ? (
                 <Spin size="large" />
             ) : shopProducts?.length > 0 ? (

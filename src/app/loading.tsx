@@ -4,7 +4,7 @@ import { Spin } from "antd";
 
 const loading = () => {
     return (
-        <div className="flex flex-col items-center justify-center gap-5 py-[173px]">
+        <div className="flex flex-col items-center justify-center my-[195px]">
             <Spin style={{ color: "white" }} size="large" />
         </div>
     );

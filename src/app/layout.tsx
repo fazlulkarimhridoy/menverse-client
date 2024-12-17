@@ -20,7 +20,7 @@ export default function RootLayout({
             </head>
             <body className="scroll-container">
                 <LayoutClient>
-                        {children}
+                    {children}
                 </LayoutClient>
             </body>
         </html>

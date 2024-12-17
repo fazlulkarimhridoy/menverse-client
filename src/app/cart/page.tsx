@@ -6,6 +6,7 @@ import CartTotal from "@/components/pages/Cart/CartTotal";
 import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
 import { FaX } from "react-icons/fa6";
+import SizeChart from "@/components/pages/Cart/SizeChart";
 
 const Cart: React.FC = () => {
     const {
@@ -151,29 +152,35 @@ const Cart: React.FC = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <Empty className="md:my-[99px]" description="No items in cart." />
+                    <Empty
+                        className="md:my-[99px]"
+                        description="No items in cart."
+                    />
                 )}
             </div>
             {cartData?.length > 0 && (
                 <div className="flex items-center justify-end">
                     <Button
                         onClick={() => clearCart()}
-                        className="bg-red-100 border-red-100 text-red-500 text-xs md:text-base flex items-center justify-center gap-0.5"
+                        className="bg-red-100 border-red-100 text-red-500 text-xs flex items-center justify-center gap-0.5"
                     >
                         <FaX size={11} /> Clear Cart
                     </Button>
                 </div>
             )}
 
-            <div className="flex flex-col md:flex-row justify-center gap-10 my-[8px]">
-                {cartData?.length > 0 && (
+            {cartData?.length > 0 && (
+                <div className="flex flex-col sm:flex-row justify-end gap-10 my-[8px]">
+                    <SizeChart />
                     <CartTotal
+                        mobileWidth={"w-full"}
+                        largeWidth={"w-1/2"}
                         deliveryCharge={60}
                         calculateTotal={calculateTotal}
                         show={true}
                     />
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };

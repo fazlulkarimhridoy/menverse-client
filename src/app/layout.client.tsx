@@ -9,44 +9,55 @@ import CategoryProvider from "@/context/CategoryContext";
 import SearchTextProvider from "@/context/SearchTextContext";
 import NewFooter from "@/components/shared/Footer/NewFooter";
 import { CartProvider } from "@/context/CartProvider";
-
+import FloatSocialButton from "@/components/floatButton/FloatSocialButton";
 
 export const metadata: Metadata = {
-  title: "MENVERSE",
-  description: "Designed and developed by Hridoy",
+    title: "MENVERSE",
+    description: "Designed and developed by Hridoy",
 };
 
 export default function LayoutClient({
-  children,
+    children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const pathname = usePathname();
+    const pathname = usePathname();
 
-  return (
-    <div>
-      {!pathname.startsWith("/admin") && (
-        <>
-          <CartProvider>
-            <CategoryProvider>
-              <SearchTextProvider>
-                <TanstackProvider>
-                  <div>
-                    {(pathname.startsWith("/login") || pathname.startsWith("/success")) ? <></> : <Navbar />}
-                    <div>{children}</div>
-                    {(pathname.startsWith("/login") || pathname.startsWith("/success")) ? <></> : <NewFooter />}
-                  </div>
-                </TanstackProvider>
-              </SearchTextProvider>
-            </CategoryProvider>
-          </CartProvider>
-        </>
-      )}
-      {pathname.startsWith("/admin") && (
-        <>
-          <TanstackProvider>
-            <div>{children}</div>
-          </TanstackProvider>
-        </>
-      )}
-    </div>
-  );
+    return (
+        <div>
+            {!pathname.startsWith("/admin") && (
+                <>
+                    <CartProvider>
+                        <CategoryProvider>
+                            <SearchTextProvider>
+                                <TanstackProvider>
+                                    <div>
+                                        {pathname.startsWith("/login") ||
+                                        pathname.startsWith("/success") ? (
+                                            <></>
+                                        ) : (
+                                            <Navbar />
+                                        )}
+                                        <div>{children}</div>
+                                        <FloatSocialButton />
+                                        {pathname.startsWith("/login") ||
+                                        pathname.startsWith("/success") ? (
+                                            <></>
+                                        ) : (
+                                            <NewFooter />
+                                        )}
+                                    </div>
+                                </TanstackProvider>
+                            </SearchTextProvider>
+                        </CategoryProvider>
+                    </CartProvider>
+                </>
+            )}
+            {pathname.startsWith("/admin") && (
+                <>
+                    <TanstackProvider>
+                        <div>{children}</div>
+                    </TanstackProvider>
+                </>
+            )}
+        </div>
+    );
 }

@@ -21,6 +21,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { useCart } from "@/context/CartProvider";
+import SizeChart from "@/components/pages/Cart/SizeChart";
 
 const Page = () => {
     const {
@@ -366,6 +367,8 @@ const Page = () => {
 
                     <div className="p-2 md:p-0">
                         <CartTotal
+                            mobileWidth={"w-full"}
+                            largeWidth={"w-full"}
                             calculateTotal={calculateTotal}
                             deliveryCharge={value}
                             show={false}

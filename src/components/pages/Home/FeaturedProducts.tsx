@@ -20,7 +20,10 @@ interface ProductType {
 
 const FeaturedProducts = () => {
     // fetch all products from server
-    const { data: featuredProducts = [], isLoading } = useQuery<ProductType[]>({
+    const {
+        data: featuredProducts = [],
+        isLoading,
+    } = useQuery<ProductType[]>({
         queryKey: ["featuredProducts"],
         queryFn: async () => {
             const res = await axios.get(
@@ -47,10 +50,7 @@ const FeaturedProducts = () => {
                     <Spin style={{ color: "white" }} size="large" />
                 ) : featuredProducts?.length > 0 ? (
                     featuredProducts?.map((item) => (
-                        <ProductCard
-                            key={item?.id}
-                            item={item}
-                        />
+                        <ProductCard key={item?.id} item={item} />
                     ))
                 ) : (
                     <Empty

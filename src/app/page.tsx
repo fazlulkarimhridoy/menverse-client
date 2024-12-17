@@ -5,18 +5,15 @@ import Banner from "@/components/pages/Home/Banner";
 import FeaturedProducts from "@/components/pages/Home/FeaturedProducts";
 import HowItWorks from "@/components/pages/Home/HowItWorks";
 import GetBouquet from "@/components/pages/Home/GetBouquet";
-import FloatButton from "@/components/floatButton/FloatButton";
 
 const Home = () => {
-  const [bgColor, setBgColor] = useState("bg-[#b8cedc]");
- 
-  
-  useEffect(() => {
+    const [bgColor, setBgColor] = useState("bg-[#b8cedc]");
 
-    const handleScroll = () => {
-      if (window?.scrollY > 300) {
-        setBgColor("bg-[#b8cedc]"); // Change color when scrolled past 100px
-      }
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window?.scrollY > 300) {
+                setBgColor("bg-[#b8cedc]"); // Change color when scrolled past 100px
+            }
 
             if (window?.scrollY > 500) {
                 setBgColor("bg-white"); // Default background color
@@ -36,15 +33,16 @@ const Home = () => {
         };
     }, []);
 
-  return (
-    <div className={`${bgColor} transition-colors duration-300 overflow-hidden`}>
-      <Banner></Banner>
-      <FloatButton />
-      <FeaturedProducts/>
-      <HowItWorks/>
-      <GetBouquet/>
-    </div>
-  );
+    return (
+        <div
+            className={`${bgColor} transition-colors duration-300 overflow-hidden`}
+        >
+            <Banner></Banner>
+            <FeaturedProducts />
+            <HowItWorks />
+            <GetBouquet />
+        </div>
+    );
 };
 
 export default Home;
