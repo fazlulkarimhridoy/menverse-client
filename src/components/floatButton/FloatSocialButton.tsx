@@ -11,7 +11,6 @@ const FloatSocialButton = () => {
         <div>
             <FloatButton.Group
                 type="primary"
-                htmlType="button"
                 trigger="click"
                 style={{ right: 30, bottom: 30 }}
                 icon={<MessageFilled />}
