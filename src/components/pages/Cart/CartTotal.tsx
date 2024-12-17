@@ -6,14 +6,16 @@ interface CartTotalProps {
     show: boolean;
     calculateTotal: Function;
     deliveryCharge: number;
+    mobileWidth: string;
+    largeWidth: string;
 }
 
-const CartTotal: React.FC<CartTotalProps> = ({ calculateTotal, show, deliveryCharge }) => {
+const CartTotal: React.FC<CartTotalProps> = ({ calculateTotal, show, deliveryCharge, mobileWidth, largeWidth }) => {
     const total = calculateTotal();
 
     return (
-        <div className="font-outfit border-2 border-[rgb(162,182,195)] p-2 space-y-4 w-full font-outfit rounded-xl">
-            <h1 className="text-xl font-semibold text-fade-black">
+        <div className={`flex flex-col justify-between gap-1 font-outfit border-2 border-[rgb(162,182,195)] p-5 xl:p-10 ${mobileWidth} md:${largeWidth} font-outfit rounded-xl`}>
+            <h1 className="font-semibold text-fade-black">
                 Cart Totals
             </h1>
             <h1 className="text-lg font-semibold text-fade-black flex justify-between">
@@ -40,7 +42,7 @@ const CartTotal: React.FC<CartTotalProps> = ({ calculateTotal, show, deliveryCha
             {show && (
                 <div>
                     <Link href="/purchaseOrder">
-                        <button className="text-white bg-[#7a71b1] w-full p-2 rounded-lg btn">
+                        <button className="text-white bg-[#7a71b1] w-full rounded-lg btn">
                             Purchase Order
                         </button>
                     </Link>

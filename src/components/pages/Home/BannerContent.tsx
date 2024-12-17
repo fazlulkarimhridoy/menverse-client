@@ -31,17 +31,15 @@ const BannerContent = () => {
                         </div>
                         <div
                             data-aos="zoom-in"
-                            data-aos-delay="500"
+                            data-aos-delay="300"
                             data-aos-easing="ease-in-out"
                             className=""
                         >
                             <Image
-                                className=""
                                 width={400}
                                 height={300}
                                 src={"/Images/banner-image-1.png"}
                                 alt="flower"
-                                priority={true}
                             ></Image>
                         </div>
                     </section>
