@@ -217,7 +217,7 @@ const Orders = () => {
                             filteredOrders?.map((data) => (
                                 <OrderRow
                                     key={data.id}
-                                    categoryData={data}
+                                    orderData={data}
                                     handleOrderStatus={handleOrderStatus}
                                 ></OrderRow>
                             ))

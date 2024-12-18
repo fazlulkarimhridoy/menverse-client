@@ -188,6 +188,7 @@ const Page = () => {
                         quantity: item.quantity,
                         size: item.size,
                         price: item.price,
+                        discount_price: item.discount_price,
                     })),
                     paymentMethod: "CASHON",
                     note,

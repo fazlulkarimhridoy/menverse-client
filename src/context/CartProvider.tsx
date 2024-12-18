@@ -9,7 +9,6 @@ import {
     Dispatch,
     SetStateAction,
 } from "react";
-import Swal from "sweetalert2";
 
 type CartItem = {
     id: number;

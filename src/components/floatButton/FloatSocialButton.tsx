@@ -2,7 +2,6 @@ import React from "react";
 import {
     FacebookOutlined,
     MessageFilled,
-    MessageOutlined,
     WhatsAppOutlined,
 } from "@ant-design/icons";
 import { FloatButton } from "antd";

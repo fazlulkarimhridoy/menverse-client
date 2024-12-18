@@ -129,6 +129,7 @@ const RecentOrders = () => {
                 <th>Order Date</th>
                 <th>Details</th>
                 <th>Order Status</th>
+                <th>Invoice</th>
               </tr>
             </thead>
             <tbody>
@@ -137,7 +138,7 @@ const RecentOrders = () => {
                 allOrders?.map((data) => (
                   <OrderRow
                     key={data.id}
-                    categoryData={data}
+                    orderData={data}
                     handleOrderStatus={handleOrderStatus}
                   ></OrderRow>
                 ))
