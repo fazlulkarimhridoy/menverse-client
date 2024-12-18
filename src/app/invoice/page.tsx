@@ -45,7 +45,7 @@ const InvoicePage = () => {
     }, [reactToPrintFn]);
 
     return (
-        <div className="max-w-[850px] mx-auto border border-[#ccc] rounded-md m-3 relative">
+        <div className="max-w-[850px] mx-auto">
             <div
                 ref={componentRef}
                 className="max-w-[794px] mx-auto my-auto p-5 sm:p-8"
@@ -225,7 +225,7 @@ const InvoicePage = () => {
 
                 <section className="flex justify-end">
                     <table
-                        style={{ width: "40%", borderCollapse: "collapse" }}
+                        style={{ width: "60%", borderCollapse: "collapse" }}
                     >
                         <tbody>
                             <tr>
@@ -292,10 +292,10 @@ const InvoicePage = () => {
                 </p>
             </div>
             <div className="flex justify-center items-center gap-5 mb-5 print:hidden">
-                <Button size="large" type="primary" onClick={printPDF}>
+                <Button className="print:hidden" size="large" type="primary" onClick={printPDF}>
                     Print PDF
                 </Button>
-                <Button size="large">
+                <Button className="print:hidden" size="large">
                     <Link href="/admin/orders">Go to Orders</Link>
                 </Button>
             </div>
