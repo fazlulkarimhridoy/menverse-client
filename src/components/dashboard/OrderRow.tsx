@@ -1,6 +1,8 @@
 import { Button, Modal, Spin } from "antd";
 import { useState } from "react";
 import OrderItem from "./OrderItem";
+import { FaFilePdf } from "react-icons/fa";
+import Invoice from "../../components/invoice/Invoice";
 
 const statusOptions = [
     {
@@ -48,6 +50,7 @@ const OrderRow = ({
 }) => {
     // states and calls
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showInvoice, setShowInvoice] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -65,6 +68,12 @@ const OrderRow = ({
         customer,
         note,
     } = categoryData;
+
+    // handle to invoice
+    const handleInvoice = () => {
+        console.log("click on invoice");
+        setShowInvoice(true); // Trigger rendering the Invoice in the modal
+    };
 
     return (
         <tr>
@@ -115,7 +124,11 @@ const OrderRow = ({
                     ))}
                 </select>
             </td>
-
+            <td onClick={handleInvoice} className="mt-2">
+                <Button>
+                    <FaFilePdf /> Invoice
+                </Button>
+            </td>
             <Modal
                 className="w-full"
                 footer={false}
@@ -159,9 +172,18 @@ const OrderRow = ({
                 </div>
                 <div className="mt-2">
                     <p className="text-lg font-bold">
-                        Total Price: <span className="text-red-500">{totalPrice}</span> Taka
+                        Total Price:{" "}
+                        <span className="text-red-500">{totalPrice}</span> Taka
                     </p>
                 </div>
+            </Modal>
+            <Modal
+                className="w-full"
+                footer={false}
+                open={showInvoice}
+                onCancel={() => setShowInvoice(false)} // Close the modal
+            >
+                <Invoice />
             </Modal>
         </tr>
     );

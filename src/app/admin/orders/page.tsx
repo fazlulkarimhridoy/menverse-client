@@ -208,6 +208,7 @@ const Orders = () => {
                             <th>Order Date</th>
                             <th>Details</th>
                             <th>Order Status</th>
+                            <th>Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
