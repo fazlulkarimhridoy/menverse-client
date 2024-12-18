@@ -15,6 +15,7 @@ type OrderType = {
     id: number;
     customerId: number;
     totalPrice: number;
+    deliveryCharge: number;
     orderStatus: string;
     orderDate: string;
     orderTime: string;
@@ -204,6 +205,7 @@ const Orders = () => {
                             <th>Name</th>
                             <th>Phone Number</th>
                             <th>Total Price</th>
+                            <th>Delivery Charge</th>
                             <th>Payment Method</th>
                             <th>Order Date</th>
                             <th>Details</th>

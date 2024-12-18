@@ -16,13 +16,12 @@ interface Product {
     size: string;
 }
 
-const deliveryCharge = 60;
-
 const InvoicePage = () => {
     const [orderData, setOrderData] = useState<any>({});
     const {
         customerId,
         totalPrice,
+        deliveryCharge,
         orderDate,
         paymentMethod,
         customer,
@@ -44,17 +43,6 @@ const InvoicePage = () => {
     const printPDF = useCallback(() => {
         reactToPrintFn();
     }, [reactToPrintFn]);
-
-    // const calculateSubTotal = () => {
-    //     return orderData?.items.reduce(
-    //         (total: number, product: any) =>
-    //             total + product.price * product.quantity,
-    //         0
-    //     );
-    // };
-
-    // const subTotal = calculateSubTotal();
-    // const totalPriceWithDC = subTotal + deliveryCharge;
 
     return (
         <div className="max-w-[850px] mx-auto border border-[#ccc] rounded-md m-3 relative">
@@ -127,7 +115,9 @@ const InvoicePage = () => {
                                   )
                                 : "Invalid date"}
                         </h3>
-                        <p>{paymentMethod === "CASHON" && "Cash on delivery" }</p>
+                        <p>
+                            {paymentMethod === "CASHON" && "Cash on delivery"}
+                        </p>
                         <p>All over Bangladesh</p>
                     </div>
                 </section>
@@ -233,9 +223,9 @@ const InvoicePage = () => {
                     </div>
                 </section>
 
-                <section>
+                <section className="flex justify-end">
                     <table
-                        style={{ width: "100%", borderCollapse: "collapse" }}
+                        style={{ width: "40%", borderCollapse: "collapse" }}
                     >
                         <tbody>
                             <tr>
@@ -253,7 +243,7 @@ const InvoicePage = () => {
                                         textAlign: "right",
                                     }}
                                 >
-                                    BDT{totalPrice}
+                                    {totalPrice} /-
                                 </td>
                             </tr>
                             <tr>
@@ -271,7 +261,7 @@ const InvoicePage = () => {
                                         textAlign: "right",
                                     }}
                                 >
-                                    BDT{deliveryCharge.toFixed(2)}
+                                    {deliveryCharge} /-
                                 </td>
                             </tr>
                             <tr>
@@ -291,7 +281,7 @@ const InvoicePage = () => {
                                         fontWeight: "bold",
                                     }}
                                 >
-                                    BDT{totalPrice}
+                                    BDT {totalPrice + deliveryCharge} /-
                                 </td>
                             </tr>
                         </tbody>

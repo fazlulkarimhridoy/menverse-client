@@ -27,6 +27,7 @@ type OrderType = {
     id: number;
     customerId: number;
     totalPrice: number;
+    deliveryCharge: number;
     orderStatus: string;
     orderDate: string;
     orderTime: string;
@@ -62,6 +63,7 @@ const OrderRow = ({
         id,
         customerId,
         totalPrice,
+        deliveryCharge,
         orderDate,
         orderStatus,
         paymentMethod,
@@ -82,6 +84,7 @@ const OrderRow = ({
             <th>{customer?.name}</th>
             <th>{customer?.phone}</th>
             <td>{totalPrice}</td>
+            <td>{deliveryCharge}</td>
             <td>{paymentMethod === "CASHON" ? "Cash On Delivery" : "Bkash"}</td>
             <td>
                 <div>
@@ -174,7 +177,7 @@ const OrderRow = ({
                 <div className="mt-2">
                     <p className="text-lg font-bold">
                         Total Price:{" "}
-                        <span className="text-red-500">{totalPrice}</span> Taka
+                        <span className="text-red-500">{totalPrice+deliveryCharge}</span> Taka
                     </p>
                 </div>
             </Modal>
