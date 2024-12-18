@@ -96,7 +96,7 @@ const Invoice = () => {
                 className="max-w-[794px] max-h-[1123px] mx-auto my-auto"
                 style={{
                     fontFamily: "Arial, sans-serif",
-                    padding: "20px",
+                    padding: "0px",
                     // border: "1px solid #ccc",
                 }}
             >
@@ -322,7 +322,7 @@ const Invoice = () => {
                     </table>
                 </section>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end print:hidden">
                 <Button onClick={printPDF}
                 >
                     Print PDF
