@@ -340,12 +340,21 @@ const AddProduct = () => {
                             //     },
                             // ]}
                         >
-                            <InputNumber
+                            {/* <Input
                                 style={{ width: "100%" }}
                                 className="w-full"
-                                placeholder="Enter stock..."
+                                placeholder="Select Availability..."
                                 size="large"
-                            />
+                            /> */}
+                            <Select
+                                defaultValue="available"
+                                className="w-full"
+                                placeholder="Select Availability..."
+                                size="large"
+                            >
+                                <Option value="available">Aavailable</Option>
+                                <Option value="unavailable">Unavailable</Option>
+                            </Select>
                         </Form.Item>
                         <Form.Item<FieldType>
                             className="w-full"
@@ -401,13 +410,13 @@ const AddProduct = () => {
                             className="w-full"
                             label="Product Id"
                             name="productId"
-                            rules={[
-                                {
-                                    required: true,
-                                    message:
-                                        "Please enter product id as number!",
-                                },
-                            ]}
+                            // rules={[
+                            //     {
+                            //         required: true,
+                            //         message:
+                            //             "Please enter product id as number!",
+                            //     },
+                            // ]}
                         >
                             <InputNumber
                                 style={{ width: "100%" }}

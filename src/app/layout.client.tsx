@@ -30,7 +30,7 @@ export default function LayoutClient({
                             <SearchTextProvider>
                                 <TanstackProvider>
                                     <div>
-                                        {pathname.startsWith("/login") ||
+                                        {pathname.startsWith("/login") || pathname.startsWith("/invoice") ||
                                         pathname.startsWith("/success") ? (
                                             <></>
                                         ) : (
@@ -38,7 +38,7 @@ export default function LayoutClient({
                                         )}
                                         <div>{children}</div>
                                         <FloatSocialButton />
-                                        {pathname.startsWith("/login") ||
+                                        {pathname.startsWith("/login") || pathname.startsWith("/invoice") ||
                                         pathname.startsWith("/success") ? (
                                             <></>
                                         ) : (

@@ -1,8 +1,8 @@
-import { Button, Modal, Spin } from "antd";
+import { Button, Modal } from "antd";
 import { useState } from "react";
 import OrderItem from "./OrderItem";
 import { FaFilePdf } from "react-icons/fa";
-import Invoice from "../../components/invoice/Invoice";
+import { useRouter } from "next/navigation";
 
 const statusOptions = [
     {
@@ -27,6 +27,7 @@ type OrderType = {
     id: number;
     customerId: number;
     totalPrice: number;
+    deliveryCharge: number;
     orderStatus: string;
     orderDate: string;
     orderTime: string;
@@ -42,15 +43,16 @@ type OrderType = {
 };
 
 const OrderRow = ({
-    categoryData,
+    orderData,
     handleOrderStatus,
 }: {
-    categoryData: OrderType;
+    orderData: OrderType;
     handleOrderStatus: Function;
 }) => {
     // states and calls
+    const router = useRouter();
+    const { push } = router;
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showInvoice, setShowInvoice] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -61,18 +63,19 @@ const OrderRow = ({
         id,
         customerId,
         totalPrice,
+        deliveryCharge,
         orderDate,
         orderStatus,
         paymentMethod,
         items,
         customer,
         note,
-    } = categoryData;
+    } = orderData;
 
-    // handle to invoice
-    const handleInvoice = () => {
-        console.log("click on invoice");
-        setShowInvoice(true); // Trigger rendering the Invoice in the modal
+    // navigate to invoice
+    const handleToInvoice = () => {
+        localStorage.setItem("orderData", JSON.stringify(orderData));
+        push("/invoice");
     };
 
     return (
@@ -81,6 +84,7 @@ const OrderRow = ({
             <th>{customer?.name}</th>
             <th>{customer?.phone}</th>
             <td>{totalPrice}</td>
+            <td>{deliveryCharge}</td>
             <td>{paymentMethod === "CASHON" ? "Cash On Delivery" : "Bkash"}</td>
             <td>
                 <div>
@@ -124,8 +128,8 @@ const OrderRow = ({
                     ))}
                 </select>
             </td>
-            <td onClick={handleInvoice} className="mt-2">
-                <Button>
+            <td className="mt-2">
+                <Button onClick={handleToInvoice}>
                     <FaFilePdf /> Invoice
                 </Button>
             </td>
@@ -173,17 +177,9 @@ const OrderRow = ({
                 <div className="mt-2">
                     <p className="text-lg font-bold">
                         Total Price:{" "}
-                        <span className="text-red-500">{totalPrice}</span> Taka
+                        <span className="text-red-500">{totalPrice+deliveryCharge}</span> Taka
                     </p>
                 </div>
-            </Modal>
-            <Modal
-                className="w-full"
-                footer={false}
-                open={showInvoice}
-                onCancel={() => setShowInvoice(false)} // Close the modal
-            >
-                <Invoice />
             </Modal>
         </tr>
     );

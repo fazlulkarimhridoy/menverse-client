@@ -174,7 +174,6 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
         values: any
     ) => {
         setLoading(true);
-        const thumbUrlsArray = fileList?.map((file) => file?.thumbUrl);
         const product_name =
             values.product_name || singleProductDetails?.product_name;
         const price = values.price || singleProductDetails?.price;
@@ -367,12 +366,15 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             //     },
                             // ]}
                         >
-                            <InputNumber
-                                style={{ width: "100%" }}
+                            <Select
+                                defaultValue="available"
                                 className="w-full"
-                                placeholder="Enter stock..."
+                                placeholder="Select Availability..."
                                 size="large"
-                            />
+                            >
+                                <Option value="available">Aavailable</Option>
+                                <Option value="unavailable">Unavailable</Option>
+                            </Select>
                         </Form.Item>
 
                         <Form.Item<FieldType>

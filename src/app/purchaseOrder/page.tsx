@@ -181,13 +181,15 @@ const Page = () => {
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/order/add-order`,
                 {
                     customerId,
-                    totalPrice: total + value,
+                    totalPrice: total,
+                    deliveryCharge: value,
                     orderStatus: "PENDING",
                     items: cartData.map((item) => ({
                         productId: item.id,
                         quantity: item.quantity,
                         size: item.size,
                         price: item.price,
+                        discount_price: item.discount_price,
                     })),
                     paymentMethod: "CASHON",
                     note,
