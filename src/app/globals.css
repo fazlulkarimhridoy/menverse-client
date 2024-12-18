@@ -14,6 +14,24 @@
     box-sizing: border-box;
 }
 
+@media print {
+    .print:hidden {
+        display: none !important;
+    }
+    .print:mx-0 {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .print:my-0 {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .print:w-full {
+        width: 100% !important;
+    }
+}
+
+
 .webkit-center {
     text-align: -webkit-center;
 }
