@@ -37,7 +37,7 @@ const AdminDashboard = () => {
     }
   }, []);
   // fetch order statistics
-  const { data, isLoading } = useQuery<statistic>({
+  const { data, isLoading, isSuccess } = useQuery<statistic>({
     queryKey: ["statistics"],
     queryFn: async () => {
       const res1 = await axios.get(
@@ -121,7 +121,7 @@ const AdminDashboard = () => {
         <h3 className="text-center my-5 text-sm italic font-thin text-gray-400">
           Recent Orders
         </h3>
-        <RecentOrders />
+        <RecentOrders isSuccess={isSuccess} />
       </div>
     </div>
   );

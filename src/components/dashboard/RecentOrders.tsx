@@ -13,6 +13,7 @@ type OrderType = {
   id: number;
   customerId: number;
   totalPrice: number;
+  deliveryCharge: number;
   deliveryDate: string;
   deliveryTime: string;
   orderStatus: string;
@@ -31,7 +32,7 @@ type OrderType = {
   transactionId: string;
 };
 
-const RecentOrders = () => {
+const RecentOrders = ({isSuccess}: {isSuccess: any}) => {
   const [loading, setLoading] = useState(false);
 
   // check if user is logged in
@@ -58,6 +59,7 @@ const RecentOrders = () => {
     },
     retry: 2,
     refetchOnWindowFocus: false,
+    enabled: isSuccess
   });
 
   const handleOrderStatus = async (id: any, status: any) => {
@@ -125,6 +127,7 @@ const RecentOrders = () => {
                 <th>Name</th>
                 <th>Phone Number</th>
                 <th>Total Price</th>
+                <th>Delivery Charge</th>
                 <th>Payment Method</th>
                 <th>Order Date</th>
                 <th>Details</th>
