@@ -18,6 +18,7 @@ interface ProductType {
     category: string;
     quantity: number;
     size: string;
+    stock: string
 }
 
 const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading: Boolean }) => {
