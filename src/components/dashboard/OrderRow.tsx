@@ -98,8 +98,8 @@ const OrderRow = ({
                 `${process.env.NEXT_PUBLIC_COURIER_BASE_URL}/status_by_cid/${id}`,
                 {
                     headers: {
-                        "Api-Key": "7crkg8uryalxvcxforabxuigxz8ofoq4",
-                        "Secret-Key": "coyznoocs9wwkt0h25fz3brz",
+                        "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
+                        "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
                         "Content-Type": "application/json",
                     },
                 }
@@ -110,7 +110,6 @@ const OrderRow = ({
         refetchOnWindowFocus: false,
         enabled: courierDetails ? true : false,
     });
-
 
     // add to steadfast courier
     const handleAddToCourer = async () => {
@@ -132,8 +131,8 @@ const OrderRow = ({
                 data,
                 {
                     headers: {
-                        "Api-Key": "7crkg8uryalxvcxforabxuigxz8ofoq4",
-                        "Secret-Key": "coyznoocs9wwkt0h25fz3brz",
+                        "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
+                        "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
                         "Content-Type": "application/json",
                     },
                 }
