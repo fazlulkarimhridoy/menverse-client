@@ -28,6 +28,11 @@ type OrderType = {
         customerId: string;
     };
     note: string;
+    courierDetails: {
+        consignment_id: number;
+        invoice: string;
+        tracking_code: string;
+    };
 };
 
 const Orders = () => {
@@ -176,7 +181,10 @@ const Orders = () => {
         <div className="relative">
             <div>
                 <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Orders <span className="text-sm text-red-200 -ml-2">{filteredOrders?.length}</span>
+                    Orders{" "}
+                    <span className="text-sm text-red-200 -ml-2">
+                        {filteredOrders?.length}
+                    </span>
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search
@@ -209,8 +217,10 @@ const Orders = () => {
                             <th>Payment Method</th>
                             <th>Order Date</th>
                             <th>Details</th>
-                            <th>Order Status</th>
                             <th>Invoice</th>
+                            <th>Add to courier</th>
+                            <th>Courier Status</th>
+                            {/* <th>Order Status</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -221,6 +231,7 @@ const Orders = () => {
                                     key={data.id}
                                     orderData={data}
                                     handleOrderStatus={handleOrderStatus}
+                                    refetch={refetch}
                                 ></OrderRow>
                             ))
                         ) : (

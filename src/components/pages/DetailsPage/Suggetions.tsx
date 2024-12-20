@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Empty, Spin } from "antd";
 import ProductCard from "../Home/ProductCard";
-import { useCart } from "@/context/CartProvider";
 
 interface ProductType {
     id: number;
@@ -19,6 +18,7 @@ interface ProductType {
     category: string;
     quantity: number;
     size: string;
+    stock: string;
 }
 
 export default function Suggetions({ isSuccess }: { isSuccess: any }) {

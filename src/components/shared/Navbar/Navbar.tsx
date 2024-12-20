@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/context/CartProvider";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -7,13 +8,12 @@ import { motion } from "framer-motion";
 import { Drawer } from "antd";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
-import { useCart } from "@/context/CartProvider";
 import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+    const { cartData } = useCart();
     const [showNavbar, setShowNavbar] = useState(false);
     const [open, setOpen] = useState(false);
-    const { cartData } = useCart();
 
     const pathname = usePathname(); // Get the current route
 

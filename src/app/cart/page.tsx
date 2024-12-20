@@ -1,10 +1,10 @@
 "use client";
 
+import { useCart } from "@/context/CartProvider";
 import { Button, Empty } from "antd";
 import { FaTrash } from "react-icons/fa";
 import CartTotal from "@/components/pages/Cart/CartTotal";
 import Image from "next/image";
-import { useCart } from "@/context/CartProvider";
 import { FaX } from "react-icons/fa6";
 import SizeChart from "@/components/pages/Cart/SizeChart";
 

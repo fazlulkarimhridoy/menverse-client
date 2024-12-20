@@ -1,14 +1,13 @@
 "use client";
 
+import { useCart } from "@/context/CartProvider";
 import React, { useState } from "react";
 import { FaShippingFast, FaTrash, FaUser } from "react-icons/fa";
 import {
     Button,
     Input,
-    InputNumber,
     Radio,
     RadioChangeEvent,
-    Select,
     Space,
     Spin,
 } from "antd";
@@ -20,8 +19,6 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { useCart } from "@/context/CartProvider";
-import SizeChart from "@/components/pages/Cart/SizeChart";
 
 const Page = () => {
     const {
