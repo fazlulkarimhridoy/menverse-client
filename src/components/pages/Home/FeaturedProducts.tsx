@@ -16,6 +16,7 @@ interface ProductType {
     rating: number;
     quantity: number;
     size: string;
+    stock: string;
 }
 
 const FeaturedProducts = () => {

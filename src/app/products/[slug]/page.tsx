@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/context/CartProvider";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -9,7 +10,6 @@ import { Spin } from "antd";
 import ImageDetails from "@/components/pages/DetailsPage/ImageDetails";
 import { useRouter } from "next/navigation";
 import { FaThumbsUp, FaTshirt } from "react-icons/fa";
-import { useCart } from "@/context/CartProvider";
 import Suggetions from "@/components/pages/DetailsPage/Suggetions";
 
 const desc: string[] = ["terrible", "bad", "normal", "good", "wonderful"];
@@ -26,11 +26,12 @@ interface ProductType {
     category: string;
     quantity: number;
     size: string;
+    stock: string;
 }
 
 const Page = ({ params }: { params: { slug: string } }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
     const { addToCart } = useCart();
+    const [isExpanded, setIsExpanded] = useState(false);
     const router = useRouter();
     const { push } = router;
 
@@ -164,12 +165,18 @@ const Page = ({ params }: { params: { slug: string } }) => {
                             </div>
                             <div className="space-y-4 max-w-[400px] ">
                                 <div className="flex  gap-2">
-                                    <div
+                                    <button
+                                        disabled={
+                                            singleProduct?.stock ===
+                                            "unavailable"
+                                        }
                                         onClick={handleAddToCart}
                                         className="btn w-full lg:w-36 border-2 flex-shrink-0 border-[#0b0f3b] rounded-lg hover:text-white bg-[#0b0f3b]   text-white px-2 font-bold flex items-center"
                                     >
-                                        <button>Add to cart</button>
-                                    </div>
+                                        {singleProduct?.stock === "unavailable"
+                                            ? "Stock Out"
+                                            : "Add to cart"}
+                                    </button>
                                 </div>
                             </div>
                         </div>

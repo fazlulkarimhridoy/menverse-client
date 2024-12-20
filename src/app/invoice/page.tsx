@@ -3,20 +3,12 @@
 import InvoiceTableRow from "@/components/invoice/InvoiceTableRow";
 import { Button } from "antd";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 
-interface Product {
-    id: number;
-    name: string;
-    image: string;
-    price: number;
-    quantity: number;
-    size: string;
-}
-
 const InvoicePage = () => {
+    const { push } = useRouter();
     const [orderData, setOrderData] = useState<any>({});
     const {
         customerId,
@@ -44,8 +36,12 @@ const InvoicePage = () => {
         reactToPrintFn();
     }, [reactToPrintFn]);
 
+    const handleNavigateToOrders = () => {
+        push("/admin/orders");
+    };
+
     return (
-        <div className="max-w-[850px] mx-auto">
+        <div className="max-w-[850px] lg:border lg:border-[#ccc] rounded lg:mt-10 mx-auto">
             <div
                 ref={componentRef}
                 className="max-w-[794px] mx-auto my-auto p-5 sm:p-8"
@@ -90,11 +86,11 @@ const InvoicePage = () => {
                     style={{
                         marginBottom: "20px",
                         display: "flex",
-                        alignItems: "center",
+                        alignItems: "flex-end",
                         justifyContent: "space-between",
                     }}
                 >
-                    <div>
+                    <div className="md:w-[60%]">
                         <h2>Customer Details</h2>
                         <p>
                             <strong>{customer?.name}</strong>
@@ -102,7 +98,7 @@ const InvoicePage = () => {
                         <p>{customer?.address}</p>
                         <p>Phone: {customer?.phone}</p>
                     </div>
-                    <div>
+                    <div className="text-nowrap">
                         <h3>
                             {typeof orderDate === "string"
                                 ? new Date(orderDate).toLocaleDateString(
@@ -224,9 +220,7 @@ const InvoicePage = () => {
                 </section>
 
                 <section className="flex justify-end">
-                    <table
-                        style={{ width: "60%", borderCollapse: "collapse" }}
-                    >
+                    <table style={{ width: "70%", borderCollapse: "collapse" }}>
                         <tbody>
                             <tr>
                                 <td
@@ -281,7 +275,7 @@ const InvoicePage = () => {
                                         fontWeight: "bold",
                                     }}
                                 >
-                                    BDT {totalPrice + deliveryCharge} /-
+                                    {totalPrice + deliveryCharge} /-
                                 </td>
                             </tr>
                         </tbody>
@@ -291,12 +285,21 @@ const InvoicePage = () => {
                     &quot;Keep shopping from MENVERSE&quot;
                 </p>
             </div>
-            <div className="flex justify-center items-center gap-5 mb-5 print:hidden">
-                <Button className="print:hidden" size="large" type="primary" onClick={printPDF}>
+            <div className="flex justify-center items-center gap-5 mb-4 print:hidden">
+                <Button
+                    className="print:hidden"
+                    size="large"
+                    type="primary"
+                    onClick={printPDF}
+                >
                     Print PDF
                 </Button>
-                <Button className="print:hidden" size="large">
-                    <Link href="/admin/orders">Go to Orders</Link>
+                <Button
+                    onClick={handleNavigateToOrders}
+                    className="print:hidden"
+                    size="large"
+                >
+                    Go to Orders
                 </Button>
             </div>
         </div>
