@@ -37,7 +37,7 @@ const NewFooter = () => {
                         </p>
                         <p className="flex items-center text-2xl font-semibold font-outfit gap-2 text-center p-4 truncate">
                             {" "}
-                            <a href="mailto:floralradiancee@gmail.com">
+                            <a href="mailto:urbanfits23@gmail.com">
                                 urbanfits23@gmail.com
                             </a>
                         </p>

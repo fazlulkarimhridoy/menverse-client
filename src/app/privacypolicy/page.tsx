@@ -74,7 +74,7 @@ const Page = () => {
           7. Your Rights You have the right to: Access, correct, or delete your
           personal information. Opt out of marketing communications at any time.
           Request information on how your data is used. To exercise any of these
-          rights, please contact us at info@floralradiancebd.com
+          rights, please contact us at urbanfits23@gmail.com
         </p>
         <p className="font-outfit text-lg">
           8. Changes to This Privacy Policy MENVERSE reserves the right

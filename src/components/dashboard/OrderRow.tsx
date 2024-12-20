@@ -187,6 +187,16 @@ const OrderRow = ({
                 return "text-red-500 bg-red-500/10";
             case "hold":
                 return "text-sky-500 bg-sky-500/10";
+            case "unknown":
+                return "text-red-500 bg-red-500/10";
+            case "delivered_approval_pending":
+                return "text-green-500 bg-green-500/10";
+            case "partial_delivered_approval_pending":
+                return "text-green-500 bg-green-500/10";
+            case "cancelled_approval_pending":
+                return "text-red-500 bg-red-500/10";
+            case "unknown_approval_pending":
+                return "text-red-500 bg-red-500/10";
             default:
                 return "text-gray-500 bg-gray-500/10";
         }
@@ -208,6 +218,14 @@ const OrderRow = ({
             case "hold":
                 return "On Hold";
             case "unknown":
+                return "Deleted";
+            case "delivered_approval_pending":
+                return "Delivered";
+            case "partial_delivered_approval_pending":
+                return "Delivered";
+            case "cancelled_approval_pending":
+                return "Cancelled";
+            case "unknown_approval_pending":
                 return "Deleted";
             default:
                 return "No Entry";
