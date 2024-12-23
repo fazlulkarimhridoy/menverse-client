@@ -245,27 +245,30 @@ const OrderRow = ({
             <td>
                 <div>
                     {typeof orderDate === "string"
-                        ? new Date(orderDate).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                          })
+                        ? new Date(orderDate)
+                              .toLocaleDateString("en-GB", {
+                                  year: "numeric",
+                                  day: "numeric",
+                                  month: "numeric",
+                              })
+                              .split("/")
+                              .join("-")
                         : "Invalid date"}
                 </div>
             </td>
             <th>
-                <Button className="text-sky-500 border-sky-500" onClick={showModal}>
+                <Button className="text-sky-500 border-none bg-sky-500/10" onClick={showModal}>
                     <FaListUl /> Details
                 </Button>
             </th>
             <td>
-                <Button className="text-orange-500 border-orange-500" onClick={handleToInvoice}>
+                <Button className="text-orange-500 border-none bg-orange-500/10" onClick={handleToInvoice}>
                     <FaFilePdf /> Invoice
                 </Button>
             </td>
             <td>
                 <Button
-                    className="text-green-700 border-green-700"
+                    className="text-green-700 border-none bg-green-700/10"
                     disabled={courierDetails !== null}
                     onClick={handleAddToCourer}
                 >
@@ -273,12 +276,12 @@ const OrderRow = ({
                 </Button>
             </td>
             <th>
-                <Button className="text-lime-500 border-lime-500" onClick={showModal1}>
+                <Button className="text-teal-500 border-none bg-teal-500/10" onClick={showModal1}>
                     <FaListAlt /> Info
                 </Button>
             </th>
             <td>
-                <Button type="text" className={`${getButtonClass(courierStatus)}`}>
+                <Button type="text" className={`${getButtonClass(courierStatus)} border-none cursor-default`}>
                     {renderStatusButton(courierStatus)}
                 </Button>
             </td>

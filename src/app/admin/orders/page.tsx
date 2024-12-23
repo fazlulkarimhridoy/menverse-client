@@ -81,8 +81,11 @@ const Orders = () => {
                       let isDateMatch = false;
                       if (order?.orderDate) {
                           try {
-                              // Convert orderDate string to a comparable format (YYYY-MM-DD)
-                              const formattedOrderDate = new Date(order.orderDate).toISOString().split("T")[0];
+                              // Convert orderDate string to DD-MM-YYYY format
+                              const formattedOrderDate = new Date(order.orderDate)
+                                  .toLocaleDateString("en-GB")
+                                  .split("/")
+                                  .join("-");
                               isDateMatch = formattedOrderDate.includes(searchString);
                           } catch (e) {
                               console.error("Error parsing orderDate:", order?.orderDate, e);
@@ -165,7 +168,7 @@ const Orders = () => {
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search
-                        placeholder="search by name, number, email...."
+                        placeholder="search by name, number, email, date...."
                         allowClear
                         enterButton="Search"
                         size="large"
