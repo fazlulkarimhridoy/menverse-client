@@ -81,7 +81,7 @@ const LoginPage = () => {
     return (
         <div className="mt-60">
             <h1 className="text-center text-4xl font-bold">Admin Login</h1>
-            <p className="text-gray-400 text-center text-sm font-thin mt-5 !italic">Floral Radiance 🌹</p>
+            <p className="text-gray-400 text-center text-sm font-thin mt-5 !italic">MENVERSE 👕</p>
             <Form
                 className="mt-10 px-5 md:px-0"
                 initialValues={{ remember: false }}

@@ -51,19 +51,12 @@ const ProductRow = ({
                 <div className="flex items-center gap-3">
                     <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                            <Image
-                                width={500}
-                                height={500}
-                                src={images[0]}
-                                alt="Avatar Tailwind CSS Component"
-                            />
+                            <Image width={500} height={500} src={images[0]} alt="Avatar Tailwind CSS Component" />
                         </div>
                     </div>
                     <div>
                         <div className="font-bold">{product_name}</div>
-                        <div className="text-sm opacity-50">
-                            {category || "No Category"}
-                        </div>
+                        <div className="text-sm opacity-50">{category || "No Category"}</div>
                     </div>
                 </div>
             </td>
@@ -88,48 +81,48 @@ const ProductRow = ({
             <td>
                 <div className="text-gray-600 font-bold">
                     {typeof created_at === "string"
-                        ? new Date(created_at).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                          })
+                        ? new Date(created_at)
+                              .toLocaleDateString("en-GB", {
+                                  year: "numeric",
+                                  month: "numeric",
+                                  day: "numeric",
+                              })
+                              .split("/")
+                              .join("-")
                         : "Invalid date"}
                 </div>
             </td>
             <td>
                 <div className="text-gray-600 font-bold">
                     {typeof created_at === "string"
-                        ? new Date(updated_at).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                          })
+                        ? new Date(updated_at)
+                              .toLocaleDateString("en-GB", {
+                                  year: "numeric",
+                                  month: "numeric",
+                                  day: "numeric",
+                              })
+                              .split("/")
+                              .join("-")
                         : "Invalid date"}
                 </div>
             </td>
             <td>
                 <Link href={`/products/${id}`}>
-                    <Button className="btn btn-circle btn-outline btn-sm">
-                        <FaEye></FaEye>
+                    <Button className="bg-emerald-500/10 text-emerald-500 border-none">
+                        <FaEye /> Details
                     </Button>
                 </Link>
             </td>
             <td>
                 <Link href={`/admin/products/${id}`}>
-                    <Button
-                        // onClick={() => handleUpdateProduct(id)}
-                        className="btn btn-circle btn-outline btn-sm"
-                    >
-                        <FaTools color="green" />
+                    <Button className="bg-orange-500/10 text-orange-500 border-none">
+                        <FaTools /> Update
                     </Button>
                 </Link>
             </td>
             <td>
-                <Button
-                    onClick={() => handleDeleteProduct(id)}
-                    className="btn btn-circle btn-outline btn-sm"
-                >
-                    <FaTrash className="text-red-600"></FaTrash>
+                <Button className="bg-red-500/10 text-red-500 border-none" onClick={() => handleDeleteProduct(id)}>
+                    <FaTrash /> Delete
                 </Button>
             </td>
         </tr>

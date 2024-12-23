@@ -34,17 +34,17 @@ const CategoryRow = ({
             <td className="truncate">{truncateText(description, 150)}</td>
             <td>
                 <Link href={`/admin/categories/${id}`}>
-                    <Button className="btn btn-circle btn-outline btn-sm">
-                        <FaTools color="green" />
+                    <Button className="bg-orange-500/10 text-orange-500 border-none">
+                        <FaTools /> Update
                     </Button>
                 </Link>
             </td>
             <td>
                 <Button
+                className="bg-red-500/10 text-red-500 border-none"
                     onClick={() => handleDeleteCategory(id)}
-                    className="btn btn-circle btn-outline btn-sm"
                 >
-                    <FaTrash className="text-red-600"></FaTrash>
+                    <FaTrash /> Delete
                 </Button>
             </td>
         </tr>

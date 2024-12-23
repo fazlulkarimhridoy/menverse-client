@@ -7,7 +7,7 @@ import {
 import { FloatButton } from "antd";
 const FloatSocialButton = () => {
     return (
-        <div>
+        <div className="print:hidden">
             <FloatButton.Group
                 type="primary"
                 trigger="click"

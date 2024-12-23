@@ -12,9 +12,6 @@ const BannerContent = () => {
         <div className="">
             <div className="">
                 <div className="flex flex-col-reverse gap-4 md:flex-col justify-around items-center sm:h-[400px] lg:h-[650px]">
-                    {/* <div>
-            <h1 className="text-5xl playfair font-bold text-[#194363] text-center ">Floral Radiance</h1>
-          </div> */}
                     <section className="flex flex-col sm:flex-row p-2 items-center justify-around gap-4">
                         <div className=" max-w-[400px] space-y-8 px-2">
                             <p className="text-5xl playfair font-bold text-[#194363] cssanimation ">

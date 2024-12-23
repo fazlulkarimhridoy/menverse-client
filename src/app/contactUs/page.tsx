@@ -93,7 +93,7 @@ const ContactUs = () => {
                             </span>{" "}
                             <a
                                 className="underline"
-                                href="mailto:floralradiancee@gmail.com"
+                                href="mailto:urbanfits23@gmail.com"
                             >
                                 urbanfits23@gmail.com
                             </a>

@@ -19,7 +19,6 @@ const InvoiceTableItem = ({ productId }: { productId: number }) => {
         enabled: productId ? true : false,
     });
 
-    console.log("details", singleProductDetails);
     return (
         <>
             <td

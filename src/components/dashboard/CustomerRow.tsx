@@ -10,11 +10,7 @@ interface CustomerType {
     createdAt: string;
 }
 
-const CustomerRow = ({
-    customerData,
-}: {
-    customerData: CustomerType;
-}) => {
+const CustomerRow = ({ customerData }: { customerData: CustomerType }) => {
     const { id, customerId, name, phone, address, createdAt } = customerData;
 
     return (
@@ -26,15 +22,20 @@ const CustomerRow = ({
             </td>
             <td>{phone}</td>
             <td>{address}</td>
-            <td><div>
+            <td>
+                <div>
                     {typeof createdAt === "string"
-                        ? new Date(createdAt).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                          })
+                        ? new Date(createdAt)
+                              .toLocaleDateString("en-GB", {
+                                  year: "numeric",
+                                  month: "numeric",
+                                  day: "numeric",
+                              })
+                              .split("/")
+                              .join("-")
                         : "Invalid date"}
-                </div></td>
+                </div>
+            </td>
         </tr>
     );
 };
