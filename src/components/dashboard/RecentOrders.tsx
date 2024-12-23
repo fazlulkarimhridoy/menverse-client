@@ -31,6 +31,7 @@ type OrderType = {
     note: string;
     transactionId: string;
     courierDetails: {
+        courierName: string;
         consignment_id: number;
         invoice: string;
         tracking_code: string;
@@ -132,15 +133,16 @@ const RecentOrders = ({ isSuccess }: { isSuccess: any }) => {
                             <tr className="bg-gray-200">
                                 <th>Customer Id</th>
                                 <th>Name</th>
-                                <th>Phone Number</th>
-                                <th>Total Price</th>
-                                <th>Delivery Charge</th>
-                                <th>Payment Method</th>
+                                <th>Number</th>
+                                <th>Price</th>
+                                <th>Charge</th>
+                                <th>Payment</th>
                                 <th>Order Date</th>
                                 <th>Details</th>
                                 <th>Invoice</th>
-                                <th>Add to courier</th>
-                                <th>Courier Status</th>
+                                <th>Steadfast</th>
+                                <th>Info</th>
+                                <th>Status</th>
                                 {/* <th>Order Status</th> */}
                             </tr>
                         </thead>

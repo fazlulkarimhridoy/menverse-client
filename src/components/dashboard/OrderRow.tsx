@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import OrderItem from "./OrderItem";
-import { FaFilePdf, FaListUl, FaTruck } from "react-icons/fa";
+import { FaFilePdf, FaListAlt, FaListUl, FaTruck } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -44,6 +44,7 @@ type OrderType = {
     };
     note: string;
     courierDetails: {
+        courierName: string;
         consignment_id: number;
         invoice: string;
         tracking_code: string;
@@ -76,11 +77,19 @@ const OrderRow = ({
     const router = useRouter();
     const { push } = router;
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModal1Open, setIsModal1Open] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
     };
     const onClose = () => {
         setIsModalOpen(false);
+    };
+
+    const showModal1 = () => {
+        setIsModal1Open(true);
+    };
+    const onClose1 = () => {
+        setIsModal1Open(false);
     };
 
     // navigate to invoice
@@ -94,16 +103,13 @@ const OrderRow = ({
         queryKey: ["deliveryStatus", courierDetails?.consignment_id],
         queryFn: async () => {
             const id = courierDetails?.consignment_id;
-            const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_COURIER_BASE_URL}/status_by_cid/${id}`,
-                {
-                    headers: {
-                        "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
-                        "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_COURIER_BASE_URL}/status_by_cid/${id}`, {
+                headers: {
+                    "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
+                    "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            });
             return response.data.delivery_status;
         },
         retry: 2,
@@ -126,17 +132,13 @@ const OrderRow = ({
         console.log("courierDataInfo", data);
         try {
             // create courier order
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_COURIER_BASE_URL}/create_order`,
-                data,
-                {
-                    headers: {
-                        "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
-                        "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_COURIER_BASE_URL}/create_order`, data, {
+                headers: {
+                    "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
+                    "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            });
 
             // update order data
             const orderUpdateData = {
@@ -239,7 +241,7 @@ const OrderRow = ({
             <th>{customer?.phone}</th>
             <td>{totalPrice}</td>
             <td>{deliveryCharge}</td>
-            <td>{paymentMethod === "CASHON" ? "Cash On Delivery" : "Bkash"}</td>
+            <td>{paymentMethod === "CASHON" ? "COD" : "Bkash"}</td>
             <td>
                 <div>
                     {typeof orderDate === "string"
@@ -252,29 +254,31 @@ const OrderRow = ({
                 </div>
             </td>
             <th>
-                <Button className="text-sky-500" onClick={showModal}>
+                <Button className="text-sky-500 border-sky-500" onClick={showModal}>
                     <FaListUl /> Details
                 </Button>
             </th>
             <td>
-                <Button className="text-orange-500" onClick={handleToInvoice}>
+                <Button className="text-orange-500 border-orange-500" onClick={handleToInvoice}>
                     <FaFilePdf /> Invoice
                 </Button>
             </td>
             <td>
                 <Button
-                    className="text-green-700"
+                    className="text-green-700 border-green-700"
                     disabled={courierDetails !== null}
                     onClick={handleAddToCourer}
                 >
                     <FaTruck /> {courierDetails ? "Added" : "Courier"}
                 </Button>
             </td>
+            <th>
+                <Button className="text-lime-500 border-lime-500" onClick={showModal1}>
+                    <FaListAlt /> Info
+                </Button>
+            </th>
             <td>
-                <Button
-                    type="text"
-                    className={`${getButtonClass(courierStatus)}`}
-                >
+                <Button type="text" className={`${getButtonClass(courierStatus)}`}>
                     {renderStatusButton(courierStatus)}
                 </Button>
             </td>
@@ -306,37 +310,26 @@ const OrderRow = ({
                 </select>
             </td> */}
 
-            <Modal
-                className="w-full"
-                footer={false}
-                open={isModalOpen}
-                onCancel={onClose}
-            >
+            {/* order details */}
+            <Modal className="w-full" footer={false} open={isModalOpen} onCancel={onClose}>
                 <div className="flex flex-col lg:flex-row justify-center gap-2">
                     <div className="w-full">
                         <h1 className="text-lg font-bold">Customer Details</h1>
                         <div className="bg-gray-100 rounded-xl mt-2 p-3">
                             <p className="flex gap-2">
-                                <span className="font-semibold">
-                                    Customer ID:
-                                </span>{" "}
-                                {customerId}
+                                <span className="font-semibold">Customer ID:</span> {customerId}
                             </p>
                             <p className="flex gap-2">
-                                <span className="font-semibold">Name:</span>{" "}
-                                {customer?.name}
+                                <span className="font-semibold">Name:</span> {customer?.name}
                             </p>
                             <p className="flex gap-2">
-                                <span className="font-semibold">Phone:</span>{" "}
-                                {customer?.phone}
+                                <span className="font-semibold">Phone:</span> {customer?.phone}
                             </p>
                             <p className="flex gap-2">
-                                <span className="font-semibold">Address:</span>{" "}
-                                {customer?.address}
+                                <span className="font-semibold">Address:</span> {customer?.address}
                             </p>
                             <p className="flex gap-2">
-                                <span className="font-semibold">Note:</span>{" "}
-                                {note}
+                                <span className="font-semibold">Note:</span> {note}
                             </p>
                         </div>
                     </div>
@@ -349,11 +342,42 @@ const OrderRow = ({
                 </div>
                 <div className="mt-2">
                     <p className="text-lg font-bold">
-                        Total Price:{" "}
-                        <span className="text-red-500">
-                            {totalPrice + deliveryCharge}
-                        </span>{" "}
-                        Taka
+                        Total Price: <span className="text-red-500">{totalPrice + deliveryCharge}</span> Taka
+                    </p>
+                </div>
+            </Modal>
+
+            {/* courier info */}
+            <Modal className="w-full" footer={false} open={isModal1Open} onCancel={onClose1}>
+                <div className="w-full">
+                    <h1 className="text-lg font-bold">Courier Info</h1>
+                    <div className="bg-gray-100 rounded-xl mt-2 p-3">
+                        <p className="flex gap-2">
+                            <span className="font-semibold">Courier Name:</span>{" "}
+                            {courierDetails?.courierName || "No entry yet"}
+                        </p>
+                        <p className="flex gap-2 text-sky-500">
+                            <span className="font-semibold text-black">Consignment Id:</span> #
+                            {courierDetails?.consignment_id || "No entry yet"}
+                        </p>
+                        <p className="flex gap-2">
+                            <span className="font-semibold">Invoice:</span> #{courierDetails?.invoice || "No entry yet"}
+                        </p>
+                        <p className="flex gap-2">
+                            <span className="font-semibold">Tracking Code:</span> #
+                            {courierDetails?.tracking_code || "No entry yet"}
+                        </p>
+                    </div>
+                    <p className="mt-5">
+                        Live tracking:{" "}
+                        {courierDetails ? (
+                            <a
+                                className="underline text-blue-500 font-semibold"
+                                href={`https://steadfast.com.bd/t/${courierDetails?.tracking_code}`}
+                            >{`https://steadfast.com.bd/t/${courierDetails?.tracking_code}`}</a>
+                        ) : (
+                            "No entry yet"
+                        )}
                     </p>
                 </div>
             </Modal>

@@ -77,7 +77,7 @@ const AdminDashboard = () => {
         </h3>
       </div>
       {/* statistics */}
-      <div className="mt-5 md:mt-10 px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
+      <div className="text-nowrap mt-5 md:mt-10 px-2 grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
         <div>
           <Statistic
             className="bg-green-200 p-5 text-center font-bold rounded-2xl"

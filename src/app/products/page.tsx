@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Segmented } from "antd";
 import axios from "axios";
 
+
 interface ProductType {
     id: number;
     product_id: number;

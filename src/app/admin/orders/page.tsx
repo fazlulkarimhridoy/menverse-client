@@ -29,6 +29,7 @@ type OrderType = {
     };
     note: string;
     courierDetails: {
+        courierName: string;
         consignment_id: number;
         invoice: string;
         tracking_code: string;
@@ -56,9 +57,7 @@ const Orders = () => {
     } = useQuery<OrderType[]>({
         queryKey: ["allOrders"],
         queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/order/all-order`
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/order/all-order`);
             return res.data.data;
         },
         retry: 2,
@@ -74,36 +73,19 @@ const Orders = () => {
 
                       // Check product name, category (strings), and productId (number)
                       const isCustomerMatch =
-                          order?.customer.name
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          order?.customer.phone
-                              ?.toString()
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          order?.customerId
-                              ?.toString()
-                              ?.toLowerCase()
-                              ?.includes(searchString);
+                          order?.customer.name?.toLowerCase()?.includes(searchString) ||
+                          order?.customer.phone?.toString()?.toLowerCase()?.includes(searchString) ||
+                          order?.customerId?.toString()?.toLowerCase()?.includes(searchString);
 
                       // Format and filter by orderDate
                       let isDateMatch = false;
                       if (order?.orderDate) {
                           try {
                               // Convert orderDate string to a comparable format (YYYY-MM-DD)
-                              const formattedOrderDate = new Date(
-                                  order.orderDate
-                              )
-                                  .toISOString()
-                                  .split("T")[0];
-                              isDateMatch =
-                                  formattedOrderDate.includes(searchString);
+                              const formattedOrderDate = new Date(order.orderDate).toISOString().split("T")[0];
+                              isDateMatch = formattedOrderDate.includes(searchString);
                           } catch (e) {
-                              console.error(
-                                  "Error parsing orderDate:",
-                                  order?.orderDate,
-                                  e
-                              );
+                              console.error("Error parsing orderDate:", order?.orderDate, e);
                           }
                       }
 
@@ -172,19 +154,14 @@ const Orders = () => {
 
     // show loader if uploads takes time
     if (loading || isRefetching) {
-        return (
-            <Spin fullscreen={true} style={{ color: "white" }} size="large" />
-        );
+        return <Spin fullscreen={true} style={{ color: "white" }} size="large" />;
     }
 
     return (
         <div className="relative">
             <div>
                 <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Orders{" "}
-                    <span className="text-sm text-red-200 -ml-2">
-                        {filteredOrders?.length}
-                    </span>
+                    Orders <span className="text-sm text-red-200 -ml-2">{filteredOrders?.length}</span>
                 </h3>
                 <div className="mt-5 w-full xl:w-1/2 mx-auto">
                     <Search
@@ -211,15 +188,16 @@ const Orders = () => {
                         <tr className="bg-gray-200">
                             <th>Customer Id</th>
                             <th>Name</th>
-                            <th>Phone Number</th>
-                            <th>Total Price</th>
-                            <th>Delivery Charge</th>
-                            <th>Payment Method</th>
+                            <th>Number</th>
+                            <th>Price</th>
+                            <th>Charge</th>
+                            <th>Payment</th>
                             <th>Order Date</th>
                             <th>Details</th>
                             <th>Invoice</th>
-                            <th>Add to courier</th>
-                            <th>Courier Status</th>
+                            <th>Steadfast</th>
+                            <th>Info</th>
+                            <th>Status</th>
                             {/* <th>Order Status</th> */}
                         </tr>
                     </thead>
