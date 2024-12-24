@@ -148,11 +148,7 @@ const Orders = () => {
 
     // checking if loading
     if (isLoading) {
-        return (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <progress className="progress w-56 bg-blue-200 h-4 lg:h-8 lg:w-80"></progress>
-            </div>
-        );
+        return <Spin size="large" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />;
     }
 
     // show loader if uploads takes time
