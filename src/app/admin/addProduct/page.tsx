@@ -55,10 +55,7 @@ const getBase64 = (file: FileType): Promise<string> =>
     });
 
 // base64 without promise
-const getNewBase64 = (
-    file: FileType,
-    callback: (result: string | null) => void
-) => {
+const getNewBase64 = (file: FileType, callback: (result: string | null) => void) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => callback(reader.result as string);
@@ -97,9 +94,7 @@ const AddProduct = () => {
     };
 
     // handle file change
-    const handleChange: UploadProps["onChange"] = ({
-        fileList: newFileList,
-    }) => {
+    const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
         console.log("files", fileList);
         setFileList(newFileList);
         const dataUrlArray: any = []; // Array to store the results
@@ -149,9 +144,7 @@ const AddProduct = () => {
         const images = imageArray;
 
         // Extract the selected category ID
-        const selectedCategoryId =
-            allCategories?.length > 0 &&
-            allCategories?.find((cat) => cat.name === category)?.id;
+        const selectedCategoryId = allCategories?.length > 0 && allCategories?.find((cat) => cat.name === category)?.id;
 
         if (!selectedCategoryId) {
             setLoading(false);
@@ -175,16 +168,12 @@ const AddProduct = () => {
         console.log(productData);
 
         await axios
-            .post(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/add-product`,
-                productData,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    timeout: 120000, // Set timeout to 60 seconds (60000 milliseconds)
-                }
-            )
+            .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/add-product`, productData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                timeout: 120000, // Set timeout to 60 seconds (60000 milliseconds)
+            })
             .then((data) => {
                 if (data.data.status == "success") {
                     setLoading(false);
@@ -215,9 +204,7 @@ const AddProduct = () => {
     };
 
     // handle form submission failure
-    const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-        errorInfo
-    ) => {
+    const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
 
@@ -225,9 +212,7 @@ const AddProduct = () => {
     const { data: allCategories = [], isLoading } = useQuery<CategoryType[]>({
         queryKey: ["allCategories"],
         queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/all-category`
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/all-category`);
             return res.data.data;
         },
         retry: 2,
@@ -236,26 +221,18 @@ const AddProduct = () => {
 
     // checking if loading
     if (isLoading) {
-        return (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <progress className="progress w-56 bg-blue-200 h-4 lg:h-8 lg:w-80"></progress>
-            </div>
-        );
+        return <Spin size="large" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />;
     }
 
     // show loader if uploads takes time
     if (loading) {
-        return (
-            <Spin fullscreen={true} style={{ color: "white" }} size="large" />
-        );
+        return <Spin fullscreen={true} style={{ color: "white" }} size="large" />;
     }
 
     return (
         <div>
             <div>
-                <h3 className="text-center pt-2 text-blue-200 text-4xl font-bold">
-                    Add Product
-                </h3>
+                <h3 className="text-center pt-2 text-blue-200 text-4xl font-bold">Add Product</h3>
             </div>
             <div className="mt-5 w-[90%] 2xl:w-[65%] mx-auto relative">
                 <Form
@@ -279,11 +256,7 @@ const AddProduct = () => {
                                 },
                             ]}
                         >
-                            <Input
-                                className="w-full"
-                                placeholder="Enter product name..."
-                                size="large"
-                            />
+                            <Input className="w-full" placeholder="Enter product name..." size="large" />
                         </Form.Item>
                     </div>
 
@@ -368,17 +341,10 @@ const AddProduct = () => {
                                 },
                             ]}
                         >
-                            <Select
-                                className="w-full"
-                                placeholder="Select category..."
-                                size="large"
-                            >
+                            <Select className="w-full" placeholder="Select category..." size="large">
                                 {allCategories?.length > 0 &&
                                     allCategories?.map((item) => (
-                                        <Option
-                                            key={item?.id}
-                                            value={item?.name}
-                                        >
+                                        <Option key={item?.id} value={item?.name}>
                                             {item?.name}
                                         </Option>
                                     ))}
@@ -452,12 +418,7 @@ const AddProduct = () => {
 
                     {/* upload images */}
                     <div className="flex items-center gap-10">
-                        <Form.Item<FieldType>
-                            label="Upload Images"
-                            required
-                            valuePropName="fileList"
-                            name="images"
-                        >
+                        <Form.Item<FieldType> label="Upload Images" required valuePropName="fileList" name="images">
                             <Upload
                                 multiple
                                 listType="picture-card"
@@ -473,10 +434,8 @@ const AddProduct = () => {
                                     wrapperStyle={{ display: "none" }}
                                     preview={{
                                         visible: previewOpen,
-                                        onVisibleChange: (visible) =>
-                                            setPreviewOpen(visible),
-                                        afterOpenChange: (visible) =>
-                                            !visible && setPreviewImage(""),
+                                        onVisibleChange: (visible) => setPreviewOpen(visible),
+                                        afterOpenChange: (visible) => !visible && setPreviewImage(""),
                                     }}
                                     src={previewImage}
                                 />
@@ -487,12 +446,7 @@ const AddProduct = () => {
                     {/* submit button */}
                     <div className="absolute right-0 w-full md:w-[50%] lg:w-[25%]">
                         <Form.Item className="w-full">
-                            <Button
-                                className="w-full"
-                                type="primary"
-                                size="large"
-                                htmlType="submit"
-                            >
+                            <Button className="w-full" type="primary" size="large" htmlType="submit">
                                 Submit
                             </Button>
                         </Form.Item>

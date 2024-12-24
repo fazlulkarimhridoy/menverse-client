@@ -2,7 +2,7 @@
 
 import CustomerRow from "@/components/dashboard/CustomerRow";
 import { useQuery } from "@tanstack/react-query";
-import { Empty, Input } from "antd";
+import { Empty, Input, Spin } from "antd";
 import { SearchProps } from "antd/es/input";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -33,9 +33,7 @@ const Products = () => {
     const { data: allCustomers = [], isLoading } = useQuery<CustomerType[]>({
         queryKey: ["allCustomers"],
         queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/customer/all-customer`
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/customer/all-customer`);
             return res.data.data;
         },
         retry: 2,
@@ -51,36 +49,19 @@ const Products = () => {
 
                       // Check product name, category (strings), and productId (number)
                       const isCustomerMatch =
-                          customer?.name
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          customer?.phone
-                              ?.toString()
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          customer?.customerId
-                              ?.toString()
-                              ?.toLowerCase()
-                              ?.includes(searchString);
+                          customer?.name?.toLowerCase()?.includes(searchString) ||
+                          customer?.phone?.toString()?.toLowerCase()?.includes(searchString) ||
+                          customer?.customerId?.toString()?.toLowerCase()?.includes(searchString);
 
                       // Format and filter by orderDate
                       let isDateMatch = false;
                       if (customer?.createdAt) {
                           try {
                               // Convert orderDate string to a comparable format (YYYY-MM-DD)
-                              const formattedOrderDate = new Date(
-                                  customer.createdAt
-                              )
-                                  .toISOString()
-                                  .split("T")[0];
-                              isDateMatch =
-                                  formattedOrderDate.includes(searchString);
+                              const formattedOrderDate = new Date(customer.createdAt).toISOString().split("T")[0];
+                              isDateMatch = formattedOrderDate.includes(searchString);
                           } catch (e) {
-                              console.error(
-                                  "Error parsing orderDate:",
-                                  customer?.createdAt,
-                                  e
-                              );
+                              console.error("Error parsing orderDate:", customer?.createdAt, e);
                           }
                       }
 
@@ -98,11 +79,7 @@ const Products = () => {
 
     // checking if loading
     if (isLoading) {
-        return (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <progress className="progress w-56 bg-blue-200 h-4 lg:h-8 lg:w-80"></progress>
-            </div>
-        );
+        return <Spin size="large" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />;
     }
 
     return (
@@ -146,10 +123,7 @@ const Products = () => {
                         {/* rows */}
                         {allCustomers.length > 0 ? (
                             filteredCustomers?.map((data) => (
-                                <CustomerRow
-                                    key={data.id}
-                                    customerData={data}
-                                ></CustomerRow>
+                                <CustomerRow key={data.id} customerData={data}></CustomerRow>
                             ))
                         ) : (
                             <Empty

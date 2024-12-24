@@ -1,15 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import {
-    Button,
-    Form,
-    FormInstance,
-    FormProps,
-    Input,
-    InputNumber,
-    Spin,
-} from "antd";
+import { Button, Form, FormInstance, FormProps, Input, InputNumber, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -46,9 +38,7 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
     const { data: categoryDetails, isLoading } = useQuery({
         queryKey: ["categoryDetails", id],
         queryFn: async () => {
-            const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/details/${id}`
-            );
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/details/${id}`);
             return response.data.data;
         },
     });
@@ -57,9 +47,7 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
     const formRef = React.useRef<FormInstance<CategoryType>>(null);
 
     // handle form submission finish
-    const onFinish: FormProps<CategoryType>["onFinish"] = async (
-        values: any
-    ) => {
+    const onFinish: FormProps<CategoryType>["onFinish"] = async (values: any) => {
         setLoading(true);
         const name = values.name || categoryDetails?.name;
         const description = values.description || categoryDetails?.description;
@@ -72,15 +60,11 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
         console.log(categoryUpdateData);
 
         await axios
-            .patch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/update-category/${id}`,
-                categoryUpdateData,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
+            .patch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/update-category/${id}`, categoryUpdateData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then((data) => {
                 setLoading(false);
                 if (data.data.status == "success") {
@@ -101,34 +85,24 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
     };
 
     // handle form submission failure
-    const onFinishFailed: FormProps<CategoryType>["onFinishFailed"] = (
-        errorInfo
-    ) => {
+    const onFinishFailed: FormProps<CategoryType>["onFinishFailed"] = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
 
     // checking if loading
     if (isLoading) {
-        return (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <progress className="progress w-56 bg-blue-200 h-4 lg:h-8 lg:w-80"></progress>
-            </div>
-        );
+        return <Spin size="large" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />;
     }
 
     // show loader if uploads takes time
     if (loading) {
-        return (
-            <Spin fullscreen={true} style={{ color: "white" }} size="large" />
-        );
+        return <Spin fullscreen={true} style={{ color: "white" }} size="large" />;
     }
 
     return (
         <div>
             <div>
-                <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Update Category
-                </h3>
+                <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">Update Category</h3>
             </div>
             <div className="mt-5 w-[90%] 2xl:w-[65%] mx-auto relative">
                 <Form
@@ -152,11 +126,7 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
                                 },
                             ]}
                         >
-                            <Input
-                                className="w-full"
-                                placeholder="Enter category name..."
-                                size="large"
-                            />
+                            <Input className="w-full" placeholder="Enter category name..." size="large" />
                         </Form.Item>
                     </div>
 
@@ -170,8 +140,7 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
                             rules={[
                                 {
                                     required: true,
-                                    message:
-                                        "Please enter category id as number!",
+                                    message: "Please enter category id as number!",
                                 },
                             ]}
                         >
@@ -211,12 +180,7 @@ const UpdateCategory = ({ params }: { params: { slug: string } }) => {
                     {/* submit button */}
                     <div className="absolute right-0 w-full md:w-[50%] lg:w-[25%]">
                         <Form.Item className="w-full">
-                            <Button
-                                className="w-full"
-                                type="primary"
-                                size="large"
-                                htmlType="submit"
-                            >
+                            <Button className="w-full" type="primary" size="large" htmlType="submit">
                                 Update
                             </Button>
                         </Form.Item>

@@ -58,10 +58,7 @@ type CategoryType = {
     description: string;
 };
 
-const getNewBase64 = (
-    file: FileType,
-    callback: (result: string | null) => void
-): void => {
+const getNewBase64 = (file: FileType, callback: (result: string | null) => void): void => {
     if (!(file instanceof File)) {
         console.error("Invalid file object");
         callback(null);
@@ -101,9 +98,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
     const id = Number(idString);
 
     // file upload changes
-    const handleChange: UploadProps["onChange"] = ({
-        fileList: newFileList,
-    }) => {
+    const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
         console.log("files", fileList);
         console.log("new file", newFileList);
         setFileList(newFileList);
@@ -149,18 +144,14 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
     const { data: singleProductDetails, isLoading } = useQuery({
         queryKey: ["SingleProductDetails", id],
         queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/details/${id}`
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/details/${id}`);
             // converting image url's to file type for default display
-            const imageList = res?.data?.data?.images.map(
-                (imageUrl: string, index: number) => ({
-                    uid: String(index), // Unique identifier for each file
-                    name: `image-${index}`, // Name of the image
-                    status: "done", // Upload status
-                    thumbUrl: imageUrl, // The actual URL for the image
-                })
-            );
+            const imageList = res?.data?.data?.images.map((imageUrl: string, index: number) => ({
+                uid: String(index), // Unique identifier for each file
+                name: `image-${index}`, // Name of the image
+                status: "done", // Upload status
+                thumbUrl: imageUrl, // The actual URL for the image
+            }));
             setFileList(imageList);
             return res?.data?.data;
         },
@@ -170,19 +161,14 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
     });
 
     // function for form submission on finish
-    const onFinish: FormProps<SingleProductDetails>["onFinish"] = async (
-        values: any
-    ) => {
+    const onFinish: FormProps<SingleProductDetails>["onFinish"] = async (values: any) => {
         setLoading(true);
-        const product_name =
-            values.product_name || singleProductDetails?.product_name;
+        const product_name = values.product_name || singleProductDetails?.product_name;
         const price = values.price || singleProductDetails?.price;
-        const discount_price =
-            values.discount_price || singleProductDetails?.discount_price;
+        const discount_price = values.discount_price || singleProductDetails?.discount_price;
         const stock = values.stock || singleProductDetails?.stock;
         const category = values.category || singleProductDetails?.category;
-        const description =
-            values.description || singleProductDetails?.description;
+        const description = values.description || singleProductDetails?.description;
         const rating = values.rating || singleProductDetails?.rating;
         const productId = values.productId || singleProductDetails?.productId;
         const images = imageArray;
@@ -200,15 +186,11 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
         };
         // updating product on server
         await axios
-            .patch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/update-product/${id}`,
-                productUpdateData,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
+            .patch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/update-product/${id}`, productUpdateData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then((data) => {
                 setLoading(false);
                 if (data.data.status == "success") {
@@ -237,21 +219,15 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
     };
 
     // if form submission fails
-    const onFinishFailed: FormProps<SingleProductDetails>["onFinishFailed"] = (
-        errorInfo
-    ) => {
+    const onFinishFailed: FormProps<SingleProductDetails>["onFinishFailed"] = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
 
     // fetch category from server
-    const { data: allCategories = [], isLoading: isCategoryLoading } = useQuery<
-        CategoryType[]
-    >({
+    const { data: allCategories = [], isLoading: isCategoryLoading } = useQuery<CategoryType[]>({
         queryKey: ["allCategories"],
         queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/all-category`
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/all-category`);
             return res.data.data;
         },
         retry: 2,
@@ -260,34 +236,21 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
 
     // checking if loading
     if (isLoading || isCategoryLoading) {
-        return (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <progress className="progress w-56 bg-blue-200 h-4 lg:h-8 lg:w-80"></progress>
-            </div>
-        );
+        return <Spin size="large" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />;
     }
 
     // show loader if uploads takes time
     if (loading) {
-        return (
-            <Spin fullscreen={true} style={{ color: "white" }} size="large" />
-        );
+        return <Spin fullscreen={true} style={{ color: "white" }} size="large" />;
     }
 
     return (
         <div>
             <div>
-                <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">
-                    Update Product
-                </h3>
+                <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">Update Product</h3>
             </div>
             <div className="mt-5 w-[90%] 2xl:w-[65%] mx-auto relative">
-                <Form
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                    layout="vertical"
-                >
+                <Form onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off" layout="vertical">
                     {/* product name */}
                     <div className="flex items-center gap-10">
                         <Form.Item<FieldType>
@@ -302,11 +265,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                                 },
                             ]}
                         >
-                            <Input
-                                className="w-full"
-                                placeholder="Enter product name..."
-                                size="large"
-                            />
+                            <Input className="w-full" placeholder="Enter product name..." size="large" />
                         </Form.Item>
                     </div>
 
@@ -390,17 +349,10 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                                 },
                             ]}
                         >
-                            <Select
-                                className="w-full"
-                                placeholder="Select category..."
-                                size="large"
-                            >
+                            <Select className="w-full" placeholder="Select category..." size="large">
                                 {allCategories?.length > 0 &&
                                     allCategories?.map((item) => (
-                                        <Option
-                                            key={item?.id}
-                                            value={item?.name}
-                                        >
+                                        <Option key={item?.id} value={item?.name}>
                                             {item?.name}
                                         </Option>
                                     ))}
@@ -482,15 +434,8 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                             valuePropName="fileList"
                             name="images"
                         >
-                            <Upload
-                                multiple
-                                listType="picture-card"
-                                fileList={fileList}
-                                onChange={handleChange}
-                            >
-                                {fileList && fileList.length >= 5
-                                    ? null
-                                    : uploadButton}
+                            <Upload multiple listType="picture-card" fileList={fileList} onChange={handleChange}>
+                                {fileList && fileList.length >= 5 ? null : uploadButton}
                             </Upload>
                             {previewImage && (
                                 <Image
@@ -498,10 +443,8 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                                     wrapperStyle={{ display: "none" }}
                                     preview={{
                                         visible: previewOpen,
-                                        onVisibleChange: (visible) =>
-                                            setPreviewOpen(visible),
-                                        afterOpenChange: (visible) =>
-                                            !visible && setPreviewImage(""),
+                                        onVisibleChange: (visible) => setPreviewOpen(visible),
+                                        afterOpenChange: (visible) => !visible && setPreviewImage(""),
                                     }}
                                     src={previewImage}
                                 />
@@ -512,12 +455,7 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
                     {/* submit button */}
                     <div className="absolute right-0 w-full md:w-[50%] lg:w-[25%]">
                         <Form.Item className="w-full">
-                            <Button
-                                className="w-full"
-                                type="primary"
-                                size="large"
-                                htmlType="submit"
-                            >
+                            <Button className="w-full" type="primary" size="large" htmlType="submit">
                                 Submit
                             </Button>
                         </Form.Item>
