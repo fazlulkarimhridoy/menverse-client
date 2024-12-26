@@ -338,8 +338,8 @@ const OrderRow = ({
                     </div>
                     <div className="w-full">
                         <h1 className="text-lg font-bold">Order Details</h1>
-                        {items?.map((item: any) => (
-                            <OrderItem key={item?.id} item={item} />
+                        {items?.map((item: any, index: number) => (
+                            <OrderItem key={index} item={item} />
                         ))}
                     </div>
                 </div>
@@ -353,8 +353,10 @@ const OrderRow = ({
             {/* courier info */}
             <Modal className="w-full" footer={false} open={isModal1Open} onCancel={onClose1}>
                 <div className="w-full">
-                    <h1 className="text-lg font-bold">Courier Info</h1>
-                    <div className="bg-gray-100 rounded-xl mt-2 p-3">
+                    <div>
+                        <h1 className="text-lg font-bold">Courier Info</h1>
+                    </div>
+                    <div className="bg-gray-100 rounded-xl mt-2 p-3 relative">
                         <p className="flex gap-2">
                             <span className="font-semibold">Courier Name:</span>{" "}
                             {courierDetails?.courierName || "No entry yet"}
@@ -370,6 +372,14 @@ const OrderRow = ({
                             <span className="font-semibold">Tracking Code:</span> #
                             {courierDetails?.tracking_code || "No entry yet"}
                         </p>
+                        <Button
+                            type="text"
+                            className={`${getButtonClass(
+                                courierStatus
+                            )} border-none cursor-default absolute top-2 right-2`}
+                        >
+                            {renderStatusButton(courierStatus)}
+                        </Button>
                     </div>
                     <p className="mt-5">
                         Live tracking:{" "}

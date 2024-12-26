@@ -18,12 +18,10 @@ type statistic = {
         };
         _count: number;
     };
-    customerStatistic: {
-        _count: number;
-    };
     productStatistic: {
         _count: number;
     };
+    courierBalance: number;
 };
 
 const AdminDashboard = () => {
@@ -34,17 +32,24 @@ const AdminDashboard = () => {
             window.location.href = "/login";
         }
     }, []);
+
     // fetch order statistics
     const { data, isLoading, isSuccess } = useQuery<statistic>({
         queryKey: ["statistics"],
         queryFn: async () => {
             const res1 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/order/statistic`);
-            const res2 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/customer/statistic`);
-            const res3 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/statistic`);
+            const res2 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/statistic`);
+            const res3 = await axios.get(`${process.env.NEXT_PUBLIC_COURIER_BASE_URL}/get_balance`, {
+                headers: {
+                    "Api-Key": `${process.env.NEXT_PUBLIC_COURIER_API_KEY}`,
+                    "Secret-Key": `${process.env.NEXT_PUBLIC_COURIER_SECRET_KEY}`,
+                    "Content-Type": "application/json",
+                },
+            });
             return {
                 orderStatistic: res1?.data?.data,
-                customerStatistic: res2?.data?.data,
-                productStatistic: res3?.data?.data,
+                productStatistic: res2?.data?.data,
+                courierBalance: res3?.data?.current_balance,
             };
         },
         retry: 2,
@@ -60,7 +65,7 @@ const AdminDashboard = () => {
         <div>
             {/* header */}
             <div>
-                <h3 className="text-center pt-4 text-blue-200 text-4xl font-bold">MENVERSE</h3>
+                <h3 className="hidden md:block text-center pt-4 text-blue-200 text-4xl font-bold">MENVERSE</h3>
             </div>
             {/* statistics */}
             <div className="text-nowrap mt-5 md:mt-10 px-2 grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
@@ -75,20 +80,21 @@ const AdminDashboard = () => {
                 </div>
                 <div>
                     <Statistic
+                        className="bg-sky-200 p-5 text-center font-bold rounded-2xl"
+                        title="Courier Balance"
+                        value={data?.courierBalance}
+                        formatter={formatter}
+                    />
+                </div>
+                <div>
+                    <Statistic
                         className="bg-[#D3E3CD] p-5 text-center font-bold rounded-2xl"
                         title="Total Orders"
                         value={data?.orderStatistic?._count}
                         formatter={formatter}
                     />
                 </div>
-                <div>
-                    <Statistic
-                        className="bg-sky-200 p-5 text-center font-bold rounded-2xl"
-                        title="Total Customers"
-                        value={data?.customerStatistic?._count}
-                        formatter={formatter}
-                    />
-                </div>
+
                 <div>
                     <Statistic
                         className="bg-blue-200 p-5 text-center font-bold rounded-2xl"
