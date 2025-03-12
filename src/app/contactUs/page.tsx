@@ -13,8 +13,8 @@ const ContactUs = () => {
         // if form is empty show error message
         if (
             !form.current ||
-            !form.current.name ||
-            !form.current.email ||
+            !form.current.from_name ||
+            !form.current.from_email ||
             !form.current.message
         ) {
             Swal.fire({
@@ -120,7 +120,7 @@ const ContactUs = () => {
                         <label className="text-sm">Full name</label>
                         <input
                             type="text"
-                            name="name"
+                            name="from_name"
                             placeholder="Enter your name here..."
                             className="w-full rounded-lg p-2 border border-gray-50 bg-gray-50 focus:outline-none"
                         />
@@ -129,7 +129,7 @@ const ContactUs = () => {
                         <label className="text-sm">Email</label>
                         <input
                             type="email"
-                            name="reply_to"
+                            name="from_email"
                             placeholder="Enter your email here..."
                             className="w-full p-2 border border-gray-50 rounded-lg bg-gray-50 focus:outline-none"
                         />

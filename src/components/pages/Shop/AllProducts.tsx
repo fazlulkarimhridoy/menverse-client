@@ -18,10 +18,10 @@ interface ProductType {
     category: string;
     quantity: number;
     size: string;
-    stock: string
+    stock: string;
 }
 
-const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading: Boolean }) => {
+const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any; isLoading: Boolean }) => {
     const { categoryName } = useCategory();
     const { searchText } = useSearchText();
 
@@ -35,15 +35,9 @@ const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading
 
                       // Check product name, category (strings), and productId (number)
                       return (
-                          product?.category
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          product?.product_name
-                              ?.toLowerCase()
-                              ?.includes(searchString) ||
-                          product?.description
-                              ?.toLowerCase()
-                              ?.includes(searchString)
+                          product?.category?.toLowerCase()?.includes(searchString) ||
+                          product?.product_name?.toLowerCase()?.includes(searchString) ||
+                          product?.description?.toLowerCase()?.includes(searchString)
                       );
                   }
                   return true; // If no searchText, return all products
@@ -56,12 +50,9 @@ const AllProducts = ({ shopProducts, isLoading }: { shopProducts: any, isLoading
                 <Spin size="large" />
             ) : shopProducts?.length > 0 ? (
                 filteredProducts?.length > 0 ? (
-                    filteredProducts?.map((item: ProductType) => (
-                        <ProductCard
-                            key={item?.id}
-                            item={item}
-                        />
-                    ))
+                    filteredProducts
+                        ?.filter((item: ProductType) => item.stock === "available")
+                        ?.map((item: ProductType) => <ProductCard key={item?.id} item={item} />)
                 ) : (
                     <Empty description="No product for this category!" />
                 )

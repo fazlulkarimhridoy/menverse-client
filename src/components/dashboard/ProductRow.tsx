@@ -1,7 +1,11 @@
-import { Button, Flex, Rate } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+import { Button, Flex, Rate, Switch } from "antd";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaEye, FaTools, FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const desc: string[] = ["terrible", "bad", "normal", "good", "wonderful"];
 
@@ -14,7 +18,7 @@ interface ProductType {
     discount_price: number;
     description: string;
     rating: number;
-    stock: number;
+    stock: string;
     created_at: string;
     updated_at: string;
     category: string;
@@ -29,6 +33,10 @@ const ProductRow = ({
     index: number;
     handleDeleteProduct: Function;
 }) => {
+    // states
+    const [loading, setLoading] = useState(false);
+    // trigger query by key
+    const queryClient = useQueryClient();
     const {
         id,
         productId,
@@ -42,6 +50,46 @@ const ProductRow = ({
         created_at,
         updated_at,
     } = productData;
+
+    const onChange = async (checked: boolean) => {
+        console.log(`switch to ${checked}`);
+
+        const productUpdateData = {
+            stock: checked === true ? "available" : "unavailable",
+        };
+        // updating product on server
+        await axios
+            .patch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/update-product/${id}`, productUpdateData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((data) => {
+                setLoading(false);
+                if (data.data.status == "success") {
+                    queryClient.invalidateQueries({ queryKey: ["allProducts"] });
+                    // go back to product list
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Status updated successfully!",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            })
+            .catch((error) => {
+                setLoading(false);
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Status update failed!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                console.log(error);
+            });
+    };
 
     return (
         <tr>
@@ -76,7 +124,8 @@ const ProductRow = ({
                 </Flex>
             </td>
             <td>
-                <div>{stock}</div>
+                {/* <div>{stock}</div> */}
+                <Switch loading={loading} defaultValue={stock === "available"} onChange={onChange} />
             </td>
             <td>
                 <div className="text-gray-600 font-bold">
