@@ -21,15 +21,10 @@ interface ProductType {
 
 const FeaturedProducts = () => {
     // fetch all products from server
-    const {
-        data: featuredProducts = [],
-        isLoading,
-    } = useQuery<ProductType[]>({
+    const { data: featuredProducts = [], isLoading } = useQuery<ProductType[]>({
         queryKey: ["featuredProducts"],
         queryFn: async () => {
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/all-products`
-            );
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/all-products`);
             return res?.data?.data;
         },
         retry: 2,
@@ -39,20 +34,16 @@ const FeaturedProducts = () => {
     return (
         <div className="max-w-[95%] lg:max-w-[70%] mx-auto my-5 md:my-20 relative ">
             <div>
-                <h3 className="text-center italic font-medium">
-                    Wonderful gifts
-                </h3>
-                <h1 className="text-center text-3xl md:text-5xl font-medium">
-                    Featured Products
-                </h1>
+                <h3 className="text-center italic font-medium">Wonderful gifts</h3>
+                <h1 className="text-center text-3xl md:text-5xl font-medium">Featured Products</h1>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 md:gap-10 mt-5 md:mt-20">
                 {isLoading ? (
                     <Spin style={{ color: "white" }} size="large" />
                 ) : featuredProducts?.length > 0 ? (
-                    featuredProducts?.map((item) => (
-                        <ProductCard key={item?.id} item={item} />
-                    ))
+                    featuredProducts
+                        ?.filter((item) => item.stock === "available")
+                        ?.map((item) => <ProductCard key={item?.id} item={item} />)
                 ) : (
                     <Empty
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16"

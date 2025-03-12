@@ -10,20 +10,19 @@ import { useReactToPrint } from "react-to-print";
 const InvoicePage = () => {
     const { push } = useRouter();
     const [orderData, setOrderData] = useState<any>({});
-    const {
-        customerId,
-        totalPrice,
-        deliveryCharge,
-        orderDate,
-        paymentMethod,
-        customer,
-    } = orderData;
+    const [courierInfo, setCourierInfo] = useState<any>({});
+    const { customerId, totalPrice, deliveryCharge, orderDate, paymentMethod, customer } = orderData;
     useEffect(() => {
         const data = localStorage.getItem("orderData");
+        const courierData = localStorage.getItem("courierInfo");
         if (data) {
             const parsedData = JSON.parse(data);
-            console.log(parsedData);
             setOrderData(parsedData);
+        }
+        if (courierData) {
+            const parsedData = JSON.parse(courierData);
+            console.log(parsedData);
+            setCourierInfo(parsedData);
         }
     }, []);
 
@@ -69,16 +68,8 @@ const InvoicePage = () => {
                         <p>Email: urbanfits23@gmail.com</p>
                     </div>
                     <div className="flex flex-col items-center">
-                        <Image
-                            src="/Images/logo.png"
-                            height={500}
-                            width={500}
-                            alt="logo"
-                            className="w-[100px]"
-                        />
-                        <strong className="-mt-4 text-gray-400">
-                            ID# ${customerId}
-                        </strong>
+                        <Image src="/Images/logo.png" height={500} width={500} alt="logo" className="w-[100px]" />
+                        <strong className="-mt-4 text-gray-400">ID# ${customerId}</strong>
                     </div>
                 </section>
 
@@ -101,19 +92,14 @@ const InvoicePage = () => {
                     <div className="text-nowrap">
                         <h3>
                             {typeof orderDate === "string"
-                                ? new Date(orderDate).toLocaleDateString(
-                                      "en-US",
-                                      {
-                                          year: "numeric",
-                                          month: "long",
-                                          day: "numeric",
-                                      }
-                                  )
+                                ? new Date(orderDate).toLocaleDateString("en-US", {
+                                      year: "numeric",
+                                      month: "long",
+                                      day: "numeric",
+                                  })
                                 : "Invalid date"}
                         </h3>
-                        <p>
-                            {paymentMethod === "CASHON" && "Cash on delivery"}
-                        </p>
+                        <p>{paymentMethod === "CASHON" && "Cash on delivery"}</p>
                         <p>All over Bangladesh</p>
                     </div>
                 </section>
@@ -205,100 +191,94 @@ const InvoicePage = () => {
                             </thead>
                             <tbody>
                                 {orderData &&
-                                    orderData?.items?.map(
-                                        (product: any, index: number) => (
-                                            <InvoiceTableRow
-                                                key={index}
-                                                productData={product}
-                                                index={index}
-                                            />
-                                        )
-                                    )}
+                                    orderData?.items?.map((product: any, index: number) => (
+                                        <InvoiceTableRow key={index} productData={product} index={index} />
+                                    ))}
                             </tbody>
                         </table>
                     </div>
                 </section>
 
-                <section className="flex justify-end">
-                    <table style={{ width: "70%", borderCollapse: "collapse" }}>
-                        <tbody>
-                            <tr>
-                                <td
-                                    style={{
-                                        padding: "4px",
-                                        textAlign: "right",
-                                    }}
-                                >
-                                    Subtotal:
-                                </td>
-                                <td
-                                    style={{
-                                        padding: "4px",
-                                        textAlign: "right",
-                                    }}
-                                >
-                                    {totalPrice} /-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    style={{
-                                        padding: "4px",
-                                        textAlign: "right",
-                                    }}
-                                >
-                                    Delivery Charge:
-                                </td>
-                                <td
-                                    style={{
-                                        padding: "4px",
-                                        textAlign: "right",
-                                    }}
-                                >
-                                    {deliveryCharge} /-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    style={{
-                                        padding: "4px",
-                                        textAlign: "right",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    Total:
-                                </td>
-                                <td
-                                    style={{
-                                        padding: "4px",
-                                        textAlign: "right",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    {totalPrice + deliveryCharge} /-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-                <p className="italic mt-10 font-medium">
-                    &quot;Keep shopping from MENVERSE&quot;
-                </p>
+                <div className="flex items-center justify-between">
+                    <section>
+                        <h1 className="font-semibold">Courier Info</h1>
+                        <h2>
+                            Consignment Id#{" "}
+                            <span className="font-semibold">{courierInfo?.consignment_id || "No entry yet."}</span>
+                        </h2>
+                        <h2>Invoice Id# {courierInfo?.invoice || "No entry yet."}</h2>
+                        <h2>Tracking Code# {courierInfo?.tracking_code || "No entry yet."}</h2>
+                    </section>
+                    <section className="flex justify-end text-nowrap">
+                        <table style={{ width: "70%", borderCollapse: "collapse" }}>
+                            <tbody>
+                                <tr>
+                                    <td
+                                        style={{
+                                            padding: "4px",
+                                            textAlign: "right",
+                                        }}
+                                    >
+                                        Subtotal:
+                                    </td>
+                                    <td
+                                        style={{
+                                            padding: "4px",
+                                            textAlign: "right",
+                                        }}
+                                    >
+                                        {totalPrice} /-
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style={{
+                                            padding: "4px",
+                                            textAlign: "right",
+                                        }}
+                                    >
+                                        Delivery Charge:
+                                    </td>
+                                    <td
+                                        style={{
+                                            padding: "4px",
+                                            textAlign: "right",
+                                        }}
+                                    >
+                                        {deliveryCharge} /-
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style={{
+                                            padding: "4px",
+                                            textAlign: "right",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Total:
+                                    </td>
+                                    <td
+                                        style={{
+                                            padding: "4px",
+                                            textAlign: "right",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {totalPrice + deliveryCharge} /-
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+                <p className="italic mt-10 font-medium">&quot;Keep shopping from MENVERSE&quot;</p>
             </div>
             <div className="flex justify-center items-center gap-5 mb-4 print:hidden">
-                <Button
-                    className="print:hidden"
-                    size="large"
-                    type="primary"
-                    onClick={printPDF}
-                >
+                <Button className="print:hidden" size="large" type="primary" onClick={printPDF}>
                     Print PDF
                 </Button>
-                <Button
-                    onClick={handleNavigateToOrders}
-                    className="print:hidden"
-                    size="large"
-                >
+                <Button onClick={handleNavigateToOrders} className="print:hidden" size="large">
                     Go to Orders
                 </Button>
             </div>

@@ -95,6 +95,7 @@ const OrderRow = ({
     // navigate to invoice
     const handleToInvoice = () => {
         localStorage.setItem("orderData", JSON.stringify(orderData));
+        localStorage.setItem("courierInfo", JSON.stringify(courierDetails));
         push("/invoice");
     };
 

@@ -55,7 +55,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
         id: singleProduct?.id ?? 0,
         product_name: singleProduct?.product_name ?? "",
         image: singleProduct?.images[0] ?? "",
-        price: singleProduct?.discount_price ?? 0,
+        price: singleProduct?.price ?? 0,
         quantity: singleProduct?.quantity ?? 0,
         discount_price: singleProduct?.discount_price ?? 0,
         size: singleProduct?.size ?? "",

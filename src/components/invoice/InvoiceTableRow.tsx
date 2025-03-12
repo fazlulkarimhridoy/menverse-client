@@ -3,14 +3,7 @@
 import React from "react";
 import InvoiceTableItem from "./InvoiceTableItem";
 
-
-const InvoiceTableRow = ({
-    productData,
-    index,
-}: {
-    productData: any;
-    index: number;
-}) => {
+const InvoiceTableRow = ({ productData, index }: { productData: any; index: number }) => {
     const { productId, quantity, size, price, discount_price } = productData;
 
     console.log(productData);
@@ -50,7 +43,7 @@ const InvoiceTableRow = ({
                     padding: "4px",
                 }}
             >
-                {discount_price || price}
+                {discount_price ? discount_price : price}
             </td>
             <td
                 style={{
@@ -66,7 +59,7 @@ const InvoiceTableRow = ({
                     padding: "4px",
                 }}
             >
-                {price * quantity}
+                {(discount_price ? discount_price : price) * quantity}
             </td>
         </tr>
     );
