@@ -36,7 +36,7 @@ type FieldType = {
     description: string;
     rating: number;
     productId: number;
-    images: JSON;
+    images?: (string | File)[];
 };
 
 // product types
@@ -49,7 +49,7 @@ type SingleProductDetails = {
     description: string;
     rating: number;
     productId: number;
-    images: JSON;
+    images?: (string | File)[];
 };
 
 type CategoryType = {
@@ -163,59 +163,74 @@ const UpdateProduct = ({ params }: { params: { slug: string } }) => {
     // function for form submission on finish
     const onFinish: FormProps<SingleProductDetails>["onFinish"] = async (values: any) => {
         setLoading(true);
-        const product_name = values.product_name || singleProductDetails?.product_name;
-        const price = values.price || singleProductDetails?.price;
-        const discount_price = values.discount_price || singleProductDetails?.discount_price;
-        const stock = values.stock || singleProductDetails?.stock;
-        const category = values.category || singleProductDetails?.category;
-        const description = values.description || singleProductDetails?.description;
-        const rating = values.rating || singleProductDetails?.rating;
-        const productId = values.productId || singleProductDetails?.productId;
-        const images = imageArray;
 
-        const productUpdateData = {
-            product_name,
-            price,
-            discount_price,
-            stock,
-            category,
-            description,
-            rating,
-            productId,
-            images,
-        };
-        // updating product on server
-        await axios
-            .patch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/update-product/${id}`, productUpdateData, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((data) => {
-                setLoading(false);
-                if (data.data.status == "success") {
-                    // go back to product list
-                    push("/admin/products");
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Product updated successfully!",
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
+        // Ensure the object has a known type
+        const updatedFields: Partial<SingleProductDetails> = {};
+
+        if (values.product_name && values.product_name !== singleProductDetails?.product_name) {
+            updatedFields.product_name = values.product_name;
+        }
+        if (values.price && values.price !== singleProductDetails?.price) {
+            updatedFields.price = values.price;
+        }
+        if (values.discount_price && values.discount_price !== singleProductDetails?.discount_price) {
+            updatedFields.discount_price = values.discount_price;
+        }
+        if (values.stock && values.stock !== singleProductDetails?.stock) {
+            updatedFields.stock = values.stock;
+        }
+        if (values.category && values.category !== singleProductDetails?.category) {
+            updatedFields.category = values.category;
+        }
+        if (values.description && values.description !== singleProductDetails?.description) {
+            updatedFields.description = values.description;
+        }
+        if (values.rating && values.rating !== singleProductDetails?.rating) {
+            updatedFields.rating = values.rating;
+        }
+        if (values.productId && values.productId !== singleProductDetails?.productId) {
+            updatedFields.productId = values.productId;
+        }
+
+        // Only send images if new ones are provided
+        if (Array.isArray(imageArray) && imageArray.length > 0) {
+            updatedFields.images = imageArray as any; // safely cast if needed
+        }
+
+        try {
+            const { data } = await axios.patch(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/update-product/${id}`,
+                updatedFields,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 }
-            })
-            .catch((error) => {
-                setLoading(false);
+            );
+
+            setLoading(false);
+
+            if (data.status === "success") {
+                push("/admin/products");
                 Swal.fire({
                     position: "center",
-                    icon: "error",
-                    title: "Product update failed!",
+                    icon: "success",
+                    title: "Product updated successfully!",
                     showConfirmButton: false,
                     timer: 1500,
                 });
-                console.log(error);
+            }
+        } catch (error) {
+            setLoading(false);
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Product update failed!",
+                showConfirmButton: false,
+                timer: 1500,
             });
+            console.error(error);
+        }
     };
 
     // if form submission fails
