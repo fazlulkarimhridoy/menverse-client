@@ -7,8 +7,14 @@ import { Spin, Statistic, StatisticProps } from "antd";
 import axios from "axios";
 import { useEffect } from "react";
 import CountUp from "react-countup";
+import { FaDollarSign } from "react-icons/fa";
 
-const formatter: StatisticProps["formatter"] = (value) => <CountUp end={value as number} separator="," />;
+const formatter: StatisticProps["formatter"] = (value) => (
+    <div className="flex items-center justify-center gap-1 text-gray-600 font-semibold">
+        <FaDollarSign className="text-xl mt-0.5" />
+        <CountUp end={value as number} separator="," />
+    </div>
+);
 
 type statistic = {
     orderStatistic: {
@@ -69,41 +75,33 @@ const AdminDashboard = () => {
             </div>
             {/* statistics */}
             <div className="text-nowrap mt-5 md:mt-10 px-2 grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
-                <div>
-                    <Statistic
-                        className="bg-green-200 p-5 text-center font-bold rounded-2xl"
-                        title="Total Balance (BDT)"
-                        value={data?.orderStatistic?._sum?.totalPrice}
-                        precision={2}
-                        formatter={formatter}
-                    />
-                </div>
-                <div>
-                    <Statistic
-                        className="bg-sky-200 p-5 text-center font-bold rounded-2xl"
-                        title="Courier Balance"
-                        value={data?.courierBalance}
-                        formatter={formatter}
-                    />
-                </div>
-                <div>
-                    <Statistic
-                        className="bg-[#D3E3CD] p-5 text-center font-bold rounded-2xl"
-                        title="Total Orders"
-                        value={data?.orderStatistic?._count}
-                        formatter={formatter}
-                    />
-                </div>
+                <Statistic
+                    className="bg-green-500/10 p-5 rounded-lg"
+                    title="Total Balance (BDT)"
+                    value={data?.orderStatistic?._sum?.totalPrice}
+                    precision={2}
+                    formatter={formatter}
+                />
+                <Statistic
+                    className="bg-indigo-500/10 p-5 rounded-lg"
+                    title="Courier Balance"
+                    value={data?.courierBalance}
+                    formatter={formatter}
+                />
+                <Statistic
+                    className="bg-lime-500/10 p-5 rounded-lg"
+                    title="Total Orders"
+                    value={data?.orderStatistic?._count}
+                    formatter={formatter}
+                />
 
-                <div>
-                    <Statistic
-                        className="bg-blue-200 p-5 text-center font-bold rounded-2xl"
-                        title="Total Products"
-                        value={data?.productStatistic?._count}
-                        precision={2}
-                        formatter={formatter}
-                    />
-                </div>
+                <Statistic
+                    className="bg-blue-500/10 p-5 rounded-lg"
+                    title="Total Products"
+                    value={data?.productStatistic?._count}
+                    precision={2}
+                    formatter={formatter}
+                />
             </div>
             {/* chartbar */}
             <div style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} className="overflow-x-scroll">
